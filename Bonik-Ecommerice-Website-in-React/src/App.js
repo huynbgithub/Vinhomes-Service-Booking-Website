@@ -6,7 +6,9 @@ import Home from "./components/MainPage/Home"
 import Data from "./components/Data"
 import Cart from "./common/Cart/Cart"
 import Footer from "./common/footer/Footer"
-import Sdata from "./components/shops/Sdata"
+import Sdata from "./components/service/Sdata"
+import Service from './components/service/SubService';
+
 
 function App() {
   /*
@@ -72,8 +74,14 @@ function App() {
       <Router>
         <Header CartItem={CartItem} />
         <Switch>
-          <Route path='/' exact>
+          <Route exact path='/'>
             <Home />
+          </Route>
+          <Route path='/service/:service'>
+            <Service shopItems={shopItems} addToCart={addToCart} />
+          </Route>
+          <Route path='/cart' exact>
+            <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
           </Route>
         </Switch>
         <Footer />

@@ -1,9 +1,15 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import Login from "../login/Login"
 
 const Navbar = () => {
   // Toogle Menu
   const [MobileMenu, setMobileMenu] = useState(false)
+  const [seen, setSeen] = useState(false)
+
+  function togglePop () {
+      setSeen(!seen);
+  };
   return (
     <>
       <header className='header'>
@@ -11,7 +17,8 @@ const Navbar = () => {
           <div className='catgrories d_flex'>
             <span class='fa-solid fa-border-all'></span>
             <h4>
-              Services <i className='fa fa-chevron-down'></i>
+              Dịch Vụ 
+              {/* <i className='fa fa-chevron-down'></i> */}
             </h4>
           </div>
 
@@ -22,7 +29,10 @@ const Navbar = () => {
                 <Link to='/'>Home</Link>
               </li>
               <li>
-                <Link to='/login'>Login</Link>
+              <div>
+                    <a onClick={togglePop}>Login</a>
+                    {seen ? <Login toggle={togglePop} /> : null}
+                  </div>
               </li>
             </ul>
 
