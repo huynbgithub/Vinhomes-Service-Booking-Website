@@ -38,15 +38,15 @@ const SubService = ({ addToCart, shopItems }) => {
                 </Link>
               )
             })}
-            <div className='box box2'>
+            {/* <div className='box box2'>
               <button>Xem Thêm</button>
-            </div>
+            </div> */}
           </div>
 
           <div className='contentWidth'>
             <div className='heading d_flex'>
               <div className='heading-left row  f_flex'>
-                <h2>Providers</h2>
+                <h2>Provided By</h2>
               </div>
               <div className='heading-right row '>
                 <span>View all</span>
