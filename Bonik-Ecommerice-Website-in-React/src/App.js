@@ -4,11 +4,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Header from "./common/header/Header"
 import Home from "./components/MainPage/Home"
 import Data from "./components/Data"
-import Cart from "./common/Cart/Cart"
+import CustomerCart from "./common/customerCart/Cart"
+import CustomerAccount from "./common/customerAccount/Account"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/service/Sdata"
 import Service from './components/service/SubService';
-
+import ProviderHeader from "./common/providerHeader/Header"
+import ProviderPage from './components/providerPage/serviceSelect';
+import ProviderServiceSelection from './components/providerServiceSelection/SubService';
+import ProviderAccount from "./common/providerAccount/Cart"
+import ProviderWallet from "./common/providerWallet/Cart"
+import ProviderCart from "./common/providerCart/Cart"
 
 function App() {
   /*
@@ -72,16 +78,42 @@ function App() {
   return (
     <>
       <Router>
-        <Header CartItem={CartItem} />
         <Switch>
           <Route exact path='/'>
+            <Header CartItem={CartItem} />
             <Home />
           </Route>
           <Route path='/service/:service'>
+            <Header CartItem={CartItem} />
             <Service shopItems={shopItems} addToCart={addToCart} />
           </Route>
-          <Route path='/cart' exact>
-            <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+          <Route exact path='/account' >
+            <Header CartItem={CartItem} />
+            <CustomerAccount CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+          </Route>
+          <Route exact path='/cart' >
+            <Header CartItem={CartItem} />
+            <CustomerCart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+          </Route>
+          <Route exact path='/provider'>
+            <ProviderHeader CartItem={CartItem} />
+            <ProviderPage />
+          </Route>
+          <Route exact path='/provider/account' >
+            <ProviderHeader CartItem={CartItem} />
+            <ProviderAccount CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+          </Route>
+          <Route exact path='/provider/wallet' >
+            <ProviderHeader CartItem={CartItem} />
+            <ProviderWallet CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+          </Route>
+          <Route exact path='/provider/cart' >
+            <ProviderHeader CartItem={CartItem} />
+            <ProviderCart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+          </Route>
+          <Route path='/provider/serviceSelect/:service'>
+            <ProviderHeader CartItem={CartItem} />
+            <ProviderServiceSelection shopItems={shopItems} addToCart={addToCart} />
           </Route>
         </Switch>
         <Footer />

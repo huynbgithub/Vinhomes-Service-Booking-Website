@@ -52,6 +52,7 @@ button {
   border: none;
   outline: none;
   background-color: none;
+  cursor: pointer;
 }
 .row {
   width: 50%;
@@ -246,4 +247,8 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+}
+
+a {
+  cursor: pointer;
 }

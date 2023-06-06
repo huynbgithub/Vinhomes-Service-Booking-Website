@@ -1,44 +1,49 @@
 import React from "react"
+import axios from "axios"
 import "./Home.css"
 import SliderHome from "./Slider"
 import { Link } from "react-router-dom"
 
 
 
-const Home = () => {
+class Home extends React.Component {
 
-  const datas = [
-    {
-      cateImg: "./images/category/cat1.png",
-      cateName: "Máy Lạnh",
-    },
-    {
-      cateImg: "./images/category/cat2.png",
-      cateName: "Pin Cửa",
-    },
-  ]
-  return (
-    <>
-      <section className='home'>
-        <div className='container d_flex'>
-          <div className='category'>
-            {datas.map((data) => {
-              return (
-                <Link to={`/service/${data.cateName}`}>
-                  <div className='box f_flex' key={data.cateName}  >
-                    <img src={data.cateImg} alt='' />
-                    <span>{data.cateName}</span>
+  state = {
+    persons: []
+  }
+
+  componentDidMount() {
+    axios.get(`http://localhost:8081/vingig/categories`)
+      .then(res => {
+        const persons = res.data;
+        this.setState({ persons });
+      })
+      .catch(error => console.log(error));
+  }
+
+  render() {
+    return (
+      <>
+        <section className='home'>
+          <div className='container d_flex'>
+            <div className='category'>
+              {this.state.persons.map(person =>
+                <Link to={`/service/${person.categoryName}`}>
+
+                  <div className='box f_flex' key={person.categoryID} >
+                    <img src={"../images/category/cat1.png"} alt='' />
+                    <span>{person.categoryName}</span>
                   </div>
                 </Link>
-              )
-            })}
+              )}
+            </div>
+            <SliderHome />
           </div>
-          <SliderHome />
-        </div>
-      </section>
+        </section>
 
-    </>
-  )
+      </>
+    )
+  }
 }
 
 

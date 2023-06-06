@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import Login from "../login/Login"
 
 const Navbar = () => {
   // Toogle Menu
@@ -17,7 +16,7 @@ const Navbar = () => {
           <div className='catgrories d_flex'>
             <span class='fa-solid fa-border-all'></span>
             <h4>
-              Services <i className='fa fa-chevron-down'></i>
+              <i className='fa fa-chevron-down'></i>
             </h4>
           </div>
 
@@ -25,12 +24,11 @@ const Navbar = () => {
             <ul className={MobileMenu ? "nav-links-MobileMenu" : "link f_flex capitalize"} onClick={() => setMobileMenu(false)}>
               {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
               <li>
-                <Link to='/'>Home</Link>
+                <Link to='/provider'>Home</Link>
               </li>
               <li>
                 <div>
-                  <a onClick={togglePop}>Login</a>
-                  {seen ? <Login toggle={togglePop} /> : null}
+                  <a>Logout</a>
                 </div>
               </li>
             </ul>
