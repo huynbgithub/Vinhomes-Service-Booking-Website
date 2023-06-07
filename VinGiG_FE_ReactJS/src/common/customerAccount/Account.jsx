@@ -1,16 +1,18 @@
 import React from "react"
 import axios from 'axios';
 import "./style.css"
+import { withRouter } from "react-router-dom";
 
 
-class Customer extends React.Component {
+class CustomerAccount extends React.Component {
 
   state = {
     person: Object
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8081/vingig/providers/1`)
+    const { accID } = this.props.match.params
+    axios.get(`http://localhost:8081/vingig/customers/${accID}`)
       .then(res => {
         const person = res.data;
         this.setState({ person });
@@ -60,7 +62,7 @@ class Customer extends React.Component {
   }
 }
 
-export default Customer
+export default withRouter(CustomerAccount)
 // import React from 'react';
 
 // import axios from 'axios';

@@ -5,11 +5,11 @@ import Login from "../login/Login"
 const Navbar = () => {
   // Toogle Menu
   const [MobileMenu, setMobileMenu] = useState(false)
-  const [seen, setSeen] = useState(false)
+  // const [seen, setSeen] = useState(false)
 
-  function togglePop() {
-    setSeen(!seen);
-  };
+  // function togglePop() {
+  //   setSeen(!seen);
+  // };
   return (
     <>
       <header className='header'>
@@ -28,10 +28,11 @@ const Navbar = () => {
                 <Link to='/'>Home</Link>
               </li>
               <li>
-                <div>
+                <Link to='/login'>Login</Link>
+                {/* <div>
                   <a onClick={togglePop}>Login</a>
                   {seen ? <Login toggle={togglePop} /> : null}
-                </div>
+                </div> */}
               </li>
             </ul>
 

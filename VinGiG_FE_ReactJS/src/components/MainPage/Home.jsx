@@ -1,7 +1,7 @@
 import React from "react"
 import axios from "axios"
 import "./Home.css"
-import SliderHome from "./Slider"
+import SliderHome from "../../common/slider/Slider"
 import { Link } from "react-router-dom"
 
 
@@ -9,14 +9,14 @@ import { Link } from "react-router-dom"
 class Home extends React.Component {
 
   state = {
-    persons: []
+    cates: []
   }
 
   componentDidMount() {
     axios.get(`http://localhost:8081/vingig/categories`)
       .then(res => {
-        const persons = res.data;
-        this.setState({ persons });
+        const cates = res.data;
+        this.setState({ cates });
       })
       .catch(error => console.log(error));
   }
@@ -27,12 +27,11 @@ class Home extends React.Component {
         <section className='home'>
           <div className='container d_flex'>
             <div className='category'>
-              {this.state.persons.map(person =>
-                <Link to={`/service/${person.categoryName}`}>
-
-                  <div className='box f_flex' key={person.categoryID} >
-                    <img src={"../images/category/cat1.png"} alt='' />
-                    <span>{person.categoryName}</span>
+              {this.state.cates.map(cate =>
+                <Link to={`/services/${cate.categoryName}`}>
+                  <div className='box f_flex' key={cate.categoryID} >
+                    <img src={"../images/category/cat7.png"} alt='' />
+                    <span>{cate.categoryName}</span>
                   </div>
                 </Link>
               )}
