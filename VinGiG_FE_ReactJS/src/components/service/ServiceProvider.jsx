@@ -15,14 +15,14 @@ class ProviderService extends React.Component {
         cover: "../images/shops/shops-1.png",
         name: "Trần Văn Hùng",
         price: "180",
-        discount: "25",
+        badge: "Nhân viên của tháng",
       },
       {
         id: 11,
         cover: "../images/shops/shops-2.png",
         name: "Nguyễn Văn A",
         price: "80",
-        discount: "20 ",
+        badge: "Uy tín hàng đầu",
       },
     ]
 
@@ -64,7 +64,7 @@ class ProviderService extends React.Component {
                   <div className='box'>
                     <div className='product mtop'>
                       <div className='img'>
-                        <span className='discount'>{shopItems.discount}% Off</span>
+                        <span className='discount'>{shopItems.badge}</span>
                         <img src={shopItems.cover} alt='' />
                         {/* <div className='product-like'>
                       <label>{count}</label> <br />
@@ -81,13 +81,11 @@ class ProviderService extends React.Component {
                           <i className='fa fa-star'></i>
                         </div>
                         <div className='price'>
-                          <h4>${shopItems.price}.00 </h4>
+                          <h4>{shopItems.price}.000 VND</h4>
                           {/* step : 3
            if hami le button ma click garryo bahne
           */}
-                          <button>
-                            <i className='fa fa-plus'></i>
-                          </button>
+                          <a className='btn-primary'>Book</a>
                         </div>
                       </div>
                     </div>

@@ -2,12 +2,12 @@ import React from "react"
 import logo from "../../components/assets/images/VinGiG_logo.png"
 import { Link } from "react-router-dom"
 
-const Search = ({ CartItem }) => {
-  // fixed Header
-  window.addEventListener("scroll", function () {
-    const search = document.querySelector(".search")
-    search.classList.toggle("active", window.scrollY > 100)
-  })
+const Search = () => {
+  // // fixed Header
+  // window.addEventListener("scroll", function () {
+  //   const search = document.querySelector(".search")
+  //   search.classList.toggle("active", window.scrollY > 100)
+  // })
 
   return (
     <>
@@ -18,28 +18,23 @@ const Search = ({ CartItem }) => {
           </div>
 
           <div className='search-box f_flex'>
-            <i className='fa fa-search'></i>
-            <input type='text' placeholder='Search and hit enter...' />
-            <span>All Category</span>
+            {/* <i className='fa fa-search'></i> */}
+            {/* <input type='text' placeholder='Search and hit enter...' /> */}
+            {/* <span>All Category</span> */}
           </div>
 
           <div className='icon f_flex width'>
             <div className='cart'>
-              <Link to='/provider/account'>
+              <Link to='/provider/account/1'>
                 <i className='fa fa-user icon-circle'></i>
               </Link>
             </div>
-            <div className='cart'>
-              <Link to='/provider/wallet'>
-                <i className='fa icon-circle'></i>
-              </Link>
-            </div>
-            <div className='cart'>
-              <Link to='/provider/cart'>
+            {/* <div className='cart'>
+              <Link to='/cart'>
                 <i className='fa fa-shopping-bag icon-circle'></i>
                 <span>{CartItem.length === 0 ? "" : CartItem.length}</span>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

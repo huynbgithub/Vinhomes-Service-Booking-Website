@@ -4,57 +4,46 @@ import "./style.css"
 import { withRouter } from "react-router-dom";
 
 
-class CustomerAccount extends React.Component {
+class Wallet extends React.Component {
 
-  state = {
-    person: Object
-  }
+  // state = {
+  //   person: Object
+  // }
 
-  componentDidMount() {
-    const { accID } = this.props.match.params
-    axios.get(`http://localhost:8081/vingig/customers/${accID}`)
-      .then(res => {
-        const person = res.data;
-        this.setState({ person });
-      })
-      .catch(error => console.log(error));
-  }
+  // componentDidMount() {
+  //   const { accID } = this.props.match.params
+  //   axios.get(`http://localhost:8081/vingig/providers/${accID}`)
+  //     .then(res => {
+  //       const person = res.data;
+  //       this.setState({ person });
+  //     })
+  //     .catch(error => console.log(error));
+  // }
   // prodcut qty total
   render() {
     return (
       <section className='cart-items' >
         <div className='container d_flex'>
-          <h1>Account Management</h1>
+          <h1>Wallet Management</h1>
           {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
 
           <div className='account_info product'>
-            <h2>Account Information</h2>
+            <h2>Wallet Information</h2>
             <div className=' d_flex'>
-              <h4>Name:</h4>
+              <h4>Total:</h4>
               <h4>
-                {this.state.person.fullName}
-              </h4>
-            </div>
-            <div className=' d_flex'>
-              <h4>Email:</h4>
-              <h4>
-                {this.state.person.email}
-              </h4>
-            </div>
-            <div className=' d_flex'>
-              <h4>Phone:</h4>
-              <h4>
-                {this.state.person.phone}
+                {/* {this.state.person.fullName} */}
+                2.000.000 VND
               </h4>
             </div>
             <br />
             <div className=' d_flex'>
-              <h5>Do you want to edit?</h5>
-              <button className='btn-primary'>Edit</button>
+              <h5>Do you want to deposit?</h5>
+              <button className='btn-primary'>Deposit</button>
             </div>
           </div>
           <div className='account_info product'>
-            <h2>Username & Password</h2>
+            {/* <h2>Username & Password</h2>
             <div className=' d_flex'>
               <h4>username:</h4>
               <h4>
@@ -71,7 +60,7 @@ class CustomerAccount extends React.Component {
             <div className=' d_flex'>
               <h5>Change password?</h5>
               <button className='btn-primary'>Change</button>
-            </div>
+            </div> */}
 
           </div>
 
@@ -88,4 +77,4 @@ class CustomerAccount extends React.Component {
   }
 }
 
-export default withRouter(CustomerAccount)
+export default withRouter(Wallet)

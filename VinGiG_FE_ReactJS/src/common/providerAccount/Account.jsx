@@ -4,7 +4,7 @@ import "./style.css"
 import { withRouter } from "react-router-dom";
 
 
-class CustomerAccount extends React.Component {
+class ProviderAccount extends React.Component {
 
   state = {
     person: Object
@@ -12,7 +12,7 @@ class CustomerAccount extends React.Component {
 
   componentDidMount() {
     const { accID } = this.props.match.params
-    axios.get(`http://localhost:8081/vingig/customers/${accID}`)
+    axios.get(`http://localhost:8081/vingig/providers/${accID}`)
       .then(res => {
         const person = res.data;
         this.setState({ person });
@@ -88,4 +88,4 @@ class CustomerAccount extends React.Component {
   }
 }
 
-export default withRouter(CustomerAccount)
+export default withRouter(ProviderAccount)

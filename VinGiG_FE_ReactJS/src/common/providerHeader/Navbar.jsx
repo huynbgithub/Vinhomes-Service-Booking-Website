@@ -4,11 +4,11 @@ import { Link } from "react-router-dom"
 const Navbar = () => {
   // Toogle Menu
   const [MobileMenu, setMobileMenu] = useState(false)
-  const [seen, setSeen] = useState(false)
+  // const [seen, setSeen] = useState(false)
 
-  function togglePop() {
-    setSeen(!seen);
-  };
+  // function togglePop() {
+  //   setSeen(!seen);
+  // };
   return (
     <>
       <header className='header'>
@@ -16,7 +16,7 @@ const Navbar = () => {
           <div className='catgrories d_flex'>
             <span class='fa-solid fa-border-all'></span>
             <h4>
-              <i className='fa fa-chevron-down'></i>
+              Services <i className='fa fa-chevron-down'></i>
             </h4>
           </div>
 
@@ -27,9 +27,20 @@ const Navbar = () => {
                 <Link to='/provider'>Home</Link>
               </li>
               <li>
-                <div>
-                  <a>Logout</a>
-                </div>
+                <Link to='/provider/wallet'>Wallet</Link>
+              </li>
+              <li>
+                <Link to='/provider/history'>Booking History</Link>
+              </li>
+              {/* <li>
+                <Link to='/provider/wallet'>Wallet</Link>
+              </li> */}
+              <li>
+                <a to=''>Logout</a>
+                {/* <div>
+                  <a onClick={togglePop}>Login</a>
+                  {seen ? <Login toggle={togglePop} /> : null}
+                </div> */}
               </li>
             </ul>
 

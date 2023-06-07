@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import Login from "../login/Login"
 
 const Navbar = () => {
   // Toogle Menu
@@ -26,6 +25,9 @@ const Navbar = () => {
               {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
               <li>
                 <Link to='/'>Home</Link>
+              </li>
+              <li>
+                <Link to='/history'>Booking History</Link>
               </li>
               <li>
                 <Link to='/login'>Login</Link>

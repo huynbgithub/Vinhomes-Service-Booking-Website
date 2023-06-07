@@ -2,20 +2,21 @@ import React, { useState } from "react"
 import "./App.css"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Header from "./common/header/Header"
+import Footer from "./common/footer/Footer"
 import Home from "./components/MainPage/Home"
 import Login from "./common/login/Login"
-import Data from "./components/Data"
-import CustomerCart from "./common/customerCart/Cart"
-import CustomerAccount from "./common/customerAccount/Account"
-import Footer from "./common/footer/Footer"
 import Service from './components/service/Service';
 import ServiceProvider from './components/service/ServiceProvider';
+// import Data from "./components/Data"
+import CustomerAccount from "./common/customerAccount/Account"
+import CustomerHistory from "./common/customerHistory/History"
 import ProviderHeader from "./common/providerHeader/Header"
-import ProviderPage from './components/providerPage/serviceSelect';
-import ProviderServiceSelection from './components/providerServiceSelection/SubService';
-import ProviderAccount from "./common/providerAccount/Cart"
-import ProviderWallet from "./common/providerWallet/Cart"
-import ProviderCart from "./common/providerCart/Cart"
+import ProviderPage from './components/providerPage/Home';
+import ProviderService from './components/providerService/Service';
+import ProviderServiceAdding from './components/providerService/ServiceProvider';
+import ProviderAccount from "./common/providerAccount/Account"
+import ProviderWallet from "./common/providerWallet/Wallet"
+import ProviderHistory from "./common/providerHistory/History"
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
             <ServiceProvider />
             <Footer />
           </Route>
-          <Route exact path='/account' >
+          <Route exact path='/account/:accID' >
             <Header />
             <CustomerAccount />
             <Footer />
@@ -45,9 +46,9 @@ function App() {
           <Route exact path='/login' >
             <Login />
           </Route>
-          <Route exact path='/cart' >
+          <Route exact path='/history' >
             <Header />
-            <CustomerCart />
+            <CustomerHistory />
             <Footer />
           </Route>
           <Route exact path='/provider'>
@@ -55,7 +56,17 @@ function App() {
             <ProviderPage />
             <Footer />
           </Route>
-          <Route exact path='/provider/account' >
+          <Route path='/provider/service/:cate'>
+            <ProviderHeader />
+            <ProviderService />
+            <Footer />
+          </Route>
+          <Route path='/provider/serviceAdding/:service'>
+            <ProviderHeader />
+            <ProviderServiceAdding />
+            <Footer />
+          </Route>
+          <Route exact path='/provider/account/:accID' >
             <ProviderHeader />
             <ProviderAccount />
             <Footer />
@@ -65,16 +76,21 @@ function App() {
             <ProviderWallet />
             <Footer />
           </Route>
-          <Route exact path='/provider/cart' >
+          <Route exact path='/provider/history' >
             <ProviderHeader />
-            <ProviderCart />
+            <ProviderHistory />
             <Footer />
           </Route>
-          <Route path='/provider/serviceSelect/:service'>
+          {/* <Route exact path='/provider/wallet' >
             <ProviderHeader />
-            <ProviderServiceSelection />
+            <ProviderWallet />
             <Footer />
           </Route>
+          <Route exact path='/provider/history' >
+            <ProviderHeader />
+            <ProviderHistory />
+            <Footer />
+          </Route> */}
         </Switch>
 
       </Router>
