@@ -24,6 +24,34 @@ class ProviderService extends React.Component {
         price: "80",
         badge: "Uy tín hàng đầu",
       },
+      {
+        id: 11,
+        cover: "../images/shops/shops-2.png",
+        name: "Nguyễn Văn A",
+        price: "80",
+        badge: "Uy tín hàng đầu",
+      },
+      {
+        id: 11,
+        cover: "../images/shops/shops-2.png",
+        name: "Nguyễn Văn A",
+        price: "80",
+        badge: "Uy tín hàng đầu",
+      },
+      {
+        id: 11,
+        cover: "../images/shops/shops-2.png",
+        name: "Nguyễn Văn A",
+        price: "80",
+        badge: "Uy tín hàng đầu",
+      },
+      {
+        id: 11,
+        cover: "../images/shops/shops-2.png",
+        name: "Nguyễn Văn A",
+        price: "80",
+        badge: "Uy tín hàng đầu",
+      },
     ]
 
     // state = {
@@ -43,22 +71,22 @@ class ProviderService extends React.Component {
       <>
         <section className='shop background'>
           <div className='container d_flex'>
-            <div className='category'>
+            {/* <div className='category'>
               <div className='chead d_flex'>
-                <h1>Các Nhà Cung Cấp Nhánh Dịch Vụ {service}</h1>
+                <h1>Các Nhà Cung Cấp Dịch Vụ {service}</h1>
               </div>
-            </div>
+            </div> */}
             <div className='contentWidth'>
-              <div className='heading d_flex'>
+              <div className='heading d_flex margin-bottom-1'>
                 <div className='heading-left row  f_flex'>
-                  <h2>Provided By</h2>
+                  <h4>Các Nhà Cung Cấp Dịch Vụ {service}</h4>
                 </div>
                 {/* <div className='heading-right row '>
                   <span>View all</span>
                   <i className='fa-solid fa-caret-right'></i>
                 </div> */}
               </div>
-              <div className='product-content  grid1'>
+              <div className='product-content  grid2'>
 
                 {shopItems.map((shopItems) => (
                   <div className='box'>

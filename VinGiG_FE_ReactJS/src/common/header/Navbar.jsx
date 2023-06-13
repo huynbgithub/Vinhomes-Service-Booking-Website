@@ -1,14 +1,10 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useOnHoverOutside } from "../../hooks/useOnHoverOutside";
 
-const Navbar = () => {
-  // Toogle Menu
-  const [MobileMenu, setMobileMenu] = useState(false)
-  // const [seen, setSeen] = useState(false)
+function Navbar() {
 
-  // function togglePop() {
-  //   setSeen(!seen);
-  // };
   return (
     <>
       <header className='header'>
@@ -16,13 +12,12 @@ const Navbar = () => {
           <div className='catgrories d_flex'>
             <span class='fa-solid fa-border-all'></span>
             <h4>
-              Services <i className='fa fa-chevron-down'></i>
+              Services
+              {/* <i className='fa fa-chevron-down'></i> */}
             </h4>
           </div>
-
           <div className='navlink'>
-            <ul className={MobileMenu ? "nav-links-MobileMenu" : "link f_flex capitalize"} onClick={() => setMobileMenu(false)}>
-              {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
+            <ul className="link f_flex capitalize" >
               <li>
                 <Link to='/'>Home</Link>
               </li>
@@ -31,21 +26,14 @@ const Navbar = () => {
               </li>
               <li>
                 <Link to='/login'>Login</Link>
-                {/* <div>
-                  <a onClick={togglePop}>Login</a>
-                  {seen ? <Login toggle={togglePop} /> : null}
-                </div> */}
               </li>
             </ul>
-
-            <button className='toggle' onClick={() => setMobileMenu(!MobileMenu)}>
-              {MobileMenu ? <i className='fas fa-times close home-btn'></i> : <i className='fas fa-bars open'></i>}
-            </button>
           </div>
         </div>
-      </header>
+
+      </header >
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

@@ -3,6 +3,7 @@ import "./Header.css"
 import Head from "./Head"
 import Search from "./Search"
 import Navbar from "./Navbar"
+import Categories from "./Categories"
 
 const Header = () => {
   return (
@@ -10,6 +11,7 @@ const Header = () => {
       <Head />
       <Search />
       <Navbar />
+      <Categories />
     </>
   )
 }

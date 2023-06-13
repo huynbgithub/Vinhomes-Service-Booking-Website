@@ -2,6 +2,7 @@ import React, { useState } from "react"
 // import Catg from "./Catg"
 // import ShopCart from "./ShopCart"
 import "./style.css"
+import { Link } from "@mui/material";
 
 function Login() {
 
@@ -39,13 +40,14 @@ function Login() {
                         </div>
                         <div className="form-container sign-in-container">
                             {/* <c:url var="loginLink" value="${request.contextPath}/UserAccessController/login"> */}
-                            <form action="" name method="POST">
+                            {/* <form action="" name method="POST"> */}
+                            <form action="" >
                                 <h1>User Login</h1>
                                 <input type="text" placeholder="Username" name="username" />
                                 <input type="password" placeholder="Password" name="password" />
                                 <p className="text-danger"></p>
                                 <button type="submit">Login as Customer</button>
-                                <a href="">Login as Provider</a>
+                                <Link to="/provider">Login as Provider</Link>
                                 <a href="">Login as Admin</a>
                             </form>
                             {/* </c:url> */}

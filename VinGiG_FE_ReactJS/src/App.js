@@ -5,7 +5,6 @@ import Header from "./common/header/Header"
 import Footer from "./common/footer/Footer"
 import Home from "./components/MainPage/Home"
 import Login from "./common/login/Login"
-import Service from './components/service/Service';
 import ServiceProvider from './components/service/ServiceProvider';
 // import Data from "./components/Data"
 import CustomerAccount from "./common/customerAccount/Account"
@@ -26,11 +25,6 @@ function App() {
           <Route exact path='/'>
             <Header />
             <Home />
-            <Footer />
-          </Route>
-          <Route path='/services/:cate'>
-            <Header />
-            <Service />
             <Footer />
           </Route>
           <Route path='/serviceProvider/:service'>
