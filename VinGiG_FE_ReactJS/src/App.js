@@ -16,6 +16,7 @@ import ProviderServiceAdding from './components/providerService/ServiceProvider'
 import ProviderAccount from "./common/providerAccount/Account"
 import ProviderWallet from "./common/providerWallet/Wallet"
 import ProviderHistory from "./common/providerHistory/History"
+import Categories from "./common/header/Categories"
 
 function App() {
   return (
@@ -24,11 +25,13 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Header />
+            <Categories />
             <Home />
             <Footer />
           </Route>
           <Route path='/serviceProvider/:service'>
             <Header />
+            <Categories />
             <ServiceProvider />
             <Footer />
           </Route>

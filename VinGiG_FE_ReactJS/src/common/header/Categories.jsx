@@ -19,7 +19,14 @@ function Navbar() {
     return (
         <>
             <header className='header'>
-                <div className='container-1 d_flex'>
+                <div className='container d_flex'>
+                    <div className='catgrories d_flex'>
+                        <span class='fa-solid fa-border-all'></span>
+                        <h4>
+                            Services
+                            {/* <i className='fa fa-chevron-down'></i> */}
+                        </h4>
+                    </div>
                     <div className='navlink'>
                         <ul className="link f_flex capitalize" >
                             {cates.map((cate, index) => { return <Services cate={cate} key={index}></Services> }

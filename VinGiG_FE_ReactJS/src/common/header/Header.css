@@ -1,16 +1,13 @@
 /*------head-----------*/
 .font-size-1 {
   font-size: 14px;
-}
-
-.container-1 {
-  max-width: 80%;
-  margin: auto;
+  width: max-content;
+  cursor: pointer;
 }
 
 .dropdown {
   /* display: none; */
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(250, 252, 253);
   position: relative;
   z-index: 1000;
 }
@@ -46,6 +43,15 @@
 /*------search-----------*/
 .search {
   padding: 20px 0;
+}
+
+.header {
+  padding-bottom: 70px;
+  padding-top: 10px;
+}
+
+.header-edit {
+  padding-right: 10px;
 }
 
 .search .logo img {
