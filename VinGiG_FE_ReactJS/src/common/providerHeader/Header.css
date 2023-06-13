@@ -83,7 +83,7 @@
 }
 
 /*------search-----------*/
-.catgrories {
+.categories {
   background-color: #f6f9fc;
   padding: 0px 30px;
   border-radius: 5px;
@@ -91,18 +91,18 @@
   margin-top: 5px;
 }
 
-.catgrories span {
+.categories span {
   margin-right: 20px;
   font-size: 30px;
   margin-top: 10px;
 }
 
-.catgrories h4 {
+.categories h4 {
   font-weight: 500;
   margin-top: 12px;
 }
 
-.catgrories h4 i {
+.categories h4 i {
   margin-left: 10px;
 }
 

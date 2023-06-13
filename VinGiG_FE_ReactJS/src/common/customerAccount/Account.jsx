@@ -12,7 +12,7 @@ class CustomerAccount extends React.Component {
 
   componentDidMount() {
     const { accID } = this.props.match.params
-    axios.get(`http://localhost:8081/vingig/customers/${accID}`)
+    axios.get(`http://localhost:8081/vingig/customer/${accID}`)
       .then(res => {
         const person = res.data;
         this.setState({ person });

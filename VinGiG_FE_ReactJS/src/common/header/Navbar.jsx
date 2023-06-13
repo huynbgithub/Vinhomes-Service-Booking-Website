@@ -10,7 +10,7 @@ function Navbar() {
     <>
       <header className='header header-edit'>
         <div className='container d_flex'>
-          {/* <div className='catgrories d_flex'>
+          {/* <div className='categories d_flex'>
             <span class='fa-solid fa-border-all'></span>
             <h4>
               Services
@@ -22,7 +22,7 @@ function Navbar() {
           </div>
 
           <div className='navlink'>
-            <ul className="link f_flex capitalize" >
+            <ul className="f_flex" >
               <li>
                 <Link to='/'>Home</Link>
               </li>

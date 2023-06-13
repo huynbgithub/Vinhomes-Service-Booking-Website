@@ -19,7 +19,7 @@ function Login() {
         <div>
             <div id="page">
                 <div class="page-inner">
-                    {/*<h2 class ="gold-color">VNFLIGHT: Sign in/up Form</h2>*/}
+                    {/*<h2 class ="gold-color">VINGIG: Sign in/up Form</h2>*/}
                     <h4 className="gold-color"></h4>
                     <div className={`container ${activePanel ? "right-panel-active" : ""}`} id="container">
                         <div className="form-container sign-up-container">
