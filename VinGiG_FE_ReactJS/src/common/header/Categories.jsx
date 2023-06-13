@@ -20,7 +20,7 @@ function Navbar() {
         <>
             <header className='header'>
                 <div className='container d_flex'>
-                    <div className='categories d_flex'>
+                    <div className='categories d_flex margin-top1'>
                         <span class='fa-solid fa-border-all'></span>
                         <h4>
                             Services

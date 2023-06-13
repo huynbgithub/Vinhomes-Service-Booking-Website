@@ -1,4 +1,8 @@
 /*------head-----------*/
+.margin-top1 {
+  margin-top: 10px !important;
+}
+
 .font-size-1 {
   font-size: 14px;
   width: max-content;
