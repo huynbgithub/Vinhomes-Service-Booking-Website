@@ -2,7 +2,8 @@ import React, { useState } from "react"
 // import Catg from "./Catg"
 // import ShopCart from "./ShopCart"
 import "./style.css"
-import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function Login() {
 
@@ -15,6 +16,27 @@ function Login() {
     const handleSignInClick = () => {
         setActivePanel(false);
     };
+
+    // const [cates, setCates] = useState([]);
+
+    // useEffect(() => {
+    //     axios.get(`http://localhost:8081/vingig/serviceCategories`)
+    //         .then(res => {
+    //             const cates = res.data;
+    //             setCates(cates);
+    //         })
+    //         .catch(error => console.log(error));
+    // }, []);
+    const signin =
+    {
+        username: "abc",
+        password: "180",
+    }
+    let history = useHistory()
+    let login = () => {
+        localStorage.setItem("accessToken", "1")
+        history.replace("/")
+    }
     return (
         <div>
             <div id="page">
@@ -31,10 +53,19 @@ function Login() {
                                 <input type="email" placeholder="Email" name="email" />
                                 <input type="number" placeholder="Phone" name="phone" />
                                 <input type="password" placeholder="Password" name="password" />
+                                <ul className="s_flex">
+                                    <li className="c_flex">Role:</li>
+                                    <li className="c_flex">
+                                        <input type="radio" name="role" value="customer" />
+                                        <label>Customer</label>
+                                    </li>
+                                    <li className="c_flex">
+                                        <input type="radio" name="role" value="customer" />
+                                        <label>Provider</label>
+                                    </li>
+                                </ul>
                                 <p className="text-danger"></p>
-                                <button type="submit">Register as Customer</button>
-                                <br></br>
-                                <a type="submit">Register as Provider</a>
+                                <button type="submit">Register</button>
                             </form>
                             {/* </c:url> */}
                         </div>
@@ -45,10 +76,25 @@ function Login() {
                                 <h1>User Login</h1>
                                 <input type="text" placeholder="Username" name="username" />
                                 <input type="password" placeholder="Password" name="password" />
+
+                                <ul className="s_flex">
+                                    <li className="c_flex">Role:</li>
+                                    <li className="c_flex">
+                                        <input type="radio" name="role" value="customer" />
+                                        <label>Customer</label>
+                                    </li>
+                                    <li className="c_flex">
+                                        <input type="radio" name="role" value="customer" />
+                                        <label>Provider</label>
+                                    </li>
+                                    <li className="c_flex">
+                                        <input type="radio" name="role" value="customer" />
+                                        <label>Admin</label>
+                                    </li>
+                                </ul>
                                 <p className="text-danger"></p>
-                                <button type="submit">Login as Customer</button>
-                                <Link to="/provider">Login as Provider</Link>
-                                <a href="">Login as Admin</a>
+                                <button type="submit" onClick={login}>Login</button>
+                                <Link to="/" className="underline">Back To Home</Link>
                             </form>
                             {/* </c:url> */}
                         </div>
@@ -69,8 +115,8 @@ function Login() {
                     </div>
                     {/* </div> */}
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
 
     )
 }

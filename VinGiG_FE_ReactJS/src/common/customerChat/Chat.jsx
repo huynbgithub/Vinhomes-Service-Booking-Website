@@ -1,7 +1,7 @@
 import React from "react"
 import "./style.css"
 
-const History = () => {
+const Chat = () => {
 
   const HistoryItem = [
     {
@@ -42,7 +42,7 @@ const History = () => {
     <>
       <section className='cart-items'>
         <div className='container d_flex'>
-          <h1> Booking History</h1>
+          <h1> Chat Messages</h1>
           {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
           <div className='cart-details'>
             {HistoryItem.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
@@ -61,7 +61,7 @@ const History = () => {
 
                   <div className='cart-details'>
                     <h3>{item.name}</h3>
-                    <h4>
+                    {/* <h4>
                       Status: <span>{item.status}</span>
                     </h4>
                     <h4>
@@ -71,13 +71,13 @@ const History = () => {
                     <h4>
                       Date:
                       <span>{item.date}</span>
-                    </h4>
+                    </h4> */}
                   </div>
                   <div className='cart-details'>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
                         <button className='btn-green'>
-                          Book Again
+                          Chat
                         </button>
                       </div>
                     </div>
@@ -89,10 +89,10 @@ const History = () => {
           </div>
 
           <div className='cart-total product'>
-            <h2>Total Money</h2>
+            <h2>Number of Chats</h2>
             <div className=' d_flex'>
-              <h4>Total Price :</h4>
-              <h3>{totalPrice}.000 VND</h3>
+              <h4>Total Chat Boxes :</h4>
+              <h3>{totalPrice}</h3>
             </div>
           </div>
         </div >
@@ -101,4 +101,4 @@ const History = () => {
   )
 }
 
-export default History
+export default Chat

@@ -6,6 +6,7 @@
 .font-size-1 {
   font-size: 14px;
   width: max-content;
+  /* width: 140px; */
   cursor: pointer;
 }
 
@@ -22,6 +23,7 @@
 
 .dropdown-item {
   padding: 0px 20px;
+  /* width: 190px; */
 }
 
 .dropdown-item:hover {

@@ -26,15 +26,31 @@ function Navbar() {
               <li>
                 <Link to='/'>Home</Link>
               </li>
-              <li>
-                <Link to='/account/1'>Account</Link>
-              </li>
-              <li>
-                <Link to='/history'>Booking History</Link>
-              </li>
-              <li>
-                <Link to='/login'>Login</Link>
-              </li>
+
+              {!localStorage.getItem("accessToken") ? (
+                <li>
+                  <Link to='/login'>Login</Link>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link to='/customer/account/1'>Account</Link>
+                  </li>
+                  <li>
+                    <Link to='/customer/activity'>Current Activity</Link>
+                  </li>
+                  <li>
+                    <Link to='/customer/chat'>Chat</Link>
+                  </li>
+                  <li>
+                    <Link to='/customer/history'>Booking History</Link>
+                  </li>
+                  <li>
+                    <Link to='/logout'>Logout</Link>
+                  </li>
+                </>
+
+              )}
             </ul>
           </div>
         </div>

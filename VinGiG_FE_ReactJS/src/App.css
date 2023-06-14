@@ -40,6 +40,11 @@ body {
   display: flex;
 }
 
+.home-setting {
+  height: 550px;
+  margin: 0 6em 0 10em;
+}
+
 a {
   text-decoration: none;
   color: black;

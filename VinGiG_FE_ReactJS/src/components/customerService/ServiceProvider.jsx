@@ -15,47 +15,12 @@ function ServiceProvider() {
       price: "180",
       badge: "Nhân viên của tháng",
     },
-    {
-      id: 11,
-      cover: "../images/shops/shops-2.png",
-      name: "Nguyễn Văn A",
-      price: "80",
-      badge: "Uy tín hàng đầu",
-    },
-    {
-      id: 11,
-      cover: "../images/shops/shops-2.png",
-      name: "Nguyễn Văn A",
-      price: "80",
-      badge: "Uy tín hàng đầu",
-    },
-    {
-      id: 11,
-      cover: "../images/shops/shops-2.png",
-      name: "Nguyễn Văn A",
-      price: "80",
-      badge: "Uy tín hàng đầu",
-    },
-    {
-      id: 11,
-      cover: "../images/shops/shops-2.png",
-      name: "Nguyễn Văn A",
-      price: "80",
-      badge: "Uy tín hàng đầu",
-    },
-    {
-      id: 11,
-      cover: "../images/shops/shops-2.png",
-      name: "Nguyễn Văn A",
-      price: "80",
-      badge: "Uy tín hàng đầu",
-    },
   ]
 
   const [cates, setCates] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/vingig/giGservice/1/providerServices`)
+    axios.get(`http://localhost:8081/vingig/giGservice/8/providerServices`)
       .then(res => {
         const cates = res.data;
         setCates(cates);
@@ -102,15 +67,15 @@ function ServiceProvider() {
                 <div className='box'>
                   <div className='product mtop'>
                     <div className='img'>
-                      <span className='discount'>{shopItems.rating}</span>
-                      <img src={shopItems.rating} alt='' />
+                      <span className='discount'>{shopItems.badgeName}</span>
+                      <img src={shopItems.link} alt='' />
                       {/* <div className='product-like'>
                       <label>{count}</label> <br />
                       <i className='fa-regular fa-heart' onClick={increment}></i>
                     </div> */}
                     </div>
                     <div className='product-details'>
-                      <h3>{shopItems.description}</h3>
+                      <h3>{shopItems.fullName}</h3>
                       <div className='rate'>
                         <i className='fa fa-star'></i>
                         <i className='fa fa-star'></i>
@@ -119,7 +84,7 @@ function ServiceProvider() {
                         <i className='fa fa-star'></i>
                       </div>
                       <div className='price'>
-                        <h4>{shopItems.unitPrice}.000 VND</h4>
+                        <h4>{shopItems.unitPrice} VND</h4>
                         {/* step : 3
            if hami le button ma click garryo bahne
           */}
