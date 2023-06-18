@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import "./style.css"
+import ChatBox from "../chatBox/ChatBox"
 
 const Activity = () => {
 
@@ -11,7 +12,7 @@ const Activity = () => {
       price: "180",
       badge: "Nhân viên của tháng",
       qty: 1,
-      status: "Order Not Confirmed By Provider",
+      status: "Not Confirmed",
       date: "01/01/2003",
     },
     {
@@ -21,7 +22,7 @@ const Activity = () => {
       price: "180",
       badge: "Nhân viên của tháng",
       qty: 2,
-      status: "Order Confirmed By Provider",
+      status: "Confirmed",
       date: "01/01/2003",
     },
     {
@@ -31,12 +32,18 @@ const Activity = () => {
       price: "80",
       badge: "Uy tín hàng đầu",
       qty: 1,
-      status: "Order Completed",
+      status: "Not Confirmed",
       date: "01/01/2003",
     },
   ]
 
   const totalPrice = HistoryItem.reduce((price, item) => price + item.qty * item.price, 0)
+
+  const [seen, setSeen] = useState(false)
+
+  function togglePop() {
+    setSeen(!seen);
+  };
 
   return (
     <>
@@ -45,7 +52,7 @@ const Activity = () => {
           <h1> Current Activity</h1>
           {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
           <div className='cart-details'>
-            {HistoryItem.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
+            {HistoryItem.length === 0 && <h1 className='no-items product'>No Current Booking</h1>}
 
             {/* yasma hami le cart item lai display garaaxa */}
             {HistoryItem.map((item) => {
@@ -72,25 +79,27 @@ const Activity = () => {
                       Date:
                       <span>{item.date}</span>
                     </h4>
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className=''>
-                          Cancel
-                        </button>
-                      </div>
 
-                    </div>
                   </div>
 
                   <div className='cart-details'>
 
 
                     <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-green'>
+                      <div className=''>
+                        <button className='btn-green' onClick={togglePop}>
                           Chat
                         </button>
+                        {seen ? <ChatBox toggle={togglePop} /> : null}
                       </div>
+                    </div>
+                    <div className='cart-items-function'>
+                      <div className=''>
+                        <button className=''>
+                          Cancel
+                        </button>
+                      </div>
+
                     </div>
 
                   </div>
@@ -100,11 +109,11 @@ const Activity = () => {
           </div>
 
           <div className='cart-total product'>
-            <h2>Total Money</h2>
+            {/* <h2>Total Money</h2>
             <div className=' d_flex'>
               <h4>Total Price :</h4>
               <h3>{totalPrice}.000 VND</h3>
-            </div>
+            </div> */}
           </div>
         </div >
       </section >

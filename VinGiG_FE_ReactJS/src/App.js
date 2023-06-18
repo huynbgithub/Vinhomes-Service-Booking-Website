@@ -33,7 +33,7 @@ function App() {
             <Home />
             <Footer />
           </Route>
-          <Route path='/serviceProvider/:service'>
+          <Route path='/serviceProvider/:serviceID'>
             <Header />
             <Categories />
             <ServiceProvider />
@@ -46,7 +46,7 @@ function App() {
           <Route exact path='/logout' >
             <Logout />
           </Route>
-          <ProtectedRoute exact path='/customer/account/:accID' >
+          <ProtectedRoute exact path='/customer/account' >
             <Header />
             <CustomerAccount />
             <Footer />

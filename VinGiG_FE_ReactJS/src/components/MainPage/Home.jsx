@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 
 
-class Home extends React.Component {
+function Home() {
 
   // state = {
   //   cates: []
@@ -20,12 +20,11 @@ class Home extends React.Component {
   //     .catch(error => console.log(error));
   // }
 
-  render() {
-    return (
-      <>
-        <section className='home home-setting'>
-          <div className='container d_flex'>
-            {/* <div className='category'>
+  return (
+    <>
+      <section className='home home-setting'>
+        <div className='container d_flex'>
+          {/* <div className='category'>
               {this.state.cates.map(cate =>
                 <Link to={`/services/${cate.categoryName}`}>
                   <div className='box f_flex' key={cate.categoryID} >
@@ -35,13 +34,12 @@ class Home extends React.Component {
                 </Link>
               )}
             </div> */}
-            <SliderHome />
-          </div>
-        </section>
+          <SliderHome />
+        </div>
+      </section>
 
-      </>
-    )
-  }
+    </>
+  )
 }
 
 

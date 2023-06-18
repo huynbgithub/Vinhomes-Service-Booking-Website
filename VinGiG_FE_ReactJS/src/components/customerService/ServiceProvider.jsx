@@ -1,45 +1,33 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import "./style.css"
+import { useParams } from "react-router-dom"
 
 function ServiceProvider() {
 
-  // const { service } = this.props.match.params;
+  // const { serviceID } = this.props.match.params;
+  const { serviceID } = useParams();
 
+  const [providers, setProviders] = useState([]);
 
-  const shopItems = [
-    {
-      id: 7,
-      cover: "../images/shops/shops-1.png",
-      name: "Trần Văn Hùng",
-      price: "180",
-      badge: "Nhân viên của tháng",
-    },
-  ]
-
-  const [cates, setCates] = useState([]);
+  const [service, setService] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/vingig/giGservice/8/providerServices`)
+    axios.get(`http://localhost:8081/vingig/giGservice/${serviceID}/providerServices`)
       .then(res => {
-        const cates = res.data;
-        setCates(cates);
+        const providers = res.data;
+        setProviders(providers);
       })
       .catch(error => console.log(error));
-  }, []);
 
-  // state = {
-  //   subSers: []
-  // }
-
-  // componentDidMount() {
-  //   axios.get(`http://localhost:8081/vingig/providersOfServices`)
-  //     .then(res => {
-  //       const subSers = res.data;
-  //       this.setState({ subSers });
-  //     })
-  //     .catch(error => console.log(error));
-  // }
+    axios.get(`http://localhost:8081/vingig/giGService/${serviceID}`)
+      .then(res => {
+        const service = res.data;
+        setService(service);
+      })
+      .catch(error => console.log(error));
+  },
+    [serviceID]);
 
   return (
     <>
@@ -54,7 +42,8 @@ function ServiceProvider() {
             <div className='heading d_flex margin-bottom-1'>
               <div className='heading-left row  f_flex'>
                 {/* <h4>Các Nhà Cung Cấp Dịch Vụ {service}</h4> */}
-                <h4>Các Nhà Cung Cấp Dịch Vụ</h4>
+                <h4>{service.serviceName}
+                </h4>
               </div>
               {/* <div className='heading-right row '>
                   <span>View all</span>
@@ -63,7 +52,7 @@ function ServiceProvider() {
             </div>
             <div className='product-content  grid2'>
 
-              {cates.map((shopItems) => (
+              {providers.map((shopItems) => (
                 <div className='box'>
                   <div className='product mtop'>
                     <div className='img'>
@@ -85,40 +74,6 @@ function ServiceProvider() {
                       </div>
                       <div className='price'>
                         <h4>{shopItems.unitPrice} VND</h4>
-                        {/* step : 3
-           if hami le button ma click garryo bahne
-          */}
-                        <a className='btn-primary'>Book</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className='product-content  grid2'>
-
-              {shopItems.map((shopItems) => (
-                <div className='box'>
-                  <div className='product mtop'>
-                    <div className='img'>
-                      <span className='discount'>{shopItems.badge}</span>
-                      <img src={shopItems.cover} alt='' />
-                      {/* <div className='product-like'>
-                      <label>{count}</label> <br />
-                      <i className='fa-regular fa-heart' onClick={increment}></i>
-                    </div> */}
-                    </div>
-                    <div className='product-details'>
-                      <h3>{shopItems.name}</h3>
-                      <div className='rate'>
-                        <i className='fa fa-star'></i>
-                        <i className='fa fa-star'></i>
-                        <i className='fa fa-star'></i>
-                        <i className='fa fa-star'></i>
-                        <i className='fa fa-star'></i>
-                      </div>
-                      <div className='price'>
-                        <h4>{shopItems.price}.000 VND</h4>
                         {/* step : 3
            if hami le button ma click garryo bahne
           */}

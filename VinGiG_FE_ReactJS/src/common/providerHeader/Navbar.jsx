@@ -36,7 +36,7 @@ const Navbar = () => {
                 <Link to='/provider/wallet'>Wallet</Link>
               </li> */}
               <li>
-                <Link to='/'>Logout</Link>
+                <Link to='/logout'>Logout</Link>
                 {/* <div>
                   <a onClick={togglePop}>Login</a>
                   {seen ? <Login toggle={togglePop} /> : null}

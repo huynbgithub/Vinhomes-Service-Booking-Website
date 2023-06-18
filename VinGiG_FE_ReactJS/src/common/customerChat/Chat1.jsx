@@ -1,17 +1,9 @@
-import React from "react"
-import "./style.css"
+import React, { useState } from "react"
+import "./style1.css"
+import ChatBox from "../chatBox/ChatBox"
 
-function History() {
-  const customerID = JSON.parse(localStorage.getItem("accessToken")).customerID;
+const Chat = () => {
 
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8081/vingig/serviceCategory/${cate.categoryID}/giGServices`)
-  //     .then(res => {
-  //       const sers = res.data;
-  //       setSers(sers);
-  //     })
-  //     .catch(error => console.log(error));
-  // }, []);
   const HistoryItem = [
     {
       id: 7,
@@ -47,14 +39,19 @@ function History() {
 
   const totalPrice = HistoryItem.reduce((price, item) => price + item.qty * item.price, 0)
 
+  const [seen, setSeen] = useState(false)
+
+  function togglePop() {
+    setSeen(!seen);
+  };
   return (
     <>
       <section className='cart-items'>
         <div className='container d_flex'>
-          <h1> Booking History</h1>
+          <h1> Chat Messages</h1>
           {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
           <div className='cart-details'>
-            {HistoryItem.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
+            {HistoryItem.length === 0 && <h1 className='no-items product'>No Chat</h1>}
 
             {/* yasma hami le cart item lai display garaaxa */}
             {HistoryItem.map((item) => {
@@ -70,7 +67,7 @@ function History() {
 
                   <div className='cart-details'>
                     <h3>{item.name}</h3>
-                    <h4>
+                    {/* <h4>
                       Status: <span>{item.status}</span>
                     </h4>
                     <h4>
@@ -80,21 +77,15 @@ function History() {
                     <h4>
                       Date:
                       <span>{item.date}</span>
-                    </h4>
+                    </h4> */}
                   </div>
                   <div className='cart-details'>
                     <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-primary'>
-                          Book Again
+                      <div className=''>
+                        <button className='btn-green' onClick={togglePop}>
+                          Chat
                         </button>
-                      </div>
-                    </div>
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-green'>
-                          Review
-                        </button>
+                        {seen ? <ChatBox toggle={togglePop} /> : null}
                       </div>
                     </div>
 
@@ -105,11 +96,11 @@ function History() {
           </div>
 
           <div className='cart-total product'>
-            {/* <h2>Total Money</h2>
+            <h2>Number of Chats</h2>
             <div className=' d_flex'>
-              <h4>Total Price :</h4>
-              <h3>{totalPrice}.000 VND</h3>
-            </div> */}
+              <h4>Total Chat Boxes :</h4>
+              <h3>{totalPrice}</h3>
+            </div>
           </div>
         </div >
       </section >
@@ -117,4 +108,4 @@ function History() {
   )
 }
 
-export default History
+export default Chat

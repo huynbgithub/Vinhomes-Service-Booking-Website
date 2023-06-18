@@ -34,9 +34,6 @@ function Navbar() {
               ) : (
                 <>
                   <li>
-                    <Link to='/customer/account/1'>Account</Link>
-                  </li>
-                  <li>
                     <Link to='/customer/activity'>Current Activity</Link>
                   </li>
                   <li>
@@ -44,6 +41,9 @@ function Navbar() {
                   </li>
                   <li>
                     <Link to='/customer/history'>Booking History</Link>
+                  </li>
+                  <li>
+                    <Link to='/customer/account'>Account</Link>
                   </li>
                   <li>
                     <Link to='/logout'>Logout</Link>

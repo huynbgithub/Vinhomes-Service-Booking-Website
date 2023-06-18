@@ -30,7 +30,7 @@ const Services = ({ cate }) => {
             {isMenuDropDownOpen &&
                 <div className='dropdown'>
                     {sers.map(ser =>
-                        <Link to={`/serviceProvider/${ser.serviceName}`}>
+                        <Link to={`/serviceProvider/${ser.serviceID}`}>
                             <div className='dropdown-item' >
                                 {ser.serviceName}
                             </div>

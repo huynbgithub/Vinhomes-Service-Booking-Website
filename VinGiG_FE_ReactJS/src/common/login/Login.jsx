@@ -1,13 +1,14 @@
-import React, { useState } from "react"
-// import Catg from "./Catg"
-// import ShopCart from "./ShopCart"
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import axios from 'axios';
 import "./style.css"
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function Login() {
-
     const [activePanel, setActivePanel] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("");
+    const history = useHistory();
 
     const handleSignUpClick = () => {
         setActivePanel(true);
@@ -17,26 +18,20 @@ function Login() {
         setActivePanel(false);
     };
 
-    // const [cates, setCates] = useState([]);
+    async function login(event) {
+        event.preventDefault();
+        await axios.get(`http://localhost:8081/vingig/login/username/${username}/password/${password}/role/${role}`)
+            .then(res => {
+                if (res.data == null) { history.push("/login"); }
+                else {
+                    const user = res.data;
+                    localStorage.setItem("accessToken", JSON.stringify(user));
+                    history.push("/");
+                }
+            })
+            .catch(error => console.log(error));
+    };
 
-    // useEffect(() => {
-    //     axios.get(`http://localhost:8081/vingig/serviceCategories`)
-    //         .then(res => {
-    //             const cates = res.data;
-    //             setCates(cates);
-    //         })
-    //         .catch(error => console.log(error));
-    // }, []);
-    const signin =
-    {
-        username: "abc",
-        password: "180",
-    }
-    let history = useHistory()
-    let login = () => {
-        localStorage.setItem("accessToken", "1")
-        history.replace("/")
-    }
     return (
         <div>
             <div id="page">
@@ -70,25 +65,26 @@ function Login() {
                             {/* </c:url> */}
                         </div>
                         <div className="form-container sign-in-container">
-                            {/* <c:url var="loginLink" value="${request.contextPath}/UserAccessController/login"> */}
-                            {/* <form action="" name method="POST"> */}
-                            <form action="" >
+                            <form>
                                 <h1>User Login</h1>
-                                <input type="text" placeholder="Username" name="username" />
-                                <input type="password" placeholder="Password" name="password" />
-
+                                <input type="text" placeholder="Username" name="username" value={username} onChange={(event) => {
+                                    setUsername(event.target.value);
+                                }} />
+                                <input type="password" placeholder="Password" name="password" value={password} onChange={(event) => {
+                                    setPassword(event.target.value);
+                                }} />
                                 <ul className="s_flex">
                                     <li className="c_flex">Role:</li>
                                     <li className="c_flex">
-                                        <input type="radio" name="role" value="customer" />
+                                        <input type="radio" name="role" value="customer" onChange={(event) => { setRole(event.target.value); }} />
                                         <label>Customer</label>
                                     </li>
                                     <li className="c_flex">
-                                        <input type="radio" name="role" value="customer" />
+                                        <input type="radio" name="role" value="provider" onChange={(event) => { setRole(event.target.value); }} />
                                         <label>Provider</label>
                                     </li>
                                     <li className="c_flex">
-                                        <input type="radio" name="role" value="customer" />
+                                        <input type="radio" name="role" value="admin" onChange={(event) => { setRole(event.target.value); }} />
                                         <label>Admin</label>
                                     </li>
                                 </ul>
