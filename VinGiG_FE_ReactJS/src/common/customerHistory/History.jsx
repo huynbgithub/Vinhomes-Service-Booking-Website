@@ -1,17 +1,19 @@
-import React from "react"
 import "./style.css"
+import React, { useEffect, useState } from "react"
+import axios from 'axios';
 
 function History() {
   const customerID = JSON.parse(localStorage.getItem("accessToken")).customerID;
+  const [histories, setHistories] = useState([]);
+  useEffect(() => {
+    axios.get(`http://localhost:8081/vingig/customer/${customerID}/providerServices/history/{dateMin}/{dateMax}`)
+      .then(res => {
+        const histories = res.data;
+        setHistories(histories);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8081/vingig/serviceCategory/${cate.categoryID}/giGServices`)
-  //     .then(res => {
-  //       const sers = res.data;
-  //       setSers(sers);
-  //     })
-  //     .catch(error => console.log(error));
-  // }, []);
   const HistoryItem = [
     {
       id: 7,

@@ -3,11 +3,16 @@
     padding-top: 20px;
     display: flex;
     justify-content: center;
+    height: 850px;
 }
 
 .inputContainer {
     display: flex;
     justify-content: space-between;
+}
+
+.people-list {
+    background: #fff;
 }
 
 .card {
