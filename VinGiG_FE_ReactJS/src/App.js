@@ -2,25 +2,27 @@ import React, { useState } from "react"
 import "./App.css"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Header from "./common/header/Header"
+import Categories from "./common/header/Categories"
+import ProviderHeader from "./common/providerHeader/Header"
+import AdminHeader from "./common/adminHeader/Header"
 import Footer from "./common/footer/Footer"
-import Home from "./components/MainPage/Home"
+import Home from "./components/customerPage/Home"
 import Login from "./common/login/Login"
 import Logout from "./common/login/Logout"
 import ServiceProvider from './components/customerService/ServiceProvider';
-// import Data from "./components/Data"
-import CustomerAccount from "./common/customerAccount/Account"
-import CustomerHistory from "./common/customerHistory/History"
-import CustomerChat from "./common/customerChat/Chat"
-import CustomerActivity from "./common/customerActivity/Activity"
-import ProviderHeader from "./common/providerHeader/Header"
+import CustomerAccount from "./components/customerAccount/Account"
+import CustomerHistory from "./components/customerHistory/History"
+import CustomerChat from "./components/customerChat/Chat"
+import CustomerActivity from "./components/customerActivity/Activity"
+import AdminPage from './components/adminPage/Home';
+import AdminBuilding from './components/adminBuilding/Building';
 import ProviderPage from './components/providerPage/Home';
 import ProviderService from './components/providerService/Service';
 import ProviderServiceAdding from './components/providerService/ServiceProvider';
-import ProviderAccount from "./common/providerAccount/Account"
-import ProviderWallet from "./common/providerWallet/Wallet"
-import ProviderHistory from "./common/providerHistory/History"
-import Categories from "./common/header/Categories"
-import ProtectedRoute from "./components/ProtectedRoute"
+import ProviderAccount from "./components/providerAccount/Account"
+import ProviderWallet from "./components/providerWallet/Wallet"
+import ProviderHistory from "./components/providerHistory/History"
+import CustomerProtectedRoute from "./components/CustomerProtectedRoute"
 
 function App() {
   return (
@@ -33,7 +35,7 @@ function App() {
             <Home />
             <Footer />
           </Route>
-          <Route path='/serviceProvider/:serviceID'>
+          <Route exact path='/serviceProvider/:serviceID'>
             <Header />
             <Categories />
             <ServiceProvider />
@@ -46,31 +48,36 @@ function App() {
           <Route exact path='/logout' >
             <Logout />
           </Route>
-          <ProtectedRoute exact path='/customer/account' >
+          <CustomerProtectedRoute exact path='/customer/account' >
             <Header />
             <CustomerAccount />
             <Footer />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/customer/history' >
+          </CustomerProtectedRoute>
+          <CustomerProtectedRoute exact path='/customer/history' >
             <Header />
             <CustomerHistory />
             <Footer />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/customer/chat' >
+          </CustomerProtectedRoute>
+          <CustomerProtectedRoute exact path='/customer/chat' >
             <Header />
             <CustomerChat />
             <Footer />
-          </ProtectedRoute>
-          {/* <Route exact path='/customer/history' render={() => {
-            return localStorage.getItem("accessToken") ? <CustomerHistory /> : <Redirect to="/login" />
-          }}>
-
-          </Route> */}
-          <ProtectedRoute exact path='/customer/activity' >
+          </CustomerProtectedRoute>
+          <CustomerProtectedRoute exact path='/customer/activity' >
             <Header />
             <CustomerActivity />
             <Footer />
-          </ProtectedRoute>
+          </CustomerProtectedRoute>
+          <Route exact path='/admin'>
+            <AdminHeader />
+            <AdminPage />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/building'>
+            <AdminHeader />
+            <AdminBuilding />
+            <Footer />
+          </Route>
           <Route exact path='/provider'>
             <ProviderHeader />
             <ProviderPage />

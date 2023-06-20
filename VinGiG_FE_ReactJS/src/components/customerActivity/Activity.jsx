@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import "./style.css"
-import ChatBox from "../chatBox/ChatBox"
 
 const Activity = () => {
 
@@ -39,11 +38,11 @@ const Activity = () => {
 
   const totalPrice = HistoryItem.reduce((price, item) => price + item.qty * item.price, 0)
 
-  const [seen, setSeen] = useState(false)
+  // const [seen, setSeen] = useState(false)
 
-  function togglePop() {
-    setSeen(!seen);
-  };
+  // function togglePop() {
+  //   setSeen(!seen);
+  // };
 
   return (
     <>
@@ -87,10 +86,11 @@ const Activity = () => {
 
                     <div className='cart-items-function'>
                       <div className=''>
-                        <button className='btn-green' onClick={togglePop}>
+                        {/* <button className='btn-green' onClick={togglePop}> */}
+                        <button className='btn-green'>
                           Chat
                         </button>
-                        {seen ? <ChatBox toggle={togglePop} /> : null}
+                        {/* {seen ? <ChatBox toggle={togglePop} /> : null} */}
                       </div>
                     </div>
                     <div className='cart-items-function'>

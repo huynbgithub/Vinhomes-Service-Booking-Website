@@ -1,7 +1,7 @@
 import React from "react"
 import axios from "axios"
 import "./style.css"
-import SliderHome from "../../common/slider/Slider"
+import SliderHome from "../../common/customerSlider/Slider"
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom"
 

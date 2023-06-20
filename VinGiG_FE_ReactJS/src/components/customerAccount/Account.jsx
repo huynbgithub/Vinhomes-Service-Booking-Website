@@ -1,5 +1,4 @@
 import React from "react"
-import axios from 'axios';
 import "./style.css"
 
 
@@ -13,6 +12,14 @@ function CustomerAccount() {
         <h1>Account Management</h1>
         {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
 
+        <div className='account_info product'>
+          <h2>Avatar</h2>
+          <div className=' d_flex'>
+            <h4>
+              {customerSession.avatar}
+            </h4>
+          </div>
+        </div>
         <div className='account_info product'>
           <h2>Account Information</h2>
           <div className=' d_flex'>

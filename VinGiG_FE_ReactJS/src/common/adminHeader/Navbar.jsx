@@ -24,8 +24,11 @@ function Navbar() {
               <li>
                 <Link to='/'>Home</Link>
               </li>
+              <li>
+                <Link to='/admin/building'>Building</Link>
+              </li>
 
-              {localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'customer' ? (
+              {/* {localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'customer' ? (
                 <>
                   <li>
                     <Link to='/customer/activity'>Current Activity</Link>
@@ -47,7 +50,7 @@ function Navbar() {
                 <li>
                   <Link to='/login'>Login</Link>
                 </li>
-              )}
+              )} */}
             </ul>
           </div>
         </div>
