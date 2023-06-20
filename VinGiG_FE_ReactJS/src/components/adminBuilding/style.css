@@ -1,73 +1,48 @@
-/* body{
-    background-image: url('background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+/* body {
+    box-sizing: border-box;
 } */
 
-table{
-    width: 80%;
-    margin: 40px auto;
-    background: rgb(124,154,167);
+.d-flex input {
+    margin: .9em 0em;
 }
 
-table.list{
-    text-align: center;
-    width: 100%;
+.d-flex button {
+    margin: 1.5em .6em;
+    padding: .3em 2.4em;
 }
 
-td{
-    border: 1px solid rgb(204,200,200);
-    text-align: left;
-    padding: 8px 15px;
+.d-flex table {
+    margin: 1em 10em;
 }
 
-tr:nth-child(even), table.list thread> tr{
-    background-color: rgb(204,200,200);
-}
-
-input[type="text"],input[type="number"]{
-    width:91%;
-    padding:12px 20px;
-    margin:8px 0;
-    display: inline-block;
-    border: 1px solid rgb(165,161,161);
-    border-radius: 4px;
-}
-
-input[type="submit"],input[type="reset"]{
-    background: #eee;
-    padding:6px 12px;
-    margin:15px 0 10px;
-    display: inline-block;
-    border: none;
-    border-radius: 30px;
-    font-size: 1rem;
+table .btnedit {
+    color: lightgreen;
     cursor: pointer;
-    outline: none;
 }
 
-input[type="submit"]:hover{
-    background: #4b99d8;
-}
-
-input[type="reset"]:hover{
-    background: #4b99d8;
-}
-
-button{
-    background: #eee;
-    padding:6px 12px;
-    margin:15px 0 10px;
-    display: inline-block;
-    border: none;
-    border-radius: 30px;
-    font-size: 1rem;
+table .btndelete {
+    color: tomato;
     cursor: pointer;
-    outline: none;
 }
 
-button:hover{
-    background:#4b99d8 ;
+/* messages */
+.updatemsg,
+.deletemsg,
+.insertmsg {
+    position: absolute;
+    top: -40px;
 }
 
+.movedown {
+    animation: slideup 3.4s ease;
+}
+
+@keyframes slideup {
+    50% {
+        top: 0
+    }
+
+    100% {
+        top: -40px;
+    }
+}
