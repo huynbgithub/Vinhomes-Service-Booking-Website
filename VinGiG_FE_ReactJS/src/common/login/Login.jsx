@@ -18,9 +18,9 @@ function Login() {
         setActivePanel(false);
     };
 
-    async function login(event) {
+    function login(event) {
         event.preventDefault();
-        await axios.get(`http://localhost:8081/vingig/login/username/${username}/password/${password}/role/${role}`)
+        axios.get(`http://localhost:8081/vingig/login/username/${username}/password/${password}/role/${role}`)
             .then(res => {
                 if (res.data == null) { history.push("/login"); }
                 else {

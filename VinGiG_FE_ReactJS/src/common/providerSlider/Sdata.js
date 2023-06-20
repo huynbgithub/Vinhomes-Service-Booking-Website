@@ -2,7 +2,7 @@ const Sdata = [
   {
     id: 1,
     title: "Welcome to Provider Page",
-    desc: "Select Services to provide on the left bar!",
+    desc: "Vinhomes Grand Park On-demand Services",
     cover: "/images/SlideCard/slide-1.png",
   },
 ]

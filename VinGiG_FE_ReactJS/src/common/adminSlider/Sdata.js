@@ -1,8 +1,8 @@
 const Sdata = [
   {
     id: 1,
-    title: "ADMIN",
-    desc: "ADMIN",
+    title: "Welcome to Admin Page",
+    desc: "Vinhomes Grand Park On-demand Services",
     cover: "/images/SlideCard/slide-1.png",
   },
   // {

@@ -17,9 +17,9 @@ function ChatBox({ bookingID }) {
             .catch(error => console.log(error));
     }, [bookingID]);
 
-    async function send(event) {
+    function send(event) {
         event.preventDefault();
-        await axios.post(`http://localhost:8081/vingig/booking/${bookingID}/bookingMessage`,
+        axios.post(`http://localhost:8081/vingig/booking/${bookingID}/bookingMessage`,
             {
                 content: content,
                 sendBy: true,
