@@ -21,7 +21,7 @@ function Badge() {
       .catch(error => console.log(error));
   }
 
-  async function deleteBadge(bagdeID) {
+  async function deleteBadge(badgeID) {
     await axios.delete(`http://localhost:8081/vingig/badge/${badgeID}`);
     loadBadges();
   }
