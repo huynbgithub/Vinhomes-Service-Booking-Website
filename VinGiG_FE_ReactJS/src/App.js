@@ -16,6 +16,8 @@ import CustomerChat from "./components/customerChat/Chat"
 import CustomerActivity from "./components/customerActivity/Activity"
 import AdminPage from './components/adminPage/Home';
 import AdminBuilding from './components/adminBuilding/Building';
+import AdminBadge from './components/adminBadge/Badge';
+
 import ProviderPage from './components/providerPage/Home';
 import ProviderService from './components/providerService/Service';
 import ProviderServiceAdding from './components/providerService/ServiceProvider';
@@ -76,6 +78,11 @@ function App() {
           <Route exact path='/admin/building'>
             <AdminHeader />
             <AdminBuilding />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/badge'>
+            <AdminHeader />
+            <AdminBadge />
             <Footer />
           </Route>
           <Route exact path='/provider'>

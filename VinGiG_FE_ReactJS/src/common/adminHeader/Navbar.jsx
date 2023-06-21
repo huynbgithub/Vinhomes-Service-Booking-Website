@@ -28,6 +28,11 @@ function Navbar() {
                 <Link to='/admin/building'>Building</Link>
               </li>
 
+              
+              <li>
+                <Link to='/admin/badge'>Badge</Link>
+              </li>
+
               {/* {localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'customer' ? (
                 <>
                   <li>

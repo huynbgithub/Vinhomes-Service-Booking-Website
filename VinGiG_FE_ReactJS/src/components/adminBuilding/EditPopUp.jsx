@@ -43,7 +43,7 @@ export default function EditPopUp(props) {
                         <input type="text" value={note} onChange={e => setNote(e.target.value)} />
                     </label>
                     <div className="d_flex_add">
-                        <button className="d_flex_add" type="submit">Add</button>
+                        <button className="d_flex_add" type="submit">Save</button>
                     </div>
                 </form>
                 <br />
