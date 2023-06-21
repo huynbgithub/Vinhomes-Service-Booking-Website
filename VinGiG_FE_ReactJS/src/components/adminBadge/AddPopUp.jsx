@@ -34,7 +34,7 @@ export default function AddPopUp(props) {
                     </label>
                     <label>
                         Benefit:
-                        <input required type="text" value={benefit} onChange={e => setBenefit(e.target.value)} />
+                        <input required type="number" value={benefit} onChange={e => setBenefit(e.target.value)} />
                     </label>
                     <label>
                         Description:
