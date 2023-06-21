@@ -5,8 +5,8 @@ import React, { useState } from "react"
 export default function AddPopUp(props) {
 
     const [badgeName, setBadgeName] = useState('')
-    const [benefit, setbenefit] = useState('')
-    const [description, setdescription] = useState('')
+    const [benefit, setBenefit] = useState('')
+    const [description, setDescription] = useState('')
 
     async function handleAdd(e) {
         e.preventDefault()
@@ -26,7 +26,7 @@ export default function AddPopUp(props) {
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Add Building</h2>
+                <h2>Add Badge</h2>
                 <form onSubmit={handleAdd}>
                     <label>
                         Badge Name:
@@ -34,11 +34,11 @@ export default function AddPopUp(props) {
                     </label>
                     <label>
                         Benefit:
-                        <input required type="text" value={benefit} onChange={e => setbenefit(e.target.value)} />
+                        <input required type="text" value={benefit} onChange={e => setBenefit(e.target.value)} />
                     </label>
                     <label>
                         Description:
-                        <input required type="text" value={description} onChange={e => setdescription(e.target.value)} />
+                        <input required type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </label>
 
                     <div className="d_flex_add">
