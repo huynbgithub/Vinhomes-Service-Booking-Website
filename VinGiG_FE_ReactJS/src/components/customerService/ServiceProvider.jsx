@@ -52,19 +52,19 @@ function ServiceProvider() {
             </div>
             <div className='product-content  grid2'>
 
-              {providers.map((shopItems) => (
+              {providers.map((sProvider) => (
                 <div className='box'>
                   <div className='product mtop'>
                     <div className='img'>
-                      <span className='discount'>{shopItems.badgeName}</span>
-                      <img src={shopItems.link} alt='' />
+                      <span className='discount'>{sProvider.badgeName}</span>
+                      <img src={sProvider.link} alt='' />
                       {/* <div className='product-like'>
                       <label>{count}</label> <br />
                       <i className='fa-regular fa-heart' onClick={increment}></i>
                     </div> */}
                     </div>
                     <div className='product-details'>
-                      <h3>{shopItems.fullName}</h3>
+                      <h3>{sProvider.fullName}</h3>
                       <div className='rate'>
                         <i className='fa fa-star'></i>
                         <i className='fa fa-star'></i>
@@ -73,7 +73,7 @@ function ServiceProvider() {
                         <i className='fa fa-star'></i>
                       </div>
                       <div className='price'>
-                        <h4>{shopItems.unitPrice} VND</h4>
+                        <h4>{sProvider.unitPrice} VND</h4>
                         {/* step : 3
            if hami le button ma click garryo bahne
           */}
