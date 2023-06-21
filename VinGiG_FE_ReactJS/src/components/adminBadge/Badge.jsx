@@ -22,7 +22,7 @@ function Badge() {
   }
 
   async function deleteBadge(bagdeID) {
-    await axios.delete(`http://localhost:8081/vingig/bagde/${bagdeID}`);
+    await axios.delete(`http://localhost:8081/vingig/badge/${badgeID}`);
     loadBadges();
   }
 
