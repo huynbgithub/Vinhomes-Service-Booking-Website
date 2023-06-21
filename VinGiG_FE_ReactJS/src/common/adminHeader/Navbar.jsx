@@ -22,15 +22,31 @@ function Navbar() {
           <div className='navlink'>
             <ul className="f_flex" >
               <li>
-                <Link to='/'>Home</Link>
+                <Link to='/admin'>Home</Link>
               </li>
               <li>
                 <Link to='/admin/building'>Building</Link>
               </li>
-
-              
               <li>
                 <Link to='/admin/badge'>Badge</Link>
+              </li>
+              <li>
+                <Link to='/admin/category'>Category</Link>
+              </li>
+              <li>
+                <Link to='/admin/service'>Service</Link>
+              </li>
+              <li>
+                <Link to='/admin/customer'>Customer</Link>
+              </li>
+              <li>
+                <Link to='/admin/provider'>Provider</Link>
+              </li>
+              <li>
+                <Link to='/admin/subscriptionPlan'>Subscription Plan</Link>
+              </li>
+              <li>
+                <Link to='/logout'>Logout</Link>
               </li>
 
               {/* {localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'customer' ? (

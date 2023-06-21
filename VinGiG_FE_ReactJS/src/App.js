@@ -17,7 +17,11 @@ import CustomerActivity from "./components/customerActivity/Activity"
 import AdminPage from './components/adminPage/Home';
 import AdminBuilding from './components/adminBuilding/Building';
 import AdminBadge from './components/adminBadge/Badge';
-
+import AdminCategory from './components/adminCategory/Category';
+import AdminService from './components/adminService/Service';
+import AdminCustomer from './components/adminCustomer/Customer';
+import AdminProvider from './components/adminProvider/Provider';
+import AdminSubscriptionPlan from './components/adminSubscriptionPlan/SubscriptionPlan';
 import ProviderPage from './components/providerPage/Home';
 import ProviderService from './components/providerService/Service';
 import ProviderServiceAdding from './components/providerService/ServiceProvider';
@@ -83,6 +87,31 @@ function App() {
           <Route exact path='/admin/badge'>
             <AdminHeader />
             <AdminBadge />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/category'>
+            <AdminHeader />
+            <AdminCategory />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/service'>
+            <AdminHeader />
+            <AdminService />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/customer'>
+            <AdminHeader />
+            <AdminCustomer />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/provider'>
+            <AdminHeader />
+            <AdminProvider />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/subscriptionPlan'>
+            <AdminHeader />
+            <AdminSubscriptionPlan />
             <Footer />
           </Route>
           <Route exact path='/provider'>
