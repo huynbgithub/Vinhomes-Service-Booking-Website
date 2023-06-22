@@ -3,7 +3,8 @@
     padding-top: 20px;
     display: flex;
     justify-content: center;
-    height: 850px;
+    min-height: 700px;
+    height: 100%;
 }
 
 .inputContainer {
@@ -212,6 +213,11 @@
 
 .float-right {
     float: right
+}
+
+.text-right {
+    display: flex;
+    justify-content: right;
 }
 
 .clearfix:after {
