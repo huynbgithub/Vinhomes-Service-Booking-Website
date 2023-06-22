@@ -4,26 +4,26 @@ import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"
 import EditPopUp from "./EditPopUp"
 
-function Building() {
+function Category() {
 
-  const [buildings, setBuildings] = useState([]);
-  const [buildingID, setBuildingID] = useState("");
+  const [categorys, setCategorys] = useState([]);
+  const [categoryID, setCategoryID] = useState("");
   useEffect(() => {
-    loadBuildings();
+    loadCategorys();
   }, [])
 
-  const loadBuildings = () => {
-    axios.get(`http://localhost:8081/vingig/buildings`)
+  const loadCategorys = () => {
+    axios.get(`http://localhost:8081/vingig/serviceCategories`)
       .then(res => {
-        const buildings = res.data;
-        setBuildings(buildings);
+        const categorys = res.data;
+        setCategorys(categorys);
       })
       .catch(error => console.log(error));
   }
 
-  async function deleteBuilding(buildingID) {
-    await axios.delete(`http://localhost:8081/vingig/building/${buildingID}`);
-    loadBuildings();
+  async function deleteCategory(categoryID) {
+    await axios.delete(`http://localhost:8081/vingig/serviceCategory/${categoryID}`);
+    loadCategorys();
   }
 
   const [seenAdd, setSeenAdd] = useState(false)
@@ -42,11 +42,11 @@ function Building() {
     <>
       <div className="admin-wrapper">
         <div className="admin-container">
-          <h2>Building Management</h2>
+          <h2>Service Category Management</h2>
           <div className="table-wrapper">
             <div className="d_flex_add">
-              <button className="btn-green" onClick={togglePopAdd}>Add New Building</button>
-              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadBuildings={loadBuildings} /> : null}
+              <button className="btn-green" onClick={togglePopAdd}>Add New Category</button>
+              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadCategorys={loadCategorys} /> : null}
             </div>
             <br />
             <table className="fl-table">
@@ -54,25 +54,25 @@ function Building() {
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
-                  <th>Area</th>
+                  <th>Description</th>
                   <th className="action">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {buildings.map((building) => (
-                  <tr key={building.buildingID}>
-                    <td>{building.buildingID}</td>
-                    <td>{building.buildingName}</td>
-                    <td>{building.note}</td>
+                {categorys.map((category) => (
+                  <tr key={category.categoryID}>
+                    <td>{category.categoryID}</td>
+                    <td>{category.categoryName}</td>
+                    <td>{category.description}</td>
                     <td className="d_flex action">
-                      <button className="btn-green" onClick={() => { togglePopEdit(); setBuildingID(building.buildingID) }}>Edit</button>
-                      <button className="btn-primary" onClick={() => deleteBuilding(building.buildingID)}>Delete</button>
+                      <button className="btn-green" onClick={() => { togglePopEdit(); setCategoryID(category.categoryID) }}>Edit</button>
+                      <button className="btn-primary" onClick={() => deleteCategory(category.categoryID)}>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadBuildings={loadBuildings} buildingID={buildingID} /> : null}
+            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadCategorys={loadCategorys} categoryID={categoryID} /> : null}
           </div>
         </div>
       </div >
@@ -81,4 +81,4 @@ function Building() {
 }
 
 
-export default Building
+export default Category

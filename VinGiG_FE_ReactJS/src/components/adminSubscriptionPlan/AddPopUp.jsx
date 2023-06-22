@@ -4,21 +4,23 @@ import React, { useState } from "react"
 
 export default function AddPopUp(props) {
 
-    const [buildingName, setBuildingName] = useState('')
-    const [note, setNote] = useState('')
+    const [description, setDescription] = useState('')
+    const [duration, setDuration] = useState('')
+    const [price, setPrice] = useState('')
 
     async function handleAdd(e) {
         e.preventDefault()
         // Code to handle add
-        await axios.post(`http://localhost:8081/vingig/building`,
+        await axios.post(`http://localhost:8081/vingig/subscriptionPlan`,
             {
                 active: true,
-                buildingName: buildingName,
-                note: note,
+                description: description,
+                duration: duration,
+                price: price,
             })
             .catch(error => console.log(error));
         props.togglePopAdd();
-        props.loadBuildings();
+        props.loadPlans();
     }
 
     return (
@@ -27,12 +29,16 @@ export default function AddPopUp(props) {
                 <h2>Add Building</h2>
                 <form onSubmit={handleAdd}>
                     <label>
-                        Building Name:
-                        <input required type="text" value={buildingName} onChange={e => setBuildingName(e.target.value)} />
+                        Description:
+                        <input required type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </label>
                     <label>
-                        Area:
-                        <input required type="text" value={note} onChange={e => setNote(e.target.value)} />
+                        Duration:
+                        <input required type="number" value={duration} onChange={e => setDuration(e.target.value)} />
+                    </label>
+                    <label>
+                        Price:
+                        <input required type="number" value={price} onChange={e => setPrice(e.target.value)} />
                     </label>
                     <div className="d_flex_add">
                         <button className="d_flex_add" type="submit">Add</button>

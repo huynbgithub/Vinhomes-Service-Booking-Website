@@ -4,43 +4,43 @@ import React, { useState, useEffect } from "react"
 
 export default function EditPopUp(props) {
 
-    const [buildingName, setBuildingName] = useState('')
-    const [note, setNote] = useState('')
+    const [categoryName, setCategoryName] = useState('')
+    const [description, setDescription] = useState('')
     useEffect(() => {
-        axios.get(`http://localhost:8081/vingig/building/${props.buildingID}`)
+        axios.get(`http://localhost:8081/vingig/serviceCategory/${props.categoryID}`)
             .then(res => {
-                const building = res.data;
-                setBuildingName(building.buildingName);
-                setNote(building.note);
+                const category = res.data;
+                setCategoryName(category.categoryName);
+                setDescription(category.description);
             }).catch(error => console.log(error));
     }, []);
     async function handleEdit(e) {
         e.preventDefault()
         // Code to handle edit
-        await axios.put(`http://localhost:8081/vingig/building`,
+        await axios.put(`http://localhost:8081/vingig/serviceCategory`,
             {
-                buildingID: props.buildingID,
+                categoryID: props.categoryID,
                 active: true,
-                buildingName: buildingName,
-                note: note,
+                categoryName: categoryName,
+                description: description,
             })
             .catch(error => console.log(error));
         props.togglePopEdit();
-        props.loadBuildings();
+        props.loadCategorys();
     }
 
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Edit Building</h2>
+                <h2>Edit serviceCategory</h2>
                 <form onSubmit={handleEdit}>
                     <label>
-                        Building Name:
-                        <input type="text" value={buildingName} onChange={e => setBuildingName(e.target.value)} />
+                        Name:
+                        <input type="text" value={categoryName} onChange={e => setCategoryName(e.target.value)} />
                     </label>
                     <label>
-                        Area:
-                        <input type="text" value={note} onChange={e => setNote(e.target.value)} />
+                        Description:
+                        <input type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </label>
                     <div className="d_flex_add">
                         <button className="d_flex_add" type="submit">Save</button>

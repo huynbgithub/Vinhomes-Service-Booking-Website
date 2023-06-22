@@ -4,21 +4,21 @@ import React, { useState } from "react"
 
 export default function AddPopUp(props) {
 
-    const [buildingName, setBuildingName] = useState('')
-    const [note, setNote] = useState('')
+    const [categoryName, setCategoryName] = useState('')
+    const [description, setDescription] = useState('')
 
     async function handleAdd(e) {
         e.preventDefault()
         // Code to handle add
-        await axios.post(`http://localhost:8081/vingig/building`,
+        await axios.post(`http://localhost:8081/vingig/serviceCategory`,
             {
                 active: true,
-                buildingName: buildingName,
-                note: note,
+                categoryName: categoryName,
+                description: description,
             })
             .catch(error => console.log(error));
         props.togglePopAdd();
-        props.loadBuildings();
+        props.loadCategorys();
     }
 
     return (
@@ -27,12 +27,12 @@ export default function AddPopUp(props) {
                 <h2>Add Building</h2>
                 <form onSubmit={handleAdd}>
                     <label>
-                        Building Name:
-                        <input required type="text" value={buildingName} onChange={e => setBuildingName(e.target.value)} />
+                         Name:
+                        <input required type="text" value={categoryName} onChange={e => setCategoryName(e.target.value)} />
                     </label>
                     <label>
-                        Area:
-                        <input required type="text" value={note} onChange={e => setNote(e.target.value)} />
+                        Description:
+                        <input required type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </label>
                     <div className="d_flex_add">
                         <button className="d_flex_add" type="submit">Add</button>

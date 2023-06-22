@@ -4,26 +4,26 @@ import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"
 import EditPopUp from "./EditPopUp"
 
-function Building() {
+function Subscriptionplan() {
 
-  const [buildings, setBuildings] = useState([]);
-  const [buildingID, setBuildingID] = useState("");
+  const [plans, setPlans] = useState([]);
+  const [planID, setPlanID] = useState("");
   useEffect(() => {
-    loadBuildings();
+    loadPlans();
   }, [])
 
-  const loadBuildings = () => {
-    axios.get(`http://localhost:8081/vingig/buildings`)
+  const loadPlans = () => {
+    axios.get(`http://localhost:8081/vingig/subscriptionPlans`)
       .then(res => {
-        const buildings = res.data;
-        setBuildings(buildings);
+        const plans = res.data;
+        setPlans(plans);
       })
       .catch(error => console.log(error));
   }
 
-  async function deleteBuilding(buildingID) {
-    await axios.delete(`http://localhost:8081/vingig/building/${buildingID}`);
-    loadBuildings();
+  async function deletePlan(planID) {
+    await axios.delete(`http://localhost:8081/vingig/subscriptionPlan/${planID}`);
+    loadPlans();
   }
 
   const [seenAdd, setSeenAdd] = useState(false)
@@ -42,37 +42,39 @@ function Building() {
     <>
       <div className="admin-wrapper">
         <div className="admin-container">
-          <h2>Building Management</h2>
+          <h2>SubscriptioPlan Management</h2>
           <div className="table-wrapper">
             <div className="d_flex_add">
-              <button className="btn-green" onClick={togglePopAdd}>Add New Building</button>
-              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadBuildings={loadBuildings} /> : null}
+              <button className="btn-green" onClick={togglePopAdd}>Add New subscriptionPlan</button>
+              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadPlans={loadPlans} /> : null}
             </div>
             <br />
             <table className="fl-table">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Area</th>
+                  <th>Description</th>
+                  <th>Duration</th>
+                  <th>Price</th>
                   <th className="action">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {buildings.map((building) => (
-                  <tr key={building.buildingID}>
-                    <td>{building.buildingID}</td>
-                    <td>{building.buildingName}</td>
-                    <td>{building.note}</td>
+                {plans.map((plan) => (
+                  <tr key={plan.planID}>
+                    <td>{plan.planID}</td>
+                    <td>{plan.description}</td>
+                    <td>{plan.duration}</td>
+                    <td>{plan.price}</td>
                     <td className="d_flex action">
-                      <button className="btn-green" onClick={() => { togglePopEdit(); setBuildingID(building.buildingID) }}>Edit</button>
-                      <button className="btn-primary" onClick={() => deleteBuilding(building.buildingID)}>Delete</button>
+                      <button className="btn-green" onClick={() => { togglePopEdit(); setPlanID(plan.planID) }}>Edit</button>
+                      <button className="btn-primary" onClick={() => deletePlan(plan.planID)}>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadBuildings={loadBuildings} buildingID={buildingID} /> : null}
+            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadPlans={loadPlans} planID={planID} /> : null}
           </div>
         </div>
       </div >
@@ -81,4 +83,4 @@ function Building() {
 }
 
 
-export default Building
+export default Subscriptionplan
