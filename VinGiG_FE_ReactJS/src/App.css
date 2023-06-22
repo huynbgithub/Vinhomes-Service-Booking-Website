@@ -15,6 +15,15 @@ body {
   background-color: #ffffff;
 }
 
+.float-right {
+  float: right
+}
+
+.text-right {
+  display: flex;
+  justify-content: right;
+}
+
 .background {
   background: #f6f9fc;
   padding: 50px 0;

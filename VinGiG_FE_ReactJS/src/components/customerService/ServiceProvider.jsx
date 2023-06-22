@@ -2,32 +2,49 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import "./style.css"
 import { useParams } from "react-router-dom"
+import BookPopUp from "./BookPopUp"
 
 function ServiceProvider() {
 
-  // const { serviceID } = this.props.match.params;
   const { serviceID } = useParams();
 
   const [providers, setProviders] = useState([]);
 
   const [service, setService] = useState({});
 
+  const [unitPrice, setUnitPrice] = useState("");
+
+  const [proServiceID, setProServiceID] = useState("");
+
   useEffect(() => {
+    loadProviders();
+    getService();
+  },
+    [serviceID]);
+
+  function loadProviders() {
     axios.get(`http://localhost:8081/vingig/giGservice/${serviceID}/providerServices`)
       .then(res => {
         const providers = res.data;
         setProviders(providers);
       })
       .catch(error => console.log(error));
+  }
 
+  function getService() {
     axios.get(`http://localhost:8081/vingig/giGService/${serviceID}`)
       .then(res => {
         const service = res.data;
         setService(service);
       })
       .catch(error => console.log(error));
-  },
-    [serviceID]);
+  }
+
+  const [seenBook, setSeenBook] = useState(false)
+
+  function togglePopBook() {
+    setSeenBook(!seenBook);
+  };
 
   return (
     <>
@@ -77,13 +94,17 @@ function ServiceProvider() {
                         {/* step : 3
            if hami le button ma click garryo bahne
           */}
-                        <a className='btn-primary'>Book</a>
+
+                      </div>
+                      <div className="text-right">
+                        <button className='btn-green' onClick={() => { togglePopBook(); setProServiceID(sProvider.proServiceID); setUnitPrice(sProvider.unitPrice) }}>Book</button>
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+            {seenBook ? <BookPopUp togglePopBook={togglePopBook} proServiceID={proServiceID} unitPrice={unitPrice} /> : null}
           </div>
         </div>
       </section>

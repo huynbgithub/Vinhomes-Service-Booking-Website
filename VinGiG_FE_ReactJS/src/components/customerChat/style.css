@@ -211,15 +211,6 @@
     color: #1d8ecd
 }
 
-.float-right {
-    float: right
-}
-
-.text-right {
-    display: flex;
-    justify-content: right;
-}
-
 .clearfix:after {
     visibility: hidden;
     display: block;
