@@ -64,7 +64,7 @@ export default function AddPopUp(props) {
                         <input required type="text" value={unit} onChange={e => setUnit(e.target.value)} />
                     </label>
                     <label>
-                    CatogoryID:
+                    Category Name:
                         <input required type="text" value={catogoryID} onChange={e => setCatogoryID(e.target.value)} />
                     </label>
 

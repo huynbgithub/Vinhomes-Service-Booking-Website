@@ -76,7 +76,7 @@ export default function EditPopUp(props) {
                         <input type="text" value={unit} onChange={e => setUnit(e.target.value)} />
                     </label>
                     <label>
-                    categoryID:
+                    category Name:
                         <input type="text" value={categoryID} onChange={e => setCategoryID(e.target.value)} />
                     </label>
 

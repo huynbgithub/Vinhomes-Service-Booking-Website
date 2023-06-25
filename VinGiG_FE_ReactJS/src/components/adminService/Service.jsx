@@ -59,7 +59,7 @@ function Service() {
                   <th>Price Max</th>
                   <th>Price Min</th>  
                   <th>Unit</th>
-                  <th>CategoryID</th>
+                  <th>Category Name</th>
                   
                   <th className="action">Action</th>
                 </tr>
@@ -74,7 +74,7 @@ function Service() {
                     <td>{service.priceMax}</td>
                     <td>{service.priceMin}</td>     
                     <td>{service.unit}</td>
-                    <td>{service.categoryID}</td>
+                    <td>{service.categoryName}</td>
                     <td className="d_flex action">
                       <button className="btn-green" onClick={() => { togglePopEdit(); setServicesID(service.serviceID) }}>Edit</button>
                       <button className="btn-primary" onClick={() => deleteService(service.serviceID)}>Delete</button>
