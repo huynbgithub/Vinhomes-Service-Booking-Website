@@ -3,45 +3,83 @@ import axios from 'axios';
 import React, { useState, useEffect } from "react"
 
 export default function EditPopUp(props) {
-
-    const [buildingName, setBuildingName] = useState('')
-    const [note, setNote] = useState('')
+    // const [buildings, setBuildings] = useState([]);
+    // const [buildingID, setBuildingID] = useState("");
+    const [description, setDescription] = useState('')
+    const [fee, setFee] = useState('')
+    const [priceMax, setPriceMax] = useState('')
+    const [priceMin, setPriceMin] = useState('')
+    const [serviceName, setServiceName] = useState('')
+    const [unit, setUnit] = useState('')
+    const [catogoryID, setCatogoryID] = useState('')
     useEffect(() => {
-        axios.get(`http://localhost:8081/vingig/building/${props.buildingID}`)
+        axios.get(`http://localhost:8081/vingig/giGService/${props.serviceID}`)
             .then(res => {
-                const building = res.data;
-                setBuildingName(building.buildingName);
-                setNote(building.note);
+                const service = res.data;
+                setDescription(service.description);
+                setFee(service.fee);
+                setPriceMax(service.priceMax);
+                setPriceMin(service.serviceName);
+                setServiceName(service.unit);
+                setUnit(service.note);
+                setCatogoryID(service.catogoryID);
             }).catch(error => console.log(error));
     }, []);
     async function handleEdit(e) {
         e.preventDefault()
         // Code to handle edit
-        await axios.put(`http://localhost:8081/vingig/building`,
+        await axios.put(`http://localhost:8081/vingig/giGService`,
             {
-                buildingID: props.buildingID,
+                serviceID: props.serviceID,
                 active: true,
-                buildingName: buildingName,
-                note: note,
+                description: description,
+                fee: fee,
+                priceMax: priceMax,
+                priceMin: priceMin,
+                serviceName: serviceName,
+                unit: unit,
+                catogoryID: catogoryID,
+
             })
             .catch(error => console.log(error));
         props.togglePopEdit();
-        props.loadBuildings();
+        props.loadServices();
     }
 
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Edit Building</h2>
+                <h2>Edit Service</h2>
                 <form onSubmit={handleEdit}>
                     <label>
-                        Building Name:
-                        <input type="text" value={buildingName} onChange={e => setBuildingName(e.target.value)} />
+                        serviceName:
+                        <input type="text" value={serviceName} onChange={e => setServiceName(e.target.value)} />
                     </label>
                     <label>
-                        Area:
-                        <input type="text" value={note} onChange={e => setNote(e.target.value)} />
+                        Description:
+                        <input type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </label>
+                    <label>
+                        Fee:
+                        <input type="text" value={fee} onChange={e => setFee(e.target.value)} />
+                    </label>
+                    <label>
+                        PriceMax:
+                        <input type="number" value={priceMax} onChange={e => setPriceMax(e.target.value)} />
+                    </label>
+                    <label>
+                        PriceMin:
+                        <input type="number" value={priceMin} onChange={e => setPriceMin(e.target.value)} />
+                    </label>
+                    <label>
+                        Unit:
+                        <input type="text" value={unit} onChange={e => setUnit(e.target.value)} />
+                    </label>
+                    <label>
+                    unit:
+                        <input type="text" value={catogoryID} onChange={e => setCatogoryID(e.target.value)} />
+                    </label>
+
                     <div className="d_flex_add">
                         <button className="d_flex_add" type="submit">Save</button>
                     </div>

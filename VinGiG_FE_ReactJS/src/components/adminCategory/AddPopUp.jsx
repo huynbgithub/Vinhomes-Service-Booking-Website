@@ -24,7 +24,7 @@ export default function AddPopUp(props) {
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Add Building</h2>
+                <h2>Add Category</h2>
                 <form onSubmit={handleAdd}>
                     <label>
                          Name:

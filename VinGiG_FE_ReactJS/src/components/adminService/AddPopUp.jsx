@@ -4,36 +4,70 @@ import React, { useState } from "react"
 
 export default function AddPopUp(props) {
 
-    const [buildingName, setBuildingName] = useState('')
-    const [note, setNote] = useState('')
+    const [description, setDescription] = useState('')
+    const [fee, setFee] = useState('')
+    const [priceMax, setPriceMax] = useState('')
+    const [priceMin, setPriceMin] = useState('')
+    const [serviceName, setServiceName] = useState('')
+    const [unit, setUnit] = useState('')
+    const [catogoryID, setCatogoryID] = useState('')
+
 
     async function handleAdd(e) {
         e.preventDefault()
         // Code to handle add
-        await axios.post(`http://localhost:8081/vingig/building`,
+        await axios.post(`http://localhost:8081/giGService/serviceID`,
             {
                 active: true,
-                buildingName: buildingName,
-                note: note,
+                description: description,
+                fee: fee,
+                priceMax: priceMax,
+                priceMin: priceMin,
+                serviceName: serviceName,
+                unit: unit,
+                catogoryID: catogoryID,
+
+
             })
             .catch(error => console.log(error));
         props.togglePopAdd();
-        props.loadBuildings();
+        props.loadServices();
     }
 
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Add Building</h2>
+                <h2>Add Service</h2>
                 <form onSubmit={handleAdd}>
                     <label>
-                        Building Name:
-                        <input required type="text" value={buildingName} onChange={e => setBuildingName(e.target.value)} />
+                        ServiceName:
+                        <input required type="text" value={serviceName} onChange={e => setServiceName(e.target.value)} />
                     </label>
                     <label>
-                        Area:
-                        <input required type="text" value={note} onChange={e => setNote(e.target.value)} />
+                        Description:
+                        <input required type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </label>
+                    <label>
+                        Fee:
+                        <input required type="number" value={fee} onChange={e => setFee(e.target.value)} />
+                    </label>
+                    <label>
+                        PriceMax:
+                        <input required type="number" value={priceMax} onChange={e => setPriceMax(e.target.value)} />
+                    </label>
+                    <label>
+                        PriceMin:
+                        <input required type="number" value={priceMin} onChange={e => setPriceMin(e.target.value)} />
+                    </label>
+                    <label>
+                        Unit:
+                        <input required type="text" value={unit} onChange={e => setUnit(e.target.value)} />
+                    </label>
+                    <label>
+                    CatogoryID:
+                        <input required type="text" value={catogoryID} onChange={e => setCatogoryID(e.target.value)} />
+                    </label>
+
                     <div className="d_flex_add">
                         <button className="d_flex_add" type="submit">Add</button>
                     </div>

@@ -4,26 +4,26 @@ import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"
 import EditPopUp from "./EditPopUp"
 
-function Building() {
+function Service() {
 
-  const [buildings, setBuildings] = useState([]);
-  const [buildingID, setBuildingID] = useState("");
+  const [services, setServices] = useState([]);
+  const [serviceID, setServicesID] = useState("");
   useEffect(() => {
-    loadBuildings();
+    loadServices();
   }, [])
 
-  const loadBuildings = () => {
-    axios.get(`http://localhost:8081/vingig/buildings`)
+  const loadServices = () => {
+    axios.get(`http://localhost:8081/vingig/f`)
       .then(res => {
-        const buildings = res.data;
-        setBuildings(buildings);
+        const services = res.data;
+        setServices(services);
       })
       .catch(error => console.log(error));
   }
 
-  async function deleteBuilding(buildingID) {
-    await axios.delete(`http://localhost:8081/vingig/building/${buildingID}`);
-    loadBuildings();
+  async function deleteService(serviceID) {
+    await axios.delete(`http://localhost:8081/vingig/giGServices/${serviceID}`);
+    loadServices();
   }
 
   const [seenAdd, setSeenAdd] = useState(false)
@@ -42,11 +42,11 @@ function Building() {
     <>
       <div className="admin-wrapper">
         <div className="admin-container">
-          <h2>Building Management</h2>
+          <h2> Service Management</h2>
           <div className="table-wrapper">
             <div className="d_flex_add">
-              <button className="btn-green" onClick={togglePopAdd}>Add New Building</button>
-              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadBuildings={loadBuildings} /> : null}
+              <button className="btn-green" onClick={togglePopAdd}>Add New Service</button>
+              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadServices={loadServices} /> : null}
             </div>
             <br />
             <table className="fl-table">
@@ -54,25 +54,36 @@ function Building() {
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
-                  <th>Area</th>
+                  <th>Description</th>
+                  <th>Fee</th>
+                  <th>Price Max</th>
+                  <th>Price Min</th>  
+                  <th>Unit</th>
+                  <th>CategoryID</th>
+                  
                   <th className="action">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {buildings.map((building) => (
-                  <tr key={building.buildingID}>
-                    <td>{building.buildingID}</td>
-                    <td>{building.buildingName}</td>
-                    <td>{building.note}</td>
+                {services.map((service) => (
+                  <tr key={service.serviceID}>
+                    <td>{service.serviceID}</td>
+                    <td>{service.serviceName}</td>
+                    <td>{service.description}</td>
+                    <td>{service.fee}</td>
+                    <td>{service.priceMax}</td>
+                    <td>{service.priceMin}</td>     
+                    <td>{service.unit}</td>
+                    <td>{service.categoryID}</td>
                     <td className="d_flex action">
-                      <button className="btn-green" onClick={() => { togglePopEdit(); setBuildingID(building.buildingID) }}>Edit</button>
-                      <button className="btn-primary" onClick={() => deleteBuilding(building.buildingID)}>Delete</button>
+                      <button className="btn-green" onClick={() => { togglePopEdit(); setServicesID(service.serviceID) }}>Edit</button>
+                      <button className="btn-primary" onClick={() => deleteService(service.serviceID)}>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadBuildings={loadBuildings} buildingID={buildingID} /> : null}
+            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadServices={loadServices} serviceID={serviceID} /> : null}
           </div>
         </div>
       </div >
@@ -81,4 +92,4 @@ function Building() {
 }
 
 
-export default Building
+export default Service
