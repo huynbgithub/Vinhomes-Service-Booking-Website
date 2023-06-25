@@ -1,13 +1,14 @@
-import "./style.css"
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
+// import "./style.css"
 import { NumericFormat } from "react-number-format"
 
-function History() {
-  const customerID = JSON.parse(localStorage.getItem("accessToken")).customerID;
+const Activity = () => {
+
+  const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
   const [histories, setHistories] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8081/vingig/customer/${customerID}/bookings/history/{dateMin}/{dateMax}`)
+    axios.get(`http://localhost:8081/vingig/provider/${providerID}/bookings/currentActivity`)
       .then(res => {
         const histories = res.data;
         setHistories(histories);
@@ -19,9 +20,9 @@ function History() {
     <>
       <section className='cart-items'>
         <div className='container d_flex containerHeight'>
-          <h1> Booking History</h1>
+          <h1> Current Activity</h1>
           <div className='cart-details'>
-            {histories.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
+            {histories.length === 0 && <h1 className='no-items product'>No Current Booking</h1>}
 
             {histories.map((item) => {
               var epochTime = item.date;
@@ -57,8 +58,8 @@ function History() {
                   <div className='cart-details'>
                     <h3>{item.serviceName}</h3>
                     <h4>
-                      Provider:
-                      <span>{item.providerFullName}</span>
+                      customer:
+                      <span>{item.customerFullName}</span>
                     </h4>
                     <h4>
                       Status:
@@ -79,10 +80,6 @@ function History() {
                       <span><NumericFormat value={item.unitPrice} displayType="text" thousandSeparator={true} suffix={' VND'} /></span>
                     </h4>
                     <h4>
-                      Total Price:
-                      <span><NumericFormat value={item.total} displayType="text" thousandSeparator={true} suffix={' VND'} /></span>
-                    </h4>
-                    <h4>
                       Date:
                       <span>{formattedTime}</span>
                     </h4>
@@ -90,15 +87,15 @@ function History() {
                   <div className='cart-details'>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
-                        <button className='btn-primary'>
-                          Book Again
+                        <button className='btn-green'>
+                          Chat
                         </button>
                       </div>
                     </div>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
-                        <button className='btn-green'>
-                          Review
+                        <button className=''>
+                          Cancel
                         </button>
                       </div>
                     </div>
@@ -109,7 +106,7 @@ function History() {
           </div>
 
           <div className='cart-total product'>
-            <h2>Number of Completed Bookings</h2>
+            <h2>Number of Current Bookings</h2>
             <div className=' d_flex'>
               <h4>Total:</h4>
               <h3>{histories.length}</h3>
@@ -121,4 +118,4 @@ function History() {
   )
 }
 
-export default History
+export default Activity

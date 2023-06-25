@@ -1,104 +1,107 @@
-import React from "react"
 import "./style.css"
+import React, { useEffect, useState } from "react"
+import axios from 'axios';
+import { NumericFormat } from "react-number-format"
 
-const History = () => {
-
-  const HistoryItem = [
-    {
-      id: 7,
-      cover: "../images/shops/shops-3.png",
-      name: "Lương Văn A",
-      price: "180",
-      badge: "Khách hàng 1",
-      qty: 1,
-      status: "Not Confirmed",
-      date: "01/01/2003",
-    },
-    {
-      id: 6,
-      cover: "../images/shops/shops-4.png",
-      name: "Lê Văn Dũng",
-      price: "180",
-      badge: "Khách hàng 2",
-      qty: 2,
-      status: "Confirmed",
-      date: "01/01/2003",
-    },
-    {
-      id: 11,
-      cover: "../images/shops/shops-5.png",
-      name: "Nguyễn Văn A",
-      price: "80",
-      badge: "Khách hàng 3",
-      qty: 1,
-      status: "Completed",
-      date: "01/01/2003",
-    },
-  ]
-
-  const totalPrice = HistoryItem.reduce((price, item) => price + item.qty * item.price, 0)
+function History() {
+  const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
+  const [histories, setHistories] = useState([]);
+  useEffect(() => {
+    axios.get(`http://localhost:8081/vingig/provider/${providerID}/bookings/history/{dateMin}/{dateMax}`)
+      .then(res => {
+        const histories = res.data;
+        setHistories(histories);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   return (
     <>
       <section className='cart-items'>
-        <div className='container d_flex'>
+        <div className='container d_flex containerHeight'>
           <h1> Booking History</h1>
-          {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
           <div className='cart-details'>
-            {HistoryItem.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
+            {histories.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
 
-            {/* yasma hami le cart item lai display garaaxa */}
-            {HistoryItem.map((item) => {
-              const productQty = item.price * item.qty
+            {histories.map((item) => {
+              var epochTime = item.date;
 
+              var dateObj = new Date(epochTime);
+
+              var date = dateObj.getDate();
+              var month = dateObj.getMonth() + 1;
+              var year = dateObj.getYear() - 100 + 2000;
+              var hours = dateObj.getHours();
+              var minutes = dateObj.getMinutes();
+              var seconds = dateObj.getSeconds();
+
+              var formattedTime =
+                date.toString() + '/' +
+                month.toString() + '/' +
+                year.toString();
+              // var formattedTime =
+              //   date.toString() + '/' +
+              //   month.toString() + '/' +
+              //   year.toString() + ' ' +
+              //   hours.toString().padStart(2, '0') + ':' +
+              //   minutes.toString().padStart(2, '0') + ':' +
+              //   seconds.toString().padStart(2, '0');
               return (
                 <div className='cart-list product d_flex' key={item.id}>
                   <div className='cart-details'>
                     <div className='img'>
-                      <img src={item.cover} alt='' />
+                      <img src={item.image} alt='' />
                     </div>
                   </div>
 
                   <div className='cart-details'>
-                    <h3>{item.name}</h3>
+                    <h3>{item.serviceName}</h3>
                     <h4>
-                      Status: <span>{item.status}</span>
+                      Customer:
+                      <span>{item.customerFullName}</span>
                     </h4>
                     <h4>
-                      Price: {item.price}.000 VND * {item.qty}
-                      <span>{productQty}.000 VND</span>
+                      Status:
+                      <span>
+                        {item.status == 0 ? "Not Accepted" : item.status == 1 ? "Accepted" : "Completed"}
+                      </span>
+                    </h4>
+                    <h4>
+                      Building:
+                      <span>{item.buildingName}</span>
+                    </h4>
+                    <h4>
+                      Apartment:
+                      <span>{item.apartment}</span>
+                    </h4>
+                    <h4>
+                      Unit Price:
+                      <span><NumericFormat value={item.unitPrice} displayType="text" thousandSeparator={true} suffix={' VND'} /></span>
+                    </h4>
+                    <h4>
+                      Total Price:
+                      <span><NumericFormat value={item.total} displayType="text" thousandSeparator={true} suffix={' VND'} /></span>
                     </h4>
                     <h4>
                       Date:
-                      <span>{item.date}</span>
+                      <span>{formattedTime}</span>
                     </h4>
                   </div>
                   <div className='cart-details'>
-
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-green'>
-                          Confirm
-                        </button>
-                      </div>
-
-                    </div>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
                         <button className='btn-primary'>
-                          Cancel
+                          Book Again
                         </button>
                       </div>
-
                     </div>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
                         <button className='btn-green'>
-                          Chat
+                          Review
                         </button>
                       </div>
                     </div>
-
                   </div>
                 </div>
               )
@@ -106,10 +109,10 @@ const History = () => {
           </div>
 
           <div className='cart-total product'>
-            <h2>Total Money</h2>
+            <h2>Number of Completed Bookings</h2>
             <div className=' d_flex'>
-              <h4>Total Price :</h4>
-              <h3>{totalPrice}.000 VND</h3>
+              <h4>Total:</h4>
+              <h3>{histories.length}</h3>
             </div>
           </div>
         </div >

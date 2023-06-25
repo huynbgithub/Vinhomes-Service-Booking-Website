@@ -3,6 +3,8 @@
     padding-top: 20px;
     display: flex;
     justify-content: center;
+    min-height: 700px;
+    height: 100%;
 }
 
 .inputContainer {

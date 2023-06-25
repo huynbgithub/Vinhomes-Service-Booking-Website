@@ -1,6 +1,6 @@
 import "./popup.css"
 import axios from 'axios';
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 export default function BookPopUp(props) {
     const customerSession = JSON.parse(localStorage.getItem("accessToken"));
@@ -11,7 +11,7 @@ export default function BookPopUp(props) {
     async function handleBook(e) {
         e.preventDefault()
         // Code to handle add
-        await axios.post(`http://localhost:8081/vingig/building/18/customer/${customerSession.customerID}/providerService/${props.proServiceID}/booking`,
+        await axios.post(`http://localhost:8081/vingig/building/${buildingID}/customer/${customerSession.customerID}/providerService/${props.proServiceID}/booking`,
             {
                 status: 0,
                 apartment: apartment,
@@ -21,14 +21,35 @@ export default function BookPopUp(props) {
         props.togglePopBook();
     }
 
+    const [buildings, setBuildings] = useState([]);
+
+    useEffect(() => {
+        loadBuildings();
+    }, [])
+
+    const loadBuildings = () => {
+        axios.get(`http://localhost:8081/vingig/buildings`)
+            .then(res => {
+                const buildings = res.data;
+                setBuildings(buildings);
+            })
+            .catch(error => console.log(error));
+    }
+
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Booking Detail:</h2>
+                <h2>Location Detail:</h2>
+                <br />
                 <form onSubmit={handleBook}>
                     <label>
                         Building:
-                        <input required type="text" value={buildingID} onChange={e => setBuildingID(e.target.value)} />
+                        <select required onChange={e => setBuildingID(e.target.value)}>
+                            <option value=""></option>
+                            {buildings.map((building) => (
+                                <option value={building.buildingID}>{building.buildingName}</option>
+                            ))}
+                        </select>
                     </label>
                     <label>
                         Apartment:

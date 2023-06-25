@@ -34,6 +34,11 @@ body {
   margin: auto;
 }
 
+.containerHeight {
+  min-height: 700px;
+  height: 100%;
+}
+
 .d_flex {
   display: flex;
   justify-content: space-between;

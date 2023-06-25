@@ -6,7 +6,7 @@
 .font-size-1 {
   font-size: 14px;
   width: max-content;
-  /* width: 140px; */
+  /* width: 200px !important; */
   cursor: pointer;
 }
 

@@ -7,7 +7,7 @@ function CustomerAccount() {
   const customerSession = JSON.parse(localStorage.getItem("accessToken"));
 
   return (
-    <section className='cart-items account-height' >
+    <section className='cart-items account-height containerHeight' >
       <div className='container d_flex'>
         <h1>Account Management</h1>
         {/* if hamro cart ma kunai pani item xaina bhane no diplay */}

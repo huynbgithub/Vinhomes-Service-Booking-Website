@@ -1,57 +1,57 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from "../../components/assets/images/VinGiG_logo.png"
 
-const Navbar = () => {
-  // Toogle Menu
-  const [MobileMenu, setMobileMenu] = useState(false)
-  // const [seen, setSeen] = useState(false)
+function Navbar() {
 
-  // function togglePop() {
-  //   setSeen(!seen);
-  // };
   return (
     <>
-      <header className='header'>
+      <header className='header header-edit'>
         <div className='container d_flex'>
-          <div className='categories d_flex'>
+          {/* <div className='categories d_flex'>
             <span class='fa-solid fa-border-all'></span>
             <h4>
-              Services <i className='fa fa-chevron-down'></i>
+              Services
+              <i className='fa fa-chevron-down'></i>
             </h4>
+          </div> */}
+          <div className='logo width '>
+            <img src={logo} alt='' />
           </div>
 
           <div className='navlink'>
-            <ul className={MobileMenu ? "nav-links-MobileMenu" : "link f_flex capitalize"} onClick={() => setMobileMenu(false)}>
-              {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
+            <ul className="f_flex" >
               <li>
                 <Link to='/provider'>Home</Link>
               </li>
               <li>
-                <Link to='/provider/wallet'>Wallet</Link>
+                <Link to='/provider/service'>Service</Link>
+              </li>
+              <li>
+                <Link to='/provider/activity'>Current Activity</Link>
+              </li>
+              <li>
+                <Link to='/provider/chat'>Chat</Link>
               </li>
               <li>
                 <Link to='/provider/history'>Booking History</Link>
               </li>
-              {/* <li>
+              <li>
                 <Link to='/provider/wallet'>Wallet</Link>
-              </li> */}
+              </li>
+              <li>
+                <Link to='/provider/account'>Account</Link>
+              </li>
               <li>
                 <Link to='/logout'>Logout</Link>
-                {/* <div>
-                  <a onClick={togglePop}>Login</a>
-                  {seen ? <Login toggle={togglePop} /> : null}
-                </div> */}
               </li>
             </ul>
-
-            <button className='toggle' onClick={() => setMobileMenu(!MobileMenu)}>
-              {MobileMenu ? <i className='fas fa-times close home-btn'></i> : <i className='fas fa-bars open'></i>}
-            </button>
           </div>
         </div>
-      </header>
+
+      </header >
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

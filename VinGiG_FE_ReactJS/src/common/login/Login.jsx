@@ -26,7 +26,12 @@ function Login() {
                 else {
                     const user = res.data;
                     localStorage.setItem("accessToken", JSON.stringify(user));
-                    history.push("/");
+                    if (localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'customer') {
+                        history.push("/");
+                    } else if (localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'provider') {
+                        history.push("/provider");
+                    }
+
                 }
             })
             .catch(error => console.log(error));

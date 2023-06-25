@@ -1,7 +1,3 @@
-.account-height {
-  height: 600px !important;
-}
-
 .cart-items {
   background: #f6f9fc;
   height: auto;
@@ -38,13 +34,13 @@
 .cart-items .cart-details h3 {
   font-size: 20px;
   font-weight: 500;
-  margin-top: 20px;
+  margin-top: 0px !important;
 }
 
 .cart-items .cart-details h4 {
   font-size: 15px;
   font-weight: 400;
-  margin-top: 50px;
+  margin-top: 10px !important;
   color: grey;
 }
 
@@ -95,18 +91,6 @@
 }
 
 .cart-total h2 {
-  font-size: 18px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgb(3 0 71 / 9%);
-  padding-bottom: 10px;
-  color: #e94560;
-}
-
-.account_info {
-  min-width: 350px;
-}
-
-.account_info h2 {
   font-size: 18px;
   margin-bottom: 20px;
   border-bottom: 1px solid rgb(3 0 71 / 9%);

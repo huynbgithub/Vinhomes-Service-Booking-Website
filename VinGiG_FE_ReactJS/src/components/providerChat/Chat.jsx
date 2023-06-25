@@ -5,7 +5,7 @@ import ChatBox from "./ChatBox";
 
 function Chat() {
 
-    const customerID = JSON.parse(localStorage.getItem("accessToken")).customerID;
+    const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
 
     const [bookings, setBookings] = useState([]);
     const [selectedBookingID, setSelectedBookingID] = useState(null);
@@ -13,7 +13,7 @@ function Chat() {
         setSelectedBookingID(bookingID);
     };
     useEffect(() => {
-        axios.get(`http://localhost:8081/vingig/customer/${customerID}/bookingMessage`)
+        axios.get(`http://localhost:8081/vingig/provider/${providerID}/bookingMessage`)
             .then(res => {
                 const bookings = res.data;
                 setBookings(bookings);
@@ -23,7 +23,7 @@ function Chat() {
     return (
         <>
             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-            <div className="chatContainer containerHeight">
+            <div className="chatContainer">
                 <div className="row clearfix">
                     <div className="col-lg-12">
                         <div className="card chat-app">
@@ -41,7 +41,7 @@ function Chat() {
                                             className={`clearfix ${selectedBookingID === booking.bookingID ? 'active' : ''}`}
                                             onClick={() => handleBookingClick(booking.bookingID)}
                                         >
-                                            <img src={booking.avatar} alt="avatar" />
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" />
                                             <div className="about">
                                                 <div className="name">{booking.fullName}</div>
                                                 <div className="status">{booking.serviceName}</div>

@@ -3,6 +3,7 @@ import "./App.css"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Header from "./common/header/Header"
 import Categories from "./common/header/Categories"
+import ProviderCategories from "./common/providerHeader/Categories"
 import ProviderHeader from "./common/providerHeader/Header"
 import AdminHeader from "./common/adminHeader/Header"
 import Footer from "./common/footer/Footer"
@@ -23,12 +24,14 @@ import AdminCustomer from './components/adminCustomer/Customer';
 import AdminProvider from './components/adminProvider/Provider';
 import AdminSubscriptionPlan from './components/adminSubscriptionPlan/SubscriptionPlan';
 import ProviderPage from './components/providerPage/Home';
-import ProviderService from './components/providerService/Service';
-import ProviderServiceAdding from './components/providerService/ServiceProvider';
 import ProviderAccount from "./components/providerAccount/Account"
 import ProviderWallet from "./components/providerWallet/Wallet"
 import ProviderHistory from "./components/providerHistory/History"
+import ProviderActivity from "./components/providerActivity/Activity"
+import ProviderChat from "./components/providerChat/Chat"
+import ProviderService from "./components/providerService/Service"
 import CustomerProtectedRoute from "./components/CustomerProtectedRoute"
+import ProviderProtectedRoute from "./components/ProviderProtectedRoute"
 
 function App() {
   return (
@@ -114,46 +117,42 @@ function App() {
             <AdminSubscriptionPlan />
             <Footer />
           </Route>
-          <Route exact path='/provider'>
+          <ProviderProtectedRoute exact path='/provider'>
             <ProviderHeader />
             <ProviderPage />
             <Footer />
-          </Route>
-          <Route path='/provider/service/:cate'>
-            <ProviderHeader />
-            <ProviderService />
-            <Footer />
-          </Route>
-          <Route path='/provider/serviceAdding/:service'>
-            <ProviderHeader />
-            <ProviderServiceAdding />
-            <Footer />
-          </Route>
-          <Route exact path='/provider/account/:accID' >
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/account/' >
             <ProviderHeader />
             <ProviderAccount />
             <Footer />
-          </Route>
-          <Route exact path='/provider/wallet' >
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/wallet' >
             <ProviderHeader />
             <ProviderWallet />
             <Footer />
-          </Route>
-          <Route exact path='/provider/history' >
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/chat' >
+            <ProviderHeader />
+            <ProviderChat />
+            <Footer />
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/history' >
             <ProviderHeader />
             <ProviderHistory />
             <Footer />
-          </Route>
-          {/* <Route exact path='/provider/wallet' >
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/activity' >
             <ProviderHeader />
-            <ProviderWallet />
+            <ProviderActivity />
             <Footer />
-          </Route>
-          <Route exact path='/provider/history' >
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/service' >
             <ProviderHeader />
-            <ProviderHistory />
+            {/* <ProviderCategories /> */}
+            <ProviderService />
             <Footer />
-          </Route> */}
+          </ProviderProtectedRoute>
         </Switch>
 
       </Router>

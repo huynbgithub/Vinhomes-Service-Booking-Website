@@ -1,62 +1,80 @@
-import React from "react"
-import axios from "axios"
 import "./style.css"
-import SliderHome from "../../common/customerSlider/Slider"
-import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom"
+import axios from 'axios';
+import React, { useEffect, useState } from "react"
+import AddPopUp from "./AddPopUp"
+import EditPopUp from "./EditPopUp"
 
-class Service extends React.Component {
+function Service() {
+  const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
+  const [services, setServices] = useState([]);
+  const [serviceID, setServicesID] = useState("");
+  useEffect(() => {
+    loadServices();
+  }, [])
 
-  // state = {
-  //   subSers: []
-  // }
-
-  // componentDidMount() {
-  //   axios.get(`http://localhost:8081/vingig/servicesOfCategories`)
-  //     .then(res => {
-  //       const subSers = res.data;
-  //       this.setState({ subSers });
-  //     })
-  //     .catch(error => console.log(error));
-  // }
-
-  render() {
-    const { cate } = this.props.match.params;
-    const subSers = [
-      {
-        serviceID: "1",
-        serviceName: "Thay Lọc Gió",
-      },
-      {
-        serviceID: "2",
-        serviceName: "Rửa lọc gió",
-      },
-    ]
-    return (
-      <>
-
-        <section className='shop background'>
-          <div className='container d_flex'>
-            <div className='category'>
-              <div className='chead d_flex'>
-                <h1>Chi Tiết Các Dịch Vụ {cate}</h1>
-              </div>
-              {/* {this.state.subSers.map(subSer =>*/}
-              {subSers.map(subSer =>
-                <Link to={`/provider/serviceAdding/${subSer.serviceName}`}>
-                  <div className='box f_flex' key={subSer.serviceID} >
-                    <img src={"../images/category/cat-2.png"} alt='' />
-                    <span>{subSer.serviceName}</span>
-                  </div>
-                </Link>
-              )}
-            </div>
-            <SliderHome />
-          </div>
-        </section>
-      </>
-    )
+  const loadServices = () => {
+    axios.get(`http://localhost:8081/vingig/provider/${providerID}/providerServices`)
+      .then(res => {
+        const services = res.data;
+        setServices(services);
+      })
+      .catch(error => console.log(error));
   }
+
+  async function deleteService(serviceID) {
+    await axios.delete(`http://localhost:8081/vingig/providerService/${serviceID}`);
+    loadServices();
+  }
+
+  const [seenAdd, setSeenAdd] = useState(false)
+
+  function togglePopAdd() {
+    setSeenAdd(!seenAdd);
+  };
+
+  const [seenEdit, setSeenEdit] = useState(false)
+
+  function togglePopEdit() {
+    setSeenEdit(!seenEdit);
+  };
+
+  return (
+    <>
+      <div className="admin-wrapper">
+        <div className="admin-container">
+          <h2> Service Management</h2>
+          <div className="table-wrapper">
+            <div className="d_flex_add">
+              <button className="btn-green" onClick={togglePopAdd}>Add New Service</button>
+              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadServices={loadServices} /> : null}
+            </div>
+            <br />
+            <table className="fl-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th className="action">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {services.map((service) => (
+                  <tr key={service.proServiceID}>
+                    <td>{service.proServiceID}</td>
+                    <td className="d_flex action">
+                      <button className="btn-green" onClick={() => { togglePopEdit(); setServicesID(service.serviceID) }}>Edit</button>
+                      <button className="btn-primary" onClick={() => deleteService(service.serviceID)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadServices={loadServices} serviceID={serviceID} /> : null}
+          </div>
+        </div>
+      </div >
+    </>
+  )
 }
 
-export default withRouter(Service)
+
+export default Service

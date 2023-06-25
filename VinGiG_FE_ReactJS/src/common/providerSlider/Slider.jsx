@@ -1,5 +1,7 @@
 import React from "react"
 import SlideCard from "./SlideCard"
+import "./slider.css"
+
 
 const SliderHome = () => {
   return (
