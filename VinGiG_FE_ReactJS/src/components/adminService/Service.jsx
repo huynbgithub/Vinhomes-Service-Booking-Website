@@ -13,7 +13,7 @@ function Service() {
   }, [])
 
   const loadServices = () => {
-    axios.get(`http://localhost:8081/vingig/f`)
+    axios.get(`http://localhost:8081/vingig/giGServices`)
       .then(res => {
         const services = res.data;
         setServices(services);

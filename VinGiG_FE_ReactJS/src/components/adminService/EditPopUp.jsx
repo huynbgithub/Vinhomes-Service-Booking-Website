@@ -11,7 +11,7 @@ export default function EditPopUp(props) {
     const [priceMin, setPriceMin] = useState('')
     const [serviceName, setServiceName] = useState('')
     const [unit, setUnit] = useState('')
-    const [catogoryID, setCatogoryID] = useState('')
+    const [categoryID, setCategoryID] = useState('')
     useEffect(() => {
         axios.get(`http://localhost:8081/vingig/giGService/${props.serviceID}`)
             .then(res => {
@@ -19,10 +19,10 @@ export default function EditPopUp(props) {
                 setDescription(service.description);
                 setFee(service.fee);
                 setPriceMax(service.priceMax);
-                setPriceMin(service.serviceName);
-                setServiceName(service.unit);
-                setUnit(service.note);
-                setCatogoryID(service.catogoryID);
+                setPriceMin(service.priceMin);
+                setServiceName(service.serviceName);
+                setUnit(service.unit);
+                setCategoryID(service.categoryID);
             }).catch(error => console.log(error));
     }, []);
     async function handleEdit(e) {
@@ -38,7 +38,7 @@ export default function EditPopUp(props) {
                 priceMin: priceMin,
                 serviceName: serviceName,
                 unit: unit,
-                catogoryID: catogoryID,
+                categoryID: categoryID,
 
             })
             .catch(error => console.log(error));
@@ -76,8 +76,8 @@ export default function EditPopUp(props) {
                         <input type="text" value={unit} onChange={e => setUnit(e.target.value)} />
                     </label>
                     <label>
-                    unit:
-                        <input type="text" value={catogoryID} onChange={e => setCatogoryID(e.target.value)} />
+                    categoryID:
+                        <input type="text" value={categoryID} onChange={e => setCategoryID(e.target.value)} />
                     </label>
 
                     <div className="d_flex_add">
