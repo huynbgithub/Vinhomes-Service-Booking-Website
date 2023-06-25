@@ -53,7 +53,7 @@ function Provider() {
               <thead>
                 <tr>
                 <th>ID</th>
-                  <th>ProviderID</th>
+                  {/* <th>ProviderID</th> */}
                   {/* <th>Active</th> */}
                   <th>Address</th>
                   <th>Avatar</th>
@@ -75,7 +75,7 @@ function Provider() {
                 {providers.map((provider) => (
                   <tr key={provider.providerID}>
                     <td>{provider.providerID}</td>
-                    <td>{provider.providerID}</td>
+                    {/* <td>{provider.providerID}</td> */}
                     {/* <td>{customer.active}</td> */}
                     <td>{provider.address}</td>
                     <td>{provider.avatar}</td>

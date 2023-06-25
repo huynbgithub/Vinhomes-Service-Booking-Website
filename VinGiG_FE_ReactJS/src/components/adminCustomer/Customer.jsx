@@ -53,7 +53,7 @@ function Customer() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>customerID</th>
+                  {/* <th>customerID</th> */}
                   {/* <th>Active</th> */}
                   <th>Address</th>
                   <th>Avatar</th>
@@ -74,7 +74,7 @@ function Customer() {
               <tbody>
                 {customers.map((customer) => (
                   <tr key={customer.customerID}>
-                    <td>{customer.customerID}</td>
+                    {/* <td>{customer.customerID}</td> */}
                     <td>{customer.customerID}</td>
                     {/* <td>{customer.active}</td> */}
                     <td>{customer.address}</td>
