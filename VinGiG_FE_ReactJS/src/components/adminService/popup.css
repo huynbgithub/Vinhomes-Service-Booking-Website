@@ -42,6 +42,14 @@
     margin-bottom: 10px;
 }
 
+.popup-inner select {
+    width: 100%;
+    padding: 10px;
+    /* border-radius: 5px; */
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
 .popup-inner button[type="submit"],
 .popup-inner button[type="button"] {
     background-color: #4CAF50;

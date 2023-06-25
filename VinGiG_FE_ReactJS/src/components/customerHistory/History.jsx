@@ -15,53 +15,15 @@ function History() {
       .catch(error => console.log(error));
   }, []);
 
-  // const histories = [
-  //   {
-  //     id: 7,
-  //     cover: "../images/shops/shops-1.png",
-  //     name: "Trần Văn Hùng",
-  //     price: "180",
-  //     badge: "Nhân viên của tháng",
-  //     qty: 1,
-  //     status: "Completed",
-  //     date: "01/01/2003",
-  //   },
-  //   {
-  //     id: 6,
-  //     cover: "../images/shops/shops-2.png",
-  //     name: "Lê Văn Dũng",
-  //     price: "180",
-  //     badge: "Nhân viên của tháng",
-  //     qty: 2,
-  //     status: "Completed",
-  //     date: "01/01/2003",
-  //   },
-  //   {
-  //     id: 11,
-  //     cover: "../images/shops/shops-2.png",
-  //     name: "Nguyễn Văn A",
-  //     price: "80",
-  //     badge: "Uy tín hàng đầu",
-  //     qty: 1,
-  //     status: "Completed",
-  //     date: "01/01/2003",
-  //   },
-  // ]
-
-  // const totalPrice = histories.reduce((price, item) => price + item.qty * item.price, 0)
-
   return (
     <>
       <section className='cart-items'>
         <div className='container d_flex'>
           <h1> Booking History</h1>
-          {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
           <div className='cart-details'>
             {histories.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
 
-            {/* yasma hami le cart item lai display garaaxa */}
             {histories.map((item) => {
-              const productQty = item.price * item.qty
               var epochTime = item.date;
 
               var dateObj = new Date(epochTime);
@@ -126,7 +88,6 @@ function History() {
                         </button>
                       </div>
                     </div>
-
                   </div>
                 </div>
               )

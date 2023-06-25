@@ -1,6 +1,6 @@
 import "./popup.css"
 import axios from 'axios';
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 export default function AddPopUp(props) {
 
@@ -10,13 +10,13 @@ export default function AddPopUp(props) {
     const [priceMin, setPriceMin] = useState('')
     const [serviceName, setServiceName] = useState('')
     const [unit, setUnit] = useState('')
-    const [catogoryID, setCatogoryID] = useState('')
+    const [categoryID, setCategoryID] = useState('')
 
 
     async function handleAdd(e) {
         e.preventDefault()
         // Code to handle add
-        await axios.post(`http://localhost:8081/giGService/serviceID`,
+        await axios.post(`http://localhost:8081/vingig/serviceCategory/${categoryID}/giGService`,
             {
                 active: true,
                 description: description,
@@ -25,13 +25,26 @@ export default function AddPopUp(props) {
                 priceMin: priceMin,
                 serviceName: serviceName,
                 unit: unit,
-                catogoryID: catogoryID,
-
-
+                categoryID: categoryID,
             })
             .catch(error => console.log(error));
         props.togglePopAdd();
         props.loadServices();
+    }
+
+    const [categorys, setCategorys] = useState([]);
+
+    useEffect(() => {
+        loadCategorys();
+    }, [])
+
+    const loadCategorys = () => {
+        axios.get(`http://localhost:8081/vingig/serviceCategories`)
+            .then(res => {
+                const categorys = res.data;
+                setCategorys(categorys);
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -64,9 +77,15 @@ export default function AddPopUp(props) {
                         <input required type="text" value={unit} onChange={e => setUnit(e.target.value)} />
                     </label>
                     <label>
-                    Category Name:
-                        <input required type="text" value={catogoryID} onChange={e => setCatogoryID(e.target.value)} />
+                        Category Name:
+                        <select required onChange={e => setCategoryID(e.target.value)}>
+                            <option value=""></option>
+                            {categorys.map((category) => (
+                                <option value={category.categoryID}>{category.categoryName}</option>
+                            ))}
+                        </select>
                     </label>
+
 
                     <div className="d_flex_add">
                         <button className="d_flex_add" type="submit">Add</button>
