@@ -58,7 +58,7 @@ const Activity = () => {
                   <div className='cart-details'>
                     <h3>{item.serviceName}</h3>
                     <h4>
-                      customer:
+                      Customer:
                       <span>{item.customerFullName}</span>
                     </h4>
                     <h4>
@@ -88,14 +88,21 @@ const Activity = () => {
                     <div className='cart-items-function'>
                       <div className='removeCart'>
                         <button className='btn-green'>
-                          Chat
+                          Accept
                         </button>
                       </div>
                     </div>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
-                        <button className=''>
-                          Cancel
+                        <button className='btn-primary'>
+                          Decline
+                        </button>
+                      </div>
+                    </div>
+                    <div className='cart-items-function'>
+                      <div className='removeCart'>
+                        <button className='btn-green'>
+                          Chat
                         </button>
                       </div>
                     </div>

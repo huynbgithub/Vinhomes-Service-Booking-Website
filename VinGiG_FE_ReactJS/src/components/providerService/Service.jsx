@@ -53,6 +53,13 @@ function Service() {
               <thead>
                 <tr>
                   <th>ID</th>
+                  <th>Service Name</th>
+                  <th>Unit Price</th>
+                  <th>Rating</th>
+                  <th>Booking No</th>
+                  <th>Badge</th>
+                  <th>Description</th>
+
                   <th className="action">Action</th>
                 </tr>
               </thead>
@@ -60,9 +67,15 @@ function Service() {
                 {services.map((service) => (
                   <tr key={service.proServiceID}>
                     <td>{service.proServiceID}</td>
+                    <td>{service.serviceName}</td>
+                    <td>{service.unitPrice}</td>
+                    <td>{service.rating}</td>
+                    <td>{service.bookingNo}</td>
+                    <td>{service.badgeName}</td>
+                    <td className="max-width">{service.description}</td>
                     <td className="d_flex action">
                       <button className="btn-green" onClick={() => { togglePopEdit(); setServicesID(service.serviceID) }}>Edit</button>
-                      <button className="btn-primary" onClick={() => deleteService(service.serviceID)}>Delete</button>
+                      <button className="btn-primary" onClick={() => deleteService(service.proServiceID)}>Delete</button>
                     </td>
                   </tr>
                 ))}

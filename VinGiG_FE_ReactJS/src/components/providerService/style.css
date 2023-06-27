@@ -23,6 +23,11 @@
     width: 200px;
 }
 
+.max-width {
+    max-width: 100px !important;
+    overflow: hidden;
+}
+
 .admin-container h2 {
     text-align: center;
     font-size: 18px;

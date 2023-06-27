@@ -88,7 +88,7 @@ function History() {
                     </h4>
                   </div>
                   <div className='cart-details'>
-                    <div className='cart-items-function'>
+                    {/* <div className='cart-items-function'>
                       <div className='removeCart'>
                         <button className='btn-primary'>
                           Book Again
@@ -101,7 +101,7 @@ function History() {
                           Review
                         </button>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )
