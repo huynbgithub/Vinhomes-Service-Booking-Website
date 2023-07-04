@@ -2,6 +2,8 @@ import React from "react"
 import "./style.scss"
 import "./vendor.bundle.base.scss"
 import "./typicons.scss"
+import { Helmet } from "react-helmet";
+
 
 export default function Dashboard() {
 
@@ -413,6 +415,16 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      {/* <Helmet>
+        <script src="./vendors/js/vendor.bundle.base.js" type="text/javascript"></script>
+        <script src="./vendors/chart.js/Chart.min.js" type="text/javascript"></script>
+        <script src="./js/off-canvas.js" type="text/javascript"></script>
+        <script src="./js/hoverable-collapse.js" type="text/javascript"></script>
+        <script src="./js/template.js" type="text/javascript"></script>
+        <script src="./js/settings.js" type="text/javascript"></script>
+        <script src="./js/todolist.js" type="text/javascript"></script>
+        <script src="./js/dashboard.js" type="text/javascript"></script>
+      </Helmet> */}
     </div>
   )
 }
