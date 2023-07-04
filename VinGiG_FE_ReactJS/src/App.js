@@ -11,6 +11,7 @@ import Home from "./components/customerPage/Home"
 import Login from "./common/login/Login"
 import Logout from "./common/login/Logout"
 import ServiceProvider from './components/customerService/ServiceProvider';
+import ServiceProviderDetail from './components/customerServiceDetail/ServiceProviderDetail';
 import CustomerAccount from "./components/customerAccount/Account"
 import CustomerHistory from "./components/customerHistory/History"
 import CustomerChat from "./components/customerChat/Chat"
@@ -50,7 +51,12 @@ function App() {
             <ServiceProvider />
             <Footer />
           </Route>
-
+          <CustomerProtectedRoute exact path='/customer/serviceProviderDetail/:serviceProviderID' >
+            <Header />
+            <Categories />
+            <ServiceProviderDetail />
+            <Footer />
+          </CustomerProtectedRoute>
           <Route exact path='/login' >
             <Login />
           </Route>

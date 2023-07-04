@@ -2,21 +2,17 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import "./style.css"
 import { useParams } from "react-router-dom"
-import BookPopUp from "./BookPopUp"
-import DesPopUp from "./DesPopUp"
 import { NumericFormat } from "react-number-format"
+import { Link } from 'react-router-dom';
 
 function ServiceProvider() {
+
 
   const { serviceID } = useParams();
 
   const [providers, setProviders] = useState([]);
 
   const [service, setService] = useState({});
-
-  const [unitPrice, setUnitPrice] = useState("");
-
-  const [proServiceID, setProServiceID] = useState("");
 
   useEffect(() => {
     loadProviders();
@@ -42,16 +38,9 @@ function ServiceProvider() {
       .catch(error => console.log(error));
   }
 
-  const [seenDes, setSeenDes] = useState(false)
-
-  function togglePopDes() {
-    setSeenDes(!seenDes);
-  };
-  const [seenBook, setSeenBook] = useState(false)
-
-  function togglePopBook() {
-    setSeenBook(!seenBook);
-  };
+  localStorage.setItem("categoryName", service.categoryName);
+  localStorage.setItem("serviceName", service.serviceName);
+  localStorage.setItem("serviceID", serviceID);
 
   return (
     <>
@@ -97,19 +86,18 @@ function ServiceProvider() {
 
                       </div>
                       <div className=''>
-                        <h4>{sProvider.bookingNo} Past Bookings</h4>
+                        <h4>{sProvider.bookingNo} Bookings</h4>
                       </div>
-                      <button className="underline" onClick={() => { togglePopDes(); setProServiceID(sProvider.proServiceID) }}><h3>Description</h3></button>
                       <div className="text-right">
-                        <button className='btn-green' onClick={() => { togglePopBook(); setProServiceID(sProvider.proServiceID); setUnitPrice(sProvider.unitPrice) }}>Book</button>
+                        <Link to={`/customer/serviceProviderDetail/${sProvider.proServiceID}`}>
+                          <button className='btn-green'>Detail</button>
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            {seenDes ? <DesPopUp togglePopDes={togglePopDes} proServiceID={proServiceID} /> : null}
-            {seenBook ? <BookPopUp togglePopBook={togglePopBook} proServiceID={proServiceID} unitPrice={unitPrice} /> : null}
           </div>
         </div>
       </section>

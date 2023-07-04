@@ -59,6 +59,12 @@ body {
   margin: 0 6em 0 10em;
 }
 
+.s-setting {
+  margin-bottom: 50px;
+  margin-right: 6em;
+  margin-left: 10em;
+}
+
 a {
   text-decoration: none;
   color: black;
