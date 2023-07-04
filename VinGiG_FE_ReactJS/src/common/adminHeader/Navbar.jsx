@@ -46,6 +46,9 @@ function Navbar() {
                 <Link to='/admin/subscriptionPlan'>Subscription Plan</Link>
               </li>
               <li>
+                <Link to='/admin/dashboard'>Dashboard</Link>
+              </li>
+              <li>
                 <Link to='/logout'>Logout</Link>
               </li>
 

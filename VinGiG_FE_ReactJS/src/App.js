@@ -24,6 +24,7 @@ import AdminService from './components/adminService/Service';
 import AdminCustomer from './components/adminCustomer/Customer';
 import AdminProvider from './components/adminProvider/Provider';
 import AdminSubscriptionPlan from './components/adminSubscriptionPlan/SubscriptionPlan';
+import AdminDashboard from './components/adminDashboard/Dashboard';
 import ProviderPage from './components/providerPage/Home';
 import ProviderAccount from "./components/providerAccount/Account"
 import ProviderWallet from "./components/providerWallet/Wallet"
@@ -121,6 +122,11 @@ function App() {
           <Route exact path='/admin/subscriptionPlan'>
             <AdminHeader />
             <AdminSubscriptionPlan />
+            <Footer />
+          </Route>
+          <Route exact path='/admin/dashboard'>
+            <AdminHeader />
+            <AdminDashboard/>
             <Footer />
           </Route>
           <ProviderProtectedRoute exact path='/provider'>
