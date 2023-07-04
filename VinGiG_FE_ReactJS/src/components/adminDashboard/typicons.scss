@@ -2,23 +2,22 @@
   // @charset 'UTF-8';
  
 /* @FONT-FACE loads font into browser */
-// @font-face {
-//   font-family: 'typicons';
-//   font-weight: normal;
-//   font-style: normal;
-//   src: url('typicons.eot');
-//   src: url('typicons.eot?#iefix') format('embedded-opentype'),
-//        url('typicons.woff') format('woff'),
-//        url('typicons.ttf') format('truetype'),
-//        url('typicons.svg#typicons') format('svg');
-// }
+@font-face {
+  font-family: 'typicons';
+  font-weight: normal;
+  font-style: normal;
+  src: url('typicons.eot');
+  src: url('typicons.eot?#iefix') format('embedded-opentype'),
+       url('typicons.woff') format('woff'),
+       url('typicons.ttf') format('truetype'),
+       url('typicons.svg#typicons') format('svg');
+}
  
 /* :before psuedo-selector inserts and styles icon */
 .typcn:before {
   font-family: 'typicons';
   font-style: normal;
   font-weight: normal;
-  speak: none;
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
@@ -26,7 +25,6 @@
   font-size: 1em;
   text-align: center;
   -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
  

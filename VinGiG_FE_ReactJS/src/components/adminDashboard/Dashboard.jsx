@@ -3,7 +3,6 @@ import "./style.scss"
 import "./vendor.bundle.base.scss"
 import "./typicons.scss"
 
-
 export default function Dashboard() {
 
   return (
