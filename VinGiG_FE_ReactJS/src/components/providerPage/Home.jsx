@@ -1,5 +1,5 @@
 import React from "react"
-import SliderHome from "../../common/customerSlider/Slider"
+import SliderHome from "../../common/providerSlider/Slider"
 
 
 
