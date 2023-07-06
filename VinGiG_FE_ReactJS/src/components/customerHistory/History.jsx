@@ -1,4 +1,3 @@
-import "./style.css"
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
 import { NumericFormat } from "react-number-format"
@@ -49,7 +48,7 @@ function History() {
               return (
                 <div className='cart-list product d_flex' key={item.id}>
                   <div className='cart-details'>
-                    <div className='img'>
+                    <div className='img-c'>
                       <img src={item.image} alt='' />
                     </div>
                   </div>

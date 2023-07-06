@@ -25,6 +25,7 @@ function ChatBox({ bookingID }) {
                 sendBy: false,
             }).catch(error => console.log(error));
         loadMessages();
+        setContent("");
     }
     return (
         <div className="chat">
@@ -96,7 +97,7 @@ function ChatBox({ bookingID }) {
                     <input type="text" className="form-control" value={content} placeholder="Enter text here..." onChange={(event) => { setContent(event.target.value); }} />
                     {/* <input type="hidden" className="form-control" value={bookingID} placeholder="Enter text here..." onChange={(event) => { setBookingID(event.target.value); }} /> */}
                     <div className="input-group-prepend" >
-                        <button type="submit" className="input-group-text"><i className="fa fa-send" /></button>
+                        <button type="submit" className="input-group-text btn-green"><i className="fa fa-send" /></button>
                     </div>
                 </form>
             </div>

@@ -14,10 +14,8 @@ function ProviderAccount() {
 
         <div className='account_info product'>
           <h2>Avatar</h2>
-          <div className=' d_flex'>
-            <h4>
-              {providerSession.avatar}
-            </h4>
+          <div className='img-a d_flex'>
+            <img src={providerSession.avatar} alt="" />
           </div>
         </div>
         <div className='account_info product'>

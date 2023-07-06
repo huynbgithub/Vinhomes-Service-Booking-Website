@@ -41,9 +41,9 @@ function Chat() {
                                             className={`clearfix ${selectedBookingID === booking.bookingID ? 'active' : ''}`}
                                             onClick={() => handleBookingClick(booking.bookingID)}
                                         >
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" />
+                                            <img src={booking.customerAvatar} alt="avatar" />
                                             <div className="about">
-                                                <div className="name">{booking.fullName}</div>
+                                                <div className="name">{booking.customerFullName}</div>
                                                 <div className="status">{booking.serviceName}</div>
                                             </div>
                                         </li>

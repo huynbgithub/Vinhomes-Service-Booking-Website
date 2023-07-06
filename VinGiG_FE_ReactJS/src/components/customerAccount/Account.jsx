@@ -1,6 +1,4 @@
 import React from "react"
-import "./style.css"
-
 
 function CustomerAccount() {
 
@@ -14,10 +12,8 @@ function CustomerAccount() {
 
         <div className='account_info product'>
           <h2>Avatar</h2>
-          <div className=' d_flex'>
-            <h4>
-              {customerSession.avatar}
-            </h4>
+          <div className='img-a d_flex'>
+            <img src={customerSession.avatar} alt="" />
           </div>
         </div>
         <div className='account_info product'>

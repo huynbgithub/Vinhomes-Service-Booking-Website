@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import "./style.css"
 import axios from 'axios';
 import ChatBox from "./ChatBox";
 
@@ -41,9 +40,9 @@ function Chat() {
                                             className={`clearfix ${selectedBookingID === booking.bookingID ? 'active' : ''}`}
                                             onClick={() => handleBookingClick(booking.bookingID)}
                                         >
-                                            <img src={booking.avatar} alt="avatar" />
+                                            <img src={booking.providerAvatar} alt="avatar" />
                                             <div className="about">
-                                                <div className="name">{booking.fullName}</div>
+                                                <div className="name">{booking.providerFullName}</div>
                                                 <div className="status">{booking.serviceName}</div>
                                             </div>
                                         </li>

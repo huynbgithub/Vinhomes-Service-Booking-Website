@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import "./style.css"
 import axios from 'axios';
 
 function ChatBox({ bookingID }) {
@@ -25,28 +24,10 @@ function ChatBox({ bookingID }) {
                 sendBy: true,
             }).catch(error => console.log(error));
         loadMessages();
+        setContent("");
     }
     return (
         <div className="chat">
-            {/* <div className="chat-header clearfix">
-                <div className="row">
-                    <div className="col-lg-6">
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" />
-                        </a>
-                        <div className="chat-about">
-                            <h6 className="m-b-0">Aiden Chavez</h6>
-                            <small>Last seen: 2 hours ago</small>
-                        </div>
-                    </div>
-                     <div className="col-lg-6 hidden-sm text-right">
-                <a href="javascript:void(0);" className="btn btn-outline-secondary"><i className="fa fa-camera" /></a>
-                <a href="javascript:void(0);" className="btn btn-outline-primary"><i className="fa fa-image" /></a>
-                <a href="javascript:void(0);" className="btn btn-outline-info"><i className="fa fa-cogs" /></a>
-                <a href="javascript:void(0);" className="btn btn-outline-warning"><i className="fa fa-question" /></a>
-            </div> 
-                </div>
-            </div>*/}
             <div className="chat-history">
                 <ul className="m-b-0">
                     {messages.map(message => {
@@ -94,9 +75,8 @@ function ChatBox({ bookingID }) {
             <div className="chat-message clearfix">
                 <form className="input-group mb-0 inputContainer" onSubmit={(event) => send(event)}>
                     <input type="text" className="form-control" value={content} placeholder="Enter text here..." onChange={(event) => { setContent(event.target.value); }} />
-                    {/* <input type="hidden" className="form-control" value={bookingID} placeholder="Enter text here..." onChange={(event) => { setBookingID(event.target.value); }} /> */}
                     <div className="input-group-prepend" >
-                        <button type="submit" className="input-group-text"><i className="fa fa-send" /></button>
+                        <button type="submit" className="input-group-text btn-green"><i className="fa fa-send" /></button>
                     </div>
                 </form>
             </div>

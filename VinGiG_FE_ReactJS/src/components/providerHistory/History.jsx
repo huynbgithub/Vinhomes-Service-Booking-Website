@@ -49,7 +49,7 @@ function History() {
               return (
                 <div className='cart-list product d_flex' key={item.id}>
                   <div className='cart-details'>
-                    <div className='img'>
+                    <div className='img-c'>
                       <img src={item.image} alt='' />
                     </div>
                   </div>

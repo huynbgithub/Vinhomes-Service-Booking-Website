@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
-// import "./style.css"
 import { NumericFormat } from "react-number-format"
 
 const Activity = () => {
@@ -50,7 +49,7 @@ const Activity = () => {
               return (
                 <div className='cart-list product d_flex' key={item.id}>
                   <div className='cart-details'>
-                    <div className='img'>
+                    <div className='img-c'>
                       <img src={item.image} alt='' />
                     </div>
                   </div>

@@ -24,15 +24,10 @@
   margin-top: 30px;
 }
 
-.cart-items .img {
-  width: 150px;
-  height: 150px;
-}
-
-.cart-items img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.img-a img {
+  margin: 0 auto;
+  width: 150px !important;
+  height: 150px !important;
 }
 
 .cart-items .cart-details h3 {

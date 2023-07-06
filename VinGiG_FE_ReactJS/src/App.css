@@ -166,6 +166,14 @@ button {
   border-radius: 5px;
 }
 
+.btn-cancel {
+  background: rgb(160, 160, 160);
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+}
+
 .top {
   margin-top: 80px;
 }
