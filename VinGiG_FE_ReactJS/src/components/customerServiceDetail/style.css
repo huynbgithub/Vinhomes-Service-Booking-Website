@@ -1,7 +1,7 @@
 .image-format img {
     margin-top: 35px;
     width: 400px;
-    height: auto;
+    height: 300px;
 }
 
 .link-bar {
@@ -13,6 +13,25 @@
     margin-top: 50px;
 }
 
-.img-Huy img {
+.img-k img {
     width: 100%;
+    height: 250px;
+}
+
+.mg-bot {
+    padding-bottom: 5px;
+}
+
+.reviews-container {
+    overflow: hidden;
+}
+
+.reviews-wrapper {
+    overflow-y: auto;
+    height: 135px;
+}
+
+.icon-H {
+    font-size: 15px;
+    color: #ffcd4e;
 }

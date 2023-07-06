@@ -34,6 +34,7 @@ export default function ServiceDetail() {
 
   const { serviceProviderID } = useParams();
   const [providers, setProviders] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [pService, setPService] = useState({});
   const [unitPrice, setUnitPrice] = useState("");
   const [proServiceID, setProServiceID] = useState("");
@@ -52,8 +53,9 @@ export default function ServiceDetail() {
   }
 
   useEffect(() => {
-    loadProviders();
     getProviderService();
+    loadReviews();
+    loadRelatedProviders();
   },
     [serviceProviderID]);
 
@@ -66,7 +68,16 @@ export default function ServiceDetail() {
       .catch(error => console.log(error));
   }
 
-  function loadProviders() {
+  function loadReviews() {
+    axios.get(`http://localhost:8081/vingig/providerService/${serviceProviderID}/bookings/reviews`)
+      .then(res => {
+        const reviews = res.data;
+        setReviews(reviews);
+      })
+      .catch(error => console.log(error));
+  }
+
+  function loadRelatedProviders() {
     axios.get(`http://localhost:8081/vingig/giGService/${serviceID}/providerServices`)
       .then(res => {
         const providers = res.data;
@@ -79,8 +90,13 @@ export default function ServiceDetail() {
     setSeenBook(!seenBook);
   };
 
+  function handleDetailButtonClick() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   return (
     <>
+      {/* Detail */}
       <div className='link-bar'>
         <h3>VinGiG/ {categoryName}/ {serviceName}/ {pService.fullName}
         </h3>
@@ -126,6 +142,36 @@ export default function ServiceDetail() {
           </section>
         </div>
       </section>
+      {/* End Detail */}
+      {/* Review */}
+      <section className='s-setting'>
+        <div className='container d_flex'>
+          <section className='homeSlide contentWidth'>
+            <div className='container'>
+              <div className='cart-details'>
+                <div className='heading f_flex'>
+                  <i className='fa fa-bolt'></i>
+                  <h3>Reviews</h3>
+                </div>
+                <div className='reviews-container'>
+                  <div className='reviews-wrapper'>
+                    {reviews.map((review) => (
+                      <div className='product mg-bot' key={review.id}>
+                        <h4>
+                          {review.customerFullName} &nbsp;<i className='icon-H fa fa-star'></i>{review.customersRating}
+                        </h4>
+                        <p>{review.customersReview}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      {/* End Review */}
+      {/* Related Providers */}
       <section className='flash'>
         <div className='container'>
           <div className='heading f_flex'>
@@ -136,13 +182,9 @@ export default function ServiceDetail() {
             {providers.map((sProvider) => (
               <div className='box'>
                 <div className='product mtop'>
-                  <div className='img img-Huy'>
+                  <div className='img img-k'>
                     <span className='discount'>{sProvider.badgeName}</span>
                     <img src={sProvider.link} alt='' />
-                    {/* <div className='product-like'>
-                      <label>{count}</label> <br />
-                      <i className='fa-regular fa-heart' onClick={increment}></i>
-                    </div> */}
                   </div>
                   <div className='product-details'>
                     <h4>{sProvider.fullName}</h4>
@@ -159,7 +201,9 @@ export default function ServiceDetail() {
                     </div>
                     <div className="text-right">
                       <Link to={`/customer/serviceProviderDetail/${sProvider.proServiceID}`}>
-                        <button className='btn-green'>Detail</button>
+                        <button className='btn-green' onClick={() => { handleDetailButtonClick(); }}>
+                          Detail
+                        </button>
                       </Link>
                     </div>
                   </div>
