@@ -6,14 +6,24 @@ const Activity = () => {
 
   const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
   const [histories, setHistories] = useState([]);
+
   useEffect(() => {
+    loadActs();
+  }, []);
+
+  function loadActs() {
     axios.get(`http://localhost:8081/vingig/provider/${providerID}/bookings/currentActivity`)
       .then(res => {
         const histories = res.data;
         setHistories(histories);
       })
       .catch(error => console.log(error));
-  }, []);
+  }
+
+  async function actionAct(proServiceID, bookingID, action, total) {
+    await axios.put(`http://localhost:8081/vingig/providerService/${proServiceID}/booking/${bookingID}/action/${action}/total/${total}`);
+    loadActs();
+  }
 
   return (
     <>
@@ -23,7 +33,7 @@ const Activity = () => {
           <div className='cart-details'>
             {histories.length === 0 && <h1 className='no-items product'>No Current Booking</h1>}
 
-            {histories.map((item) => {
+            {histories.slice().reverse().map((item) => {
               var epochTime = item.date;
 
               var dateObj = new Date(epochTime);
@@ -63,7 +73,7 @@ const Activity = () => {
                     <h4>
                       Status:
                       <span>
-                        {item.status == 0 ? "Not Accepted" : item.status == 1 ? "Accepted" : "Completed"}
+                        {item.status == 0 ? "Pending" : "Accepted"}
                       </span>
                     </h4>
                     <h4>
@@ -84,27 +94,43 @@ const Activity = () => {
                     </h4>
                   </div>
                   <div className='cart-details'>
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-green'>
-                          Accept
-                        </button>
-                      </div>
-                    </div>
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-primary'>
-                          Decline
-                        </button>
-                      </div>
-                    </div>
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-green'>
-                          Chat
-                        </button>
-                      </div>
-                    </div>
+                    {item.status != 0 ?
+                      <>
+                        <div className='cart-items-function'>
+                          <div className='removeCart'>
+                            <button className='btn-primary' onClick={() => actionAct(item.proServiceID, item.bookingID, "complete", 0)}>
+                              Complete
+                            </button>
+                          </div>
+                          <div className='removeCart'>
+                            <button className='btn-green'>
+                              Chat
+                            </button>
+                          </div>
+                          <div className='removeCart'>
+                            <button className='btn-cancel' onClick={() => actionAct(item.proServiceID, item.bookingID, "cancel", 0)}>
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </> :
+                      <>
+                        <div className='cart-items-function'>
+                          <div className='removeCart'>
+                            <button className='btn-green' onClick={() => actionAct(item.proServiceID, item.bookingID, "accept", 0)}>
+                              Accept
+                            </button>
+                          </div>
+                        </div>
+                        <div className='cart-items-function'>
+                          <div className='removeCart'>
+                            <button className='btn-primary' onClick={() => actionAct(item.proServiceID, item.bookingID, "decline", 0)}>
+                              Decline
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    }
                   </div>
                 </div>
               )

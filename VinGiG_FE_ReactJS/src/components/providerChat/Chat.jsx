@@ -35,7 +35,7 @@ function Chat() {
                                     <input type="text" className="form-control" placeholder="Search..." />
                                 </div> */}
                                 <ul className="list-unstyled chat-list mt-2 mb-0">
-                                    {bookings.map(booking => (
+                                    {bookings.slice().reverse().map(booking => (
                                         <li
                                             key={booking.bookingID}
                                             className={`clearfix ${selectedBookingID === booking.bookingID ? 'active' : ''}`}

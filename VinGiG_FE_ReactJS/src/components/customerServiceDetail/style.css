@@ -22,13 +22,17 @@
     padding-bottom: 5px;
 }
 
+.mg-top {
+    margin-top: 5px;
+}
+
 .reviews-container {
     overflow: hidden;
 }
 
 .reviews-wrapper {
     overflow-y: auto;
-    height: 135px;
+    height: 250px;
 }
 
 .icon-H {

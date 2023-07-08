@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
 import { NumericFormat } from "react-number-format"
+import { Link } from 'react-router-dom';
+import EditPopUp from "./EditPopUp"
 
 function History() {
   const customerID = JSON.parse(localStorage.getItem("accessToken")).customerID;
   const [histories, setHistories] = useState([]);
+  const [bookingID, setBookingID] = useState("");
   useEffect(() => {
     axios.get(`http://localhost:8081/vingig/customer/${customerID}/bookings/history/{dateMin}/{dateMax}`)
       .then(res => {
@@ -14,6 +17,15 @@ function History() {
       .catch(error => console.log(error));
   }, []);
 
+  const handleBookAgainClick = () => {
+    window.scrollTo(0, 0);
+  };
+  const [seenEdit, setSeenEdit] = useState(false)
+
+  function togglePopEdit() {
+    setSeenEdit(!seenEdit);
+  };
+
   return (
     <>
       <section className='cart-items'>
@@ -22,7 +34,7 @@ function History() {
           <div className='cart-details'>
             {histories.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
 
-            {histories.map((item) => {
+            {histories.slice().reverse().map((item) => {
               var epochTime = item.date;
 
               var dateObj = new Date(epochTime);
@@ -62,7 +74,7 @@ function History() {
                     <h4>
                       Status:
                       <span>
-                        {item.status == 0 ? "Not Accepted" : item.status == 1 ? "Accepted" : "Completed"}
+                        {item.status == 2 ? "Completed" : item.status == 3 ? "Declined" : "Cancelled"}
                       </span>
                     </h4>
                     <h4>
@@ -89,14 +101,16 @@ function History() {
                   <div className='cart-details'>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
-                        <button className='btn-primary'>
-                          Book Again
-                        </button>
+                        <Link to={`/customer/serviceProviderDetail/${item.proServiceID}`}>
+                          <button className='btn-primary' onClick={handleBookAgainClick}>
+                            Book Again
+                          </button>
+                        </Link>
                       </div>
                     </div>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
-                        <button className='btn-green'>
+                        <button className='btn-green' onClick={() => { togglePopEdit(); setBookingID(item.bookingID) }}>
                           Review
                         </button>
                       </div>
@@ -105,6 +119,7 @@ function History() {
                 </div>
               )
             })}
+            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} bookingID={bookingID} /> : null}
           </div>
 
           <div className='cart-total product'>

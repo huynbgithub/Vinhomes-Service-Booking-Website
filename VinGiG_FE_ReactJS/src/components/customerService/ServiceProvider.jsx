@@ -68,7 +68,7 @@ function ServiceProvider() {
                 <div className='box'>
                   <div className='product mtop'>
                     <div className='img'>
-                      <span className='discount'>{sProvider.badgeName}</span>
+                      {sProvider.badgeName != "Non" ? <span className='discount'>{sProvider.badgeName}</span> : <></>}
                       <img src={sProvider.link} alt='' />
                       {/* <div className='product-like'>
                       <label>{count}</label> <br />
@@ -76,7 +76,7 @@ function ServiceProvider() {
                     </div> */}
                     </div>
                     <div className='product-details'>
-                      <h4>{sProvider.fullName}</h4>
+                      <h3>{sProvider.fullName}</h3>
                       <div className='rate'>
                         <i className='fa fa-star'></i>
                         {sProvider.rating}
@@ -86,7 +86,7 @@ function ServiceProvider() {
 
                       </div>
                       <div className=''>
-                        <h4>{sProvider.bookingNo} Bookings</h4>
+                        <p>{sProvider.bookingNo} Bookings</p>
                       </div>
                       <div className="text-right">
                         <Link to={`/customer/serviceProviderDetail/${sProvider.proServiceID}`}>

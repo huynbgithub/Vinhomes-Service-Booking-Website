@@ -158,7 +158,10 @@ export default function ServiceDetail() {
                     {reviews.map((review) => (
                       <div className='product mg-bot' key={review.id}>
                         <h4>
-                          {review.customerFullName} &nbsp;<i className='icon-H fa fa-star'></i>{review.customersRating}
+                          {review.customerFullName} &nbsp;
+                          {Array.from({ length: review.customersRating }, (_, index) => (
+                            <i className='icon-H fa fa-star' key={index}></i>
+                          ))}
                         </h4>
                         <p>{review.customersReview}</p>
                       </div>
@@ -183,7 +186,7 @@ export default function ServiceDetail() {
               <div className='box'>
                 <div className='product mtop'>
                   <div className='img img-k'>
-                    <span className='discount'>{sProvider.badgeName}</span>
+                    {sProvider.badgeName != "Non" ? <span className='discount'>{sProvider.badgeName}</span> : <></>}
                     <img src={sProvider.link} alt='' />
                   </div>
                   <div className='product-details'>
@@ -197,7 +200,7 @@ export default function ServiceDetail() {
 
                     </div>
                     <div className=''>
-                      <h4>{sProvider.bookingNo} Bookings</h4>
+                      <p>{sProvider.bookingNo} Bookings</p>
                     </div>
                     <div className="text-right">
                       <Link to={`/customer/serviceProviderDetail/${sProvider.proServiceID}`}>

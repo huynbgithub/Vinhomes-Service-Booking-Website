@@ -9,6 +9,39 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.rr {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #939fde;
+    margin-bottom: 10px;
+    font-size: small;
+}
+
+.icon-J {
+    font-size: 15px;
+    color: #e6e4e1;
+}
+
+.star-rating {
+    color: #ffcc00;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.star-rating i {
+    transition: color 0.3s;
+}
+
+.star-rating i:hover {
+    color: #ffcc00;
+}
+
+.star-rating i.selected {
+    color: #ffcc00;
+}
+
+
 .popup-inner {
     background-color: white;
     position: absolute;
@@ -37,7 +70,7 @@
 .popup-inner input {
     width: 100%;
     padding: 10px;
-    /* border-radius: 5px; */
+    border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 10px;
 }

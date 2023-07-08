@@ -17,8 +17,9 @@ const Activity = () => {
       })
       .catch(error => console.log(error));
   }
-  async function deleteAct(bookingID) {
-    await axios.delete(`http://localhost:8081/vingig/booking/${bookingID}`);
+
+  async function actionAct(proServiceID, bookingID, action, total) {
+    await axios.put(`http://localhost:8081/vingig/providerService/${proServiceID}/booking/${bookingID}/action/${action}/total/${total}`);
     loadActs();
   }
 
@@ -30,7 +31,7 @@ const Activity = () => {
           <div className='cart-details'>
             {histories.length === 0 && <h1 className='no-items product'>No Current Booking</h1>}
 
-            {histories.map((item) => {
+            {histories.slice().reverse().map((item) => {
               var epochTime = item.date;
 
               var dateObj = new Date(epochTime);
@@ -70,7 +71,7 @@ const Activity = () => {
                     <h4>
                       Status:
                       <span>
-                        {item.status == 0 ? "Not Accepted" : item.status == 1 ? "Accepted" : "Completed"}
+                        {item.status == 0 ? "Pending" : "Accepted"}
                       </span>
                     </h4>
                     <h4>
@@ -91,20 +92,22 @@ const Activity = () => {
                     </h4>
                   </div>
                   <div className='cart-details'>
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-green'>
-                          Chat
-                        </button>
+                    {item.status != 0 ?
+                      <div className='cart-items-function'>
+                        <div className='removeCart'>
+                          <button className='btn-green'>
+                            Chat
+                          </button>
+                        </div>
+                      </div> :
+                      <div className='cart-items-function'>
+                        <div className='removeCart'>
+                          <button className='btn-cancel' onClick={() => actionAct(item.proServiceID, item.bookingID, "cancel", 0)}>
+                            Cancel
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <div className='cart-items-function'>
-                      <div className='removeCart'>
-                        <button className='btn-cancel' onClick={() => deleteAct(item.bookingID)}>
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
+                    }
                   </div>
                 </div>
               )
