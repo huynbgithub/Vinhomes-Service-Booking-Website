@@ -126,7 +126,7 @@ function App() {
           </Route>
           <Route exact path='/admin/dashboard'>
             <AdminHeader />
-            <AdminDashboard/>
+            <AdminDashboard />
             <Footer />
           </Route>
           <ProviderProtectedRoute exact path='/provider'>

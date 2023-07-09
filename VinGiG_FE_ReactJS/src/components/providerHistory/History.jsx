@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import axios from 'axios';
 import { NumericFormat } from "react-number-format"
 import EditPopUp from "./EditPopUp"
+import { Link } from 'react-router-dom';
 
 function History() {
   const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
@@ -96,6 +97,15 @@ function History() {
                     </h4>
                   </div>
                   <div className='cart-details'>
+                    <div className='cart-items-function'>
+                      <div className='removeCart'>
+                        <Link to='/provider/chat'>
+                          <button className='btn-primary' onClick={() => { localStorage.setItem("pChatBookingID", item.bookingID) }}>
+                            Chat
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
                     <div className='cart-items-function'>
                       <div className='removeCart'>
                         <button className='btn-green' onClick={() => { togglePopEdit(); setBookingID(item.bookingID) }}>

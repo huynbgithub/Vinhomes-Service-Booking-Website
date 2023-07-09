@@ -5,9 +5,11 @@ import ChatBox from "./ChatBox";
 function Chat() {
 
     const customerID = JSON.parse(localStorage.getItem("accessToken")).customerID;
+    const chatBookingID = localStorage.getItem("chatBookingID");
 
     const [bookings, setBookings] = useState([]);
-    const [selectedBookingID, setSelectedBookingID] = useState(null);
+    const [selectedBookingID, setSelectedBookingID] = useState(chatBookingID);
+
     const handleBookingClick = (bookingID) => {
         setSelectedBookingID(bookingID);
     };
@@ -18,7 +20,8 @@ function Chat() {
                 setBookings(bookings);
             })
             .catch(error => console.log(error));
-    }, []);
+    }
+        , []);
     return (
         <>
             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -31,7 +34,7 @@ function Chat() {
                                     {bookings.slice().reverse().map(booking => (
                                         <li
                                             key={booking.bookingID}
-                                            className={`clearfix ${selectedBookingID === booking.bookingID ? 'active' : ''}`}
+                                            className={`clearfix ${selectedBookingID == booking.bookingID ? 'active' : ''}`}
                                             onClick={() => handleBookingClick(booking.bookingID)}
                                         >
                                             <img src={booking.providerAvatar} alt="avatar" />

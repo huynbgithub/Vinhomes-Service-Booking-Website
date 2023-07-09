@@ -115,6 +115,15 @@ function History() {
                         </button>
                       </div>
                     </div>
+                    <div className='cart-items-function'>
+                      <div className='removeCart'>
+                        <Link to='/customer/chat'>
+                          <button className='btn-primary' onClick={() => { localStorage.setItem("chatBookingID", item.bookingID) }}>
+                            Chat
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )

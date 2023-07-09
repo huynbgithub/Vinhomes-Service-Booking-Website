@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
 import { NumericFormat } from "react-number-format"
+import { Link } from 'react-router-dom';
 
 const Activity = () => {
 
@@ -23,6 +24,14 @@ const Activity = () => {
   async function actionAct(proServiceID, bookingID, action, total) {
     await axios.put(`http://localhost:8081/vingig/providerService/${proServiceID}/booking/${bookingID}/action/${action}/total/${total}`);
     loadActs();
+  }
+
+  async function sendMessage(bookingID) {
+    await axios.post(`http://localhost:8081/vingig/booking/${bookingID}/bookingMessage`,
+      {
+        content: "Xin chào quý cư dân!",
+        sendBy: false,
+      }).catch(error => console.log(error));
   }
 
   return (
@@ -103,9 +112,11 @@ const Activity = () => {
                             </button>
                           </div>
                           <div className='removeCart'>
-                            <button className='btn-green'>
-                              Chat
-                            </button>
+                            <Link to='/provider/chat'>
+                              <button className='btn-green' onClick={() => { localStorage.setItem("pChatBookingID", item.bookingID) }}>
+                                Chat
+                              </button>
+                            </Link>
                           </div>
                           <div className='removeCart'>
                             <button className='btn-cancel' onClick={() => actionAct(item.proServiceID, item.bookingID, "cancel", 0)}>
@@ -117,7 +128,7 @@ const Activity = () => {
                       <>
                         <div className='cart-items-function'>
                           <div className='removeCart'>
-                            <button className='btn-green' onClick={() => actionAct(item.proServiceID, item.bookingID, "accept", 0)}>
+                            <button className='btn-green' onClick={() => { actionAct(item.proServiceID, item.bookingID, "accept", 0); sendMessage(item.bookingID) }}>
                               Accept
                             </button>
                           </div>

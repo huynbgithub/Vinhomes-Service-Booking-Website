@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
 import { NumericFormat } from "react-number-format"
+import { Link } from 'react-router-dom';
 
 const Activity = () => {
 
@@ -95,9 +96,11 @@ const Activity = () => {
                     {item.status != 0 ?
                       <div className='cart-items-function'>
                         <div className='removeCart'>
-                          <button className='btn-green'>
-                            Chat
-                          </button>
+                          <Link to='/customer/chat'>
+                            <button className='btn-green' onClick={() => { localStorage.setItem("chatBookingID", item.bookingID) }}>
+                              Chat
+                            </button>
+                          </Link>
                         </div>
                       </div> :
                       <div className='cart-items-function'>

@@ -6,9 +6,10 @@ import ChatBox from "./ChatBox";
 function Chat() {
 
     const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
+    const chatBookingID = localStorage.getItem("pChatBookingID");
 
     const [bookings, setBookings] = useState([]);
-    const [selectedBookingID, setSelectedBookingID] = useState(null);
+    const [selectedBookingID, setSelectedBookingID] = useState(chatBookingID);
     const handleBookingClick = (bookingID) => {
         setSelectedBookingID(bookingID);
     };
@@ -35,10 +36,10 @@ function Chat() {
                                     <input type="text" className="form-control" placeholder="Search..." />
                                 </div> */}
                                 <ul className="list-unstyled chat-list mt-2 mb-0">
-                                    {bookings.slice().reverse().map(booking => (
+                                    {bookings.map(booking => (
                                         <li
                                             key={booking.bookingID}
-                                            className={`clearfix ${selectedBookingID === booking.bookingID ? 'active' : ''}`}
+                                            className={`clearfix ${selectedBookingID == booking.bookingID ? 'active' : ''}`}
                                             onClick={() => handleBookingClick(booking.bookingID)}
                                         >
                                             <img src={booking.customerAvatar} alt="avatar" />

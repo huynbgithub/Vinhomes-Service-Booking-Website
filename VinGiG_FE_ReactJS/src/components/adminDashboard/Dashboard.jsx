@@ -2,7 +2,7 @@ import React from "react"
 import "./style.scss"
 import "./vendor.bundle.base.scss"
 import "./typicons.scss"
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 
 export default function Dashboard() {
