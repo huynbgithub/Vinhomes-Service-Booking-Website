@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
+import {over} from 'stompjs';
+import SockJS from 'sockjs-client';
+
+var stompClient =null;
 
 function ChatBox({ bookingID }) {
     const [content, setContent] = useState("");
@@ -7,7 +11,9 @@ function ChatBox({ bookingID }) {
     const [messages, setMessages] = useState([]);
     useEffect(() => {
         loadMessages();
+        connect();
     }, [bookingID]);
+
     function loadMessages() {
         axios.get(`http://localhost:8081/vingig/booking/${bookingID}/bookingMessage`)
             .then(res => {
@@ -20,12 +26,48 @@ function ChatBox({ bookingID }) {
         event.preventDefault();
         await axios.post(`http://localhost:8081/vingig/booking/${bookingID}/bookingMessage`,
             {
+                bookingID: bookingID,
                 content: content,
                 sendBy: true,
             }).catch(error => console.log(error));
-        loadMessages();
-        setContent("");
+
+        if (stompClient) {
+            var chatMessage = {
+              bookingID: bookingID,
+              sendBy: true,
+              content: content,        
+            };
+            console.log(chatMessage);
+            stompClient.send("/app/messages", {}, JSON.stringify(chatMessage));
+            loadMessages();
+            setContent("");
+        }
     }
+
+    const connect =()=>{
+        let Sock = new SockJS('http://localhost:8081/vingig/websocket');
+        stompClient = over(Sock);
+        stompClient.connect({},onConnected, onError);
+    }
+
+    const onConnected = () => {
+        let access = JSON.parse(localStorage.getItem("accessToken"));
+        let role = access.role;
+        let id;
+        if(role === "provider") id = access.providerID
+        else id = access.customerID;
+        stompClient.subscribe(`/user/${id}/`+ role + `/messages`, onMessageReceived);
+    }
+
+    const onError = (err) => {
+        console.log(err);    
+    }
+
+    const onMessageReceived = (payload)=>{
+        console.log(payload);
+        loadMessages();      
+    }
+
     return (
         <div className="chat">
             <div className="chat-history">

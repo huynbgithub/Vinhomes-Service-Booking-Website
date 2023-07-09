@@ -3,11 +3,14 @@ import axios from 'axios';
 import { NumericFormat } from "react-number-format"
 import { Link } from 'react-router-dom';
 import EditPopUp from "./EditPopUp"
+import { useHistory } from 'react-router-dom';
 
 function History() {
   const customerID = JSON.parse(localStorage.getItem("accessToken")).customerID;
   const [histories, setHistories] = useState([]);
   const [bookingID, setBookingID] = useState("");
+  const history = useHistory();
+
   useEffect(() => {
     axios.get(`http://localhost:8081/vingig/customer/${customerID}/bookings/history/{dateMin}/{dateMax}`)
       .then(res => {
@@ -26,6 +29,14 @@ function History() {
     setSeenEdit(!seenEdit);
   };
 
+  async function sendMessage(bookingID) {
+    await axios.post(`http://localhost:8081/vingig/booking/${bookingID}/bookingMessage`,
+      {
+        content: "Xin chào!",
+        sendBy: true,
+      }).catch(error => console.log(error));
+      history.push('/customer/chat');
+  }
   return (
     <>
       <section className='cart-items'>
@@ -118,7 +129,7 @@ function History() {
                     <div className='cart-items-function'>
                       <div className='removeCart'>
                         <Link to='/customer/chat'>
-                          <button className='btn-primary' onClick={() => { localStorage.setItem("chatBookingID", item.bookingID) }}>
+                          <button className='btn-primary' onClick={() => { localStorage.setItem("chatBookingID", item.bookingID) ; sendMessage(item.bookingID) }}>
                             Chat
                           </button>
                         </Link>

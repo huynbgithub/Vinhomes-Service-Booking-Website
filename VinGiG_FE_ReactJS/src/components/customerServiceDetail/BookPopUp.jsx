@@ -1,12 +1,17 @@
 // import "./popup.css"
 import axios from 'axios';
 import React, { useState, useEffect } from "react"
+import { useHistory } from 'react-router-dom';
+import {over} from 'stompjs';
+import SockJS from 'sockjs-client';
 
+var stompClient =null;
 export default function BookPopUp(props) {
     const customerSession = JSON.parse(localStorage.getItem("accessToken"));
 
     const [buildingID, setBuildingID] = useState('')
     const [apartment, setApartment] = useState('')
+    const history = useHistory();
 
     async function handleBook(e) {
         e.preventDefault()
@@ -19,12 +24,24 @@ export default function BookPopUp(props) {
             })
             .catch(error => console.log(error));
         props.togglePopBook();
+        if (stompClient) {
+            var booking = {
+                proServiceID: props.proServiceID,
+                status: 0,
+                apartment: apartment,
+                unitPrice: props.unitPrice     
+            };
+            console.log(booking);
+            stompClient.send("/app/booking/place", {}, JSON.stringify(booking));
+        }
+        history.push('/customer/activity');
     }
 
     const [buildings, setBuildings] = useState([]);
 
     useEffect(() => {
         loadBuildings();
+        connect();
     }, [])
 
     const loadBuildings = () => {
@@ -34,6 +51,24 @@ export default function BookPopUp(props) {
                 setBuildings(buildings);
             })
             .catch(error => console.log(error));
+    }
+
+    const connect =()=>{
+        let Sock = new SockJS('http://localhost:8081/vingig/websocket');
+        stompClient = over(Sock);
+        stompClient.connect({},onConnected, onError);
+    }
+
+    const onConnected = () => {
+        let access = JSON.parse(localStorage.getItem("accessToken"));
+        let role = access.role;
+        let id;
+        if(role === "provider") id = access.providerID
+        else id = access.customerID;
+    }
+
+    const onError = (err) => {
+        console.log(err);    
     }
 
     return (

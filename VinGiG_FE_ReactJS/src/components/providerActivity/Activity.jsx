@@ -2,14 +2,21 @@ import React, { useEffect, useState } from "react"
 import axios from 'axios';
 import { NumericFormat } from "react-number-format"
 import { Link } from 'react-router-dom';
+import {over} from 'stompjs';
+import SockJS from 'sockjs-client';
+import { useHistory } from 'react-router-dom';
+import ProgressBar from "../progressBar/ProgressBar";
 
+var stompClient =null;
 const Activity = () => {
 
   const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
   const [histories, setHistories] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     loadActs();
+    connect();
   }, []);
 
   function loadActs() {
@@ -23,6 +30,17 @@ const Activity = () => {
 
   async function actionAct(proServiceID, bookingID, action, total) {
     await axios.put(`http://localhost:8081/vingig/providerService/${proServiceID}/booking/${bookingID}/action/${action}/total/${total}`);
+    if (stompClient) {
+      var booking = {
+        bookingID: bookingID,
+        proServiceID: proServiceID,
+        action: action, 
+        total: total,
+        apartment: "provider"       
+      };
+      console.log(booking);
+      stompClient.send("/app/booking/update", {}, JSON.stringify(booking));
+    }
     loadActs();
   }
 
@@ -32,7 +50,43 @@ const Activity = () => {
         content: "Xin chào quý cư dân!",
         sendBy: false,
       }).catch(error => console.log(error));
+      history.push('/provider/chat');
   }
+
+  const startFrom = (unixTimestamp) =>{
+    // Convert the Unix timestamp to JavaScript Date
+    const dateObj = new Date(unixTimestamp);
+    // Get the current date and time
+    const currentDate = new Date();
+    // Calculate the difference in milliseconds
+    const diffInMillis = currentDate.getTime() - dateObj.getTime();
+    return Math.floor(diffInMillis / 1000);
+  }
+
+  const connect =()=>{
+    let Sock = new SockJS('http://localhost:8081/vingig/websocket');
+    stompClient = over(Sock);
+    stompClient.connect({},onConnected, onError);
+}
+
+const onConnected = () => {
+    let access = JSON.parse(localStorage.getItem("accessToken"));
+    let role = access.role;
+    let id;
+    if(role === "provider") id = access.providerID
+    else id = access.customerID;
+    stompClient.subscribe(`/user/${id}/`+ role + `/booking/update`, onBookingUpdate);
+    stompClient.subscribe(`/user/${id}/`+ role + `/booking/place`, onBookingUpdate);
+}
+
+const onError = (err) => {
+    console.log(err);    
+}
+
+const onBookingUpdate = (payload)=>{
+    console.log(payload);
+    loadActs();      
+}
 
   return (
     <>
@@ -66,6 +120,10 @@ const Activity = () => {
               //   minutes.toString().padStart(2, '0') + ':' +
               //   seconds.toString().padStart(2, '0');
               return (
+                <div>
+                {item.status == 0 && startFrom(item.date) < 180?
+                  <><ProgressBar duration={180} secondPassedBy={startFrom(item.date)} /></>
+                  :<></>}
                 <div className='cart-list product d_flex' key={item.id}>
                   <div className='cart-details'>
                     <div className='img-c'>
@@ -113,7 +171,7 @@ const Activity = () => {
                           </div>
                           <div className='removeCart'>
                             <Link to='/provider/chat'>
-                              <button className='btn-green' onClick={() => { localStorage.setItem("pChatBookingID", item.bookingID) }}>
+                              <button className='btn-green' onClick={() => { localStorage.setItem("pChatBookingID", item.bookingID) ; sendMessage(item.bookingID) }}>
                                 Chat
                               </button>
                             </Link>
@@ -128,7 +186,7 @@ const Activity = () => {
                       <>
                         <div className='cart-items-function'>
                           <div className='removeCart'>
-                            <button className='btn-green' onClick={() => { actionAct(item.proServiceID, item.bookingID, "accept", 0); sendMessage(item.bookingID) }}>
+                            <button className='btn-green' onClick={() => { actionAct(item.proServiceID, item.bookingID, "accept", 0)}}>
                               Accept
                             </button>
                           </div>
@@ -143,6 +201,7 @@ const Activity = () => {
                       </>
                     }
                   </div>
+                </div>
                 </div>
               )
             })}
