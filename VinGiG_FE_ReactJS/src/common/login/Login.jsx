@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from 'axios';
 import "./style.css"
+import {over} from 'stompjs';
+import SockJS from 'sockjs-client';
+import { connect } from 'react-redux';
+import { connectStomp } from '../redux/store';
+
+var stompClient =null;
 
 function Login() {
     const [activePanel, setActivePanel] = useState(false);
@@ -18,6 +24,54 @@ function Login() {
         setActivePanel(false);
     };
 
+    const connect = () => {
+        let Sock = new SockJS('http://localhost:8081/vingig/websocket');
+        const stompClient = over(Sock);
+        stompClient.connect({}, () => {
+          connectStomp(stompClient); // Dispatch the connectStomp action
+          onConnected();
+        }, onError);
+      };
+
+    const onConnected = () => {
+        let access = JSON.parse(localStorage.getItem("accessToken"));
+        let role = access.role;
+        let id;
+        if(role === "provider") id = access.providerID
+        else id = access.customerID;
+        stompClient.subscribe(`/user/${id}/`+ role + `/messages`, onMessage);
+        stompClient.subscribe(`/user/${id}/`+ role + `/booking/update`, onBooking);
+        //SUBSCRIBE
+        if(role === "provider"){
+            stompClient.subscribe(`/user/${id}/`+ role + `/booking/place`, onBooking); 
+        }       
+    }
+
+    const onError = (err) => {
+        console.log(err);    
+    }
+
+    const onMessage = (payload) =>{
+        const chatCount = JSON.parse(localStorage.getItem("chatCount"));
+        if(chatCount) {
+            console.log(payload);
+            let myMap = new Map(Object.entries(chatCount));
+            if(myMap.get(payload.bookingID)){
+                myMap.set(payload.bookingID, myMap.get(payload.bookingID) + 1);
+            }else myMap.set(payload.bookingID, 1);
+
+            localStorage.setItem("chatCount", JSON.stringify(Array.from(myMap.entries())));
+        }
+    }
+
+    const onBooking = (payload) =>{
+        const activityCount = parseInt(localStorage.getItem("activityCount"));
+        if(activityCount) {
+            console.log(payload);
+            localStorage.setItem("activityCount", activityCount + 1);
+        }
+    }
+
     function login(event) {
         event.preventDefault();
         axios.get(`http://localhost:8081/vingig/login/username/${username}/password/${password}/role/${role}`)
@@ -32,6 +86,12 @@ function Login() {
                         history.push("/provider");
                     }
 
+                    //SETUP NOTIFICATION
+                    localStorage.setItem("activityCount", 5);
+                    localStorage.setItem("chatCount", JSON.stringify({}));
+
+                    //CONNECT TO WEBSOCKET
+                    // connect();
                 }
             })
             .catch(error => console.log(error));
@@ -122,4 +182,8 @@ function Login() {
     )
 }
 
-export default Login
+const mapDispatchToProps = {
+    connectStomp, // Map the connectStomp action to component props
+  };
+  
+  export default connect(null, mapDispatchToProps)(Login);

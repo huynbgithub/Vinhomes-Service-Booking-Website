@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../../components/assets/images/VinGiG_logo.png"
+import NavigationIcon from "./NavigationIcon"
 
 function Navbar() {
+  // const activityCount = parseInt(localStorage.getItem("activityCount"));
+  // const chatCount = JSON.parse(localStorage.getItem("chatCount"));
 
   return (
     <>
@@ -27,6 +30,9 @@ function Navbar() {
 
               {localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'customer' ? (
                 <>
+                  {/* <NavigationIcon icon="Current Activity" target="activity" notificationCount={activityCount} />
+
+                  <NavigationIcon icon="Chat" target="chat" notificationCount={Array.from(chatCount).length} /> */}
                   <li>
                     <Link to='/customer/activity'>Current Activity</Link>
                   </li>

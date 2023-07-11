@@ -6,6 +6,7 @@ import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
 import { useHistory } from 'react-router-dom';
 import ProgressBar from "../progressBar/ProgressBar";
+import ProgressPopupProvider from "../progressBar/ProgressPopupProvider";
 
 var stompClient =null;
 const Activity = () => {
@@ -30,11 +31,38 @@ const Activity = () => {
 
   async function actionAct(proServiceID, bookingID, action, total) {
     await axios.put(`http://localhost:8081/vingig/providerService/${proServiceID}/booking/${bookingID}/action/${action}/total/${total}`);
+    let status = 0;
+    switch(action){
+      case "complete": 
+        status = 2;
+        break;
+
+      case "decline": 
+        status = 3;
+        break;
+
+      case "accept": 
+        status = 1;
+        break;
+
+      case "cancel_provider": 
+        status = 4;
+        break;
+
+      case "cancel_customer": 
+        status = 5;
+        break;
+
+      case "timeout": 
+        status = 6;
+        break;
+    }
+
     if (stompClient) {
       var booking = {
         bookingID: bookingID,
         proServiceID: proServiceID,
-        action: action, 
+        status: status, 
         total: total,
         apartment: "provider"       
       };
@@ -76,17 +104,87 @@ const onConnected = () => {
     if(role === "provider") id = access.providerID
     else id = access.customerID;
     stompClient.subscribe(`/user/${id}/`+ role + `/booking/update`, onBookingUpdate);
-    stompClient.subscribe(`/user/${id}/`+ role + `/booking/place`, onBookingUpdate);
+    stompClient.subscribe(`/user/${id}/`+ role + `/booking/place`, onBookingPlace);
 }
 
 const onError = (err) => {
     console.log(err);    
 }
 
+const [currentBooking, setCurrentBooking] = useState({
+    customerName: '',
+    serviceName: '',
+    status: '',
+    exclamation: '',
+    color: '',
+});
+
 const onBookingUpdate = (payload)=>{
     console.log(payload);
+    var payloadData = JSON.parse(payload.body);
+    let status = '';
+    let exclamation = '';
+    let color = '';
+
+    switch(payloadData.status){
+      case 1: 
+        status = "được chấp nhận";
+        exclamation = 'Thành Công';
+        color = 'green'
+        break;
+
+      case 2: 
+        status = "hoàn thành";
+        exclamation = 'Chúc Mừng';
+        color = 'green'
+        break;
+
+      case 3: 
+        status = "bị từ chối";
+        exclamation = 'Xin Lỗi';
+        color = 'red'
+        break;
+
+      case 4: 
+        status = "bị hủy";
+        exclamation = 'Xin Lỗi';
+        color = 'red'
+        break;
+
+      case 5: 
+        status = "bị hủy";
+        exclamation = 'Xin Lỗi';
+        color = 'red'
+        break;
+
+      case 6: 
+        status = "hết thời gian chờ";
+        exclamation = 'Xin Lỗi';
+        color = 'red'
+        break;
+    }
+    setCurrentBooking({...currentBooking,
+      "customerName": payloadData.customerFullName,
+      "serviceName": payloadData.serviceName,
+      "status": status,
+      "exclamation": exclamation,
+      "color": color,
+    })
+    setSeen(true);
     loadActs();      
 }
+
+const onBookingPlace = (payload)=>{
+  console.log(payload);
+  loadActs();      
+}
+
+//POPUP
+const [seen, setSeen] = useState(false);
+
+function togglePop() {
+  setSeen(!seen);
+};
 
   return (
     <>
@@ -122,7 +220,7 @@ const onBookingUpdate = (payload)=>{
               return (
                 <div>
                 {item.status == 0 && startFrom(item.date) < 180?
-                  <><ProgressBar duration={180} secondPassedBy={startFrom(item.date)} /></>
+                  <><ProgressBar duration={60} secondPassedBy={startFrom(item.date) } actionAct={actionAct} proServiceID ={item.proServiceID} bookingID ={item.bookingID}/></>
                   :<></>}
                 <div className='cart-list product d_flex' key={item.id}>
                   <div className='cart-details'>
@@ -177,7 +275,7 @@ const onBookingUpdate = (payload)=>{
                             </Link>
                           </div>
                           <div className='removeCart'>
-                            <button className='btn-cancel' onClick={() => actionAct(item.proServiceID, item.bookingID, "cancel", 0)}>
+                            <button className='btn-cancel' onClick={() => actionAct(item.proServiceID, item.bookingID, "cancel_provider", 0)}>
                               Cancel
                             </button>
                           </div>
@@ -206,6 +304,8 @@ const onBookingUpdate = (payload)=>{
               )
             })}
           </div>
+
+          {seen ? <ProgressPopupProvider togglePop={togglePop} currentBooking={currentBooking} /> : null}
 
           <div className='cart-total product'>
             <h2>Number of Current Bookings</h2>

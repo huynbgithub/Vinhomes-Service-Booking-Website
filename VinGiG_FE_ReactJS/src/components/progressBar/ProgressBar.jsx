@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "./style.css"
 
-const ProgressBar = ({ duration, secondPassedBy }) => {
+const ProgressBar = ({ duration, secondPassedBy, actionAct, proServiceID, bookingID }) => {
   const [progress, setProgress] = useState(100);
   const animationRef = useRef(null);
   const startTimeRef = useRef(null);
@@ -16,7 +16,7 @@ const ProgressBar = ({ duration, secondPassedBy }) => {
 
     if (progress > 0) {
       animationRef.current = requestAnimationFrame(animateProgress);
-    }
+    }else actionAct(proServiceID,bookingID,"timeout", 0);
   };
 
   useEffect(() => {
