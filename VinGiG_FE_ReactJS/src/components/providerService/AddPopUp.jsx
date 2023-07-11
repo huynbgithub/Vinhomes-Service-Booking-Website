@@ -1,51 +1,76 @@
-import "./popup.css"
 import axios from 'axios';
 import React, { useState, useEffect } from "react"
+import { storage } from '../../firebase.js';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function AddPopUp(props) {
 
-    const [description, setDescription] = useState('')
-    const [fee, setFee] = useState('')
-    const [priceMax, setPriceMax] = useState('')
-    const [priceMin, setPriceMin] = useState('')
-    const [serviceName, setServiceName] = useState('')
-    const [unit, setUnit] = useState('')
     const [categoryID, setCategoryID] = useState('')
-
+    const [serviceID, setServiceID] = useState('')
+    const [description, setDescription] = useState('')
+    const [unitPrice, setUnitPrice] = useState('')
+    const [image, setSelectedImage] = useState(null);
 
     async function handleAdd(e) {
-        e.preventDefault()
-        // Code to handle add
-        await axios.post(`http://localhost:8081/vingig/serviceCategory/${categoryID}/giGService`,
-            {
-                active: true,
-                description: description,
-                fee: fee,
-                priceMax: priceMax,
-                priceMin: priceMin,
-                serviceName: serviceName,
-                unit: unit,
-                categoryID: categoryID,
-            })
-            .catch(error => console.log(error));
-        props.togglePopAdd();
-        props.loadServices();
+        e.preventDefault();
+
+        const storageRef = ref(storage, `images/${image.name}`);
+
+        // Upload the image to Firebase Storage
+        uploadBytes(storageRef, image).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                // Set the image URL to the "link" field
+                axios
+                    .post(
+                        `http://localhost:8081/vingig/provider/${props.providerID}/giGService/${serviceID}/providerService`,
+                        {
+                            active: true,
+                            availability: true,
+                            visible: true,
+                            bookingNo: 0,
+                            rating: 0,
+                            description: description,
+                            unitPrice: unitPrice,
+                            link: url, // Set the image URL here
+                        }
+                    )
+                    .then(() => {
+                        props.togglePopAdd();
+                        props.loadServices();
+                    })
+                    .catch((error) => console.log(error));
+            });
+        });
     }
 
-    const [categorys, setCategorys] = useState([]);
+    const [categories, setCategories] = useState([]);
+
+    const loadCategories = async () => {
+        await axios.get(`http://localhost:8081/vingig/serviceCategories`)
+            .then(res => {
+                const categories = res.data;
+                setCategories(categories);
+            })
+            .catch(error => console.log(error));
+    }
+
+    const [services, setServices] = useState([]);
+    const loadServices = () => {
+        axios.get(`http://localhost:8081/vingig/serviceCategory/${categoryID}/giGServices`)
+            .then(res => {
+                const services = res.data;
+                setServices(services);
+            })
+            .catch(error => console.log(error));
+    }
 
     useEffect(() => {
-        loadCategorys();
-    }, [])
+        loadCategories();
+    }, []);
 
-    const loadCategorys = () => {
-        axios.get(`http://localhost:8081/vingig/serviceCategories`)
-            .then(res => {
-                const categorys = res.data;
-                setCategorys(categorys);
-            })
-            .catch(error => console.log(error));
-    }
+    useEffect(() => {
+        loadServices();
+    }, [categoryID])
 
     return (
         <div className="popup">
@@ -53,40 +78,36 @@ export default function AddPopUp(props) {
                 <h2>Add Service</h2>
                 <form onSubmit={handleAdd}>
                     <label>
-                        ServiceName:
-                        <input required type="text" value={serviceName} onChange={e => setServiceName(e.target.value)} />
+                        Category:
+                        <select required onChange={e => setCategoryID(e.target.value)}>
+                            <option value=""></option>
+                            {categories.map((category) => (
+                                <option value={category.categoryID}>{category.categoryName}</option>
+                            ))}
+                        </select>
                     </label>
+                    {categoryID ?
+                        <label>
+                            Service:
+                            <select required onChange={e => setServiceID(e.target.value)}>
+                                <option value=""></option>
+                                {services.map((service) => (
+                                    <option value={service.serviceID}>{service.serviceName}</option>
+                                ))}
+                            </select>
+                        </label> : <></>}
                     <label>
                         Description:
                         <input required type="text" value={description} onChange={e => setDescription(e.target.value)} />
                     </label>
                     <label>
-                        Fee:
-                        <input required type="number" value={fee} onChange={e => setFee(e.target.value)} />
+                        Unit Price:
+                        <input required type="number" value={unitPrice} onChange={e => setUnitPrice(e.target.value)} />
                     </label>
                     <label>
-                        PriceMax:
-                        <input required type="number" value={priceMax} onChange={e => setPriceMax(e.target.value)} />
+                        Image:
+                        <input required type="file" onChange={e => setSelectedImage(e.target.files[0])} />
                     </label>
-                    <label>
-                        PriceMin:
-                        <input required type="number" value={priceMin} onChange={e => setPriceMin(e.target.value)} />
-                    </label>
-                    <label>
-                        Unit:
-                        <input required type="text" value={unit} onChange={e => setUnit(e.target.value)} />
-                    </label>
-                    <label>
-                        Category Name:
-                        <select required onChange={e => setCategoryID(e.target.value)}>
-                            <option value=""></option>
-                            {categorys.map((category) => (
-                                <option value={category.categoryID}>{category.categoryName}</option>
-                            ))}
-                        </select>
-                    </label>
-
-
                     <div className="d_flex_add">
                         <button className="d_flex_add" type="submit">Add</button>
                     </div>

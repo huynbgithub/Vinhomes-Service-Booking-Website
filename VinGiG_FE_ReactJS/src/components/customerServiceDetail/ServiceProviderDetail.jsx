@@ -109,7 +109,7 @@ export default function ServiceDetail() {
                 <div className='left'>
                   <div className='product'>
                     <div className='img'>
-                      <span className='discount'>{pService.badgeName}</span>
+                      {pService.badgeName != "Non" ? <span className='discount'>{pService.badgeName}</span> : <></>}
                     </div>
                     <br />
                     <h2>{pService.fullName}</h2>
@@ -120,7 +120,6 @@ export default function ServiceDetail() {
                     </div>
                     <div className='price'>
                       <h4><NumericFormat value={pService.unitPrice} displayType="text" thousandSeparator={true} suffix={' VND'} /></h4>
-
                     </div>
                     <div className=''>
                       <h4>{pService.bookingNo} Bookings</h4>
