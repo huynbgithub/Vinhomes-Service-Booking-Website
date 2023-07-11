@@ -53,6 +53,14 @@
   margin-left: 30px;
 }
 
+.non-margin {
+  margin-top: 0px !important;
+}
+
+.background-blue {
+  background: #f6f9fc;
+}
+
 .grid1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
