@@ -1,8 +1,9 @@
-import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"
 import EditPopUp from "./EditPopUp"
+import { NumericFormat } from "react-number-format"
+import { Link } from 'react-router-dom';
 
 function Service() {
   const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
@@ -40,51 +41,49 @@ function Service() {
 
   return (
     <>
-      <div className="admin-wrapper">
+      <div className="admin-wrapper background-blue">
         <div className="admin-container">
           <h2> Service Management</h2>
-          <div className="table-wrapper">
-            <div className="d_flex_add">
-              <button className="btn-green" onClick={togglePopAdd}>Add New Service</button>
-              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadServices={loadServices} /> : null}
-            </div>
-            <br />
-            <table className="fl-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Service Name</th>
-                  <th>Unit Price</th>
-                  <th>Rating</th>
-                  <th>Booking No</th>
-                  <th>Badge</th>
-                  <th>Description</th>
 
-                  <th className="action">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {services.map((service) => (
-                  <tr key={service.proServiceID}>
-                    <td>{service.proServiceID}</td>
-                    <td>{service.serviceName}</td>
-                    <td>{service.unitPrice}</td>
-                    <td>{service.rating}</td>
-                    <td>{service.bookingNo}</td>
-                    <td>{service.badgeName}</td>
-                    <td className="max-width">{service.description}</td>
-                    <td className="d_flex action">
-                      <button className="btn-green" onClick={() => { togglePopEdit(); setServicesID(service.serviceID) }}>Edit</button>
-                      <button className="btn-primary" onClick={() => deleteService(service.proServiceID)}>Delete</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadServices={loadServices} serviceID={serviceID} /> : null}
-          </div>
+          <section className='shop non-margin'>
+            <div className='container d_flex'>
+              <div className='contentWidth'>
+                <div className='product-content  grid2'>
+
+                  {services.map((sProvider) => (
+                    <div className='box'>
+                      <div className='product mtop'>
+                        <div className='img'>
+                          <img src={sProvider.link} alt='' />
+                        </div>
+                        <div className='product-details'>
+                          <h3>Máy lạnh</h3>
+                          <div className='rate'>
+                            <i className='fa fa-star'></i>
+                            {sProvider.rating}
+                          </div>
+                          <div className='price'>
+                            <h4><NumericFormat value={sProvider.unitPrice} displayType="text" thousandSeparator={true} suffix={' VND'} /></h4>
+
+                          </div>
+                          <div className=''>
+                            <p>{sProvider.bookingNo} Bookings</p>
+                          </div>
+                          <div className="text-right">
+                            <Link to={`/customer/serviceProviderDetail/${sProvider.proServiceID}`}>
+                              <button className='btn-green'>Detail</button>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-      </div >
+      </div>
     </>
   )
 }
