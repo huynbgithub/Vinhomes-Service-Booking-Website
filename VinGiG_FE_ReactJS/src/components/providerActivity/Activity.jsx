@@ -240,7 +240,7 @@ function togglePop() {
               return (
                 <div>
                 {item.status == 0 && startFrom(item.date) < 180?
-                  <><ProgressBar  duration={10} secondPassedBy={startFrom(item.date)} timeout={timeout} proServiceID ={item.proServiceID} bookingID ={item.bookingID} customerName={item.customerFullName} serviceName={item.serviceName} providerName={item.providerFullName}/></>
+                  <><ProgressBar  duration={30} secondPassedBy={startFrom(item.date)} timeout={timeout} proServiceID ={item.proServiceID} bookingID ={item.bookingID} customerName={item.customerFullName} serviceName={item.serviceName} providerName={item.providerFullName}/></>
                   :<></>}
                 <div className='cart-list product d_flex' key={item.id}>
                   <div className='cart-details'>

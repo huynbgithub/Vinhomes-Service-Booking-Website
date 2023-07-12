@@ -29,7 +29,9 @@ export default function BookPopUp(props) {
                 proServiceID: props.proServiceID,
                 status: 0,
                 apartment: apartment,
-                unitPrice: props.unitPrice     
+                unitPrice: props.unitPrice,    
+                customerID:  customerSession.customerID,
+                buildingID: buildingID,
             };
             console.log(booking);
             stompClient.send("/app/booking/place", {}, JSON.stringify(booking));
