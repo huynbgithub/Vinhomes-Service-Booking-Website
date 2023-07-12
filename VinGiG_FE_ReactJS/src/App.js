@@ -32,6 +32,7 @@ import ProviderHistory from "./components/providerHistory/History"
 import ProviderActivity from "./components/providerActivity/Activity"
 import ProviderChat from "./components/providerChat/Chat"
 import ProviderService from "./components/providerService/Service"
+import ProviderServiceDetail from './components/providerServiceDetail/ServiceProviderDetail';
 import CustomerProtectedRoute from "./components/CustomerProtectedRoute"
 import ProviderProtectedRoute from "./components/ProviderProtectedRoute"
 
@@ -161,8 +162,12 @@ function App() {
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/service' >
             <ProviderHeader />
-            {/* <ProviderCategories /> */}
             <ProviderService />
+            <Footer />
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/serviceProviderDetail/:serviceProviderID' >
+            <ProviderHeader />
+            <ProviderServiceDetail />
             <Footer />
           </ProviderProtectedRoute>
         </Switch>
