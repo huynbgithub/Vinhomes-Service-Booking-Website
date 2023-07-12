@@ -6,16 +6,46 @@ import { NumericFormat } from "react-number-format"
 function CustomerAccount() {
 
   const providerSession = JSON.parse(localStorage.getItem("accessToken"));
+  const [bTrans, setBTrans] = useState([]);
+  const [sTrans, setSTrans] = useState([]);
+  const [dTrans, setTTrans] = useState([]);
   const [wallet, setWallet] = useState({});
 
   useEffect(() => {
     getWallet();
+    loadBookingFeeTrans();
+    loadDepositTrans();
+    loadSubscriptionFeeTrans();
   }, [])
   const getWallet = () => {
     axios.get(`http://localhost:8081/vingig/provider/${providerSession.providerID}/wallets`)
       .then(res => {
         const wallets = res.data;
         setWallet(wallets[0]);
+      })
+      .catch(error => console.log(error));
+  }
+  const loadBookingFeeTrans = () => {
+    axios.get(`http://localhost:8081/vingig/transaction/provider/${providerSession.providerID}/bookingFee/date/{dateMin}/{dateMax}`)
+      .then(res => {
+        const bTrans = res.data;
+        setBTrans(bTrans);
+      })
+      .catch(error => console.log(error));
+  }
+  const loadDepositTrans = () => {
+    axios.get(`http://localhost:8081/vingig/transaction/provider/${providerSession.providerID}/deposit/date/{dateMin}/{dateMax}`)
+      .then(res => {
+        const dTrans = res.data;
+        setBTrans(bTrans);
+      })
+      .catch(error => console.log(error));
+  }
+  const loadSubscriptionFeeTrans = () => {
+    axios.get(`http://localhost:8081/vingig/transaction/provider/${providerSession.providerID}/subscriptionFee/date/{dateMin}/{dateMax}`)
+      .then(res => {
+        const sTrans = res.data;
+        setBTrans(bTrans);
       })
       .catch(error => console.log(error));
   }
@@ -58,6 +88,65 @@ function CustomerAccount() {
             <button className='btn-primary'>Change</button>
           </div> */}
 
+        </div>
+      </div>
+      <div className='container d_flex'>
+        <div className="col-a">
+          <h4 className="m-b">Deposit History</h4>
+          <table className="fl-table">
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Số tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dTrans.map((dTran) => (
+                <tr key={dTran.transactionID}>
+                  <td>{dTran.date}</td>
+                  <td>{dTran.amount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="col-a">
+          <h4 className="m-b">Subscription Fee History</h4>
+          <table className="fl-table">
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Số tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sTrans.map((sTran) => (
+                <tr key={sTran.transactionID}>
+                  <td>{sTran.date}</td>
+                  <td>{sTran.amount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="col-a">
+          <h4 className="m-b">Booking Fee History</h4>
+          <table className="fl-table">
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Số tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bTrans.map((bTran) => (
+                <tr key={bTran.transactionID}>
+                  <td>{bTran.date}</td>
+                  <td>{bTran.amount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
