@@ -1,22 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "./style.css"
 
-const ProgressBar = ({ duration, secondPassedBy, actionAct, proServiceID, bookingID }) => {
+const ProgressBar = ({ duration, secondPassedBy, timeout, proServiceID, bookingID, customerName, serviceName, providerName }) => {
   const [progress, setProgress] = useState(100);
   const animationRef = useRef(null);
   const startTimeRef = useRef(null);
 
   const animateProgress = (timestamp) => {
-    if (!startTimeRef.current) {
-      startTimeRef.current = timestamp;
-    }
-    const elapsedTime = timestamp - startTimeRef.current;
-    const progress = Math.max(100 - (elapsedTime / (duration * 1000)) * 100, 0);
-    setProgress(progress);
+    
+      if (!startTimeRef.current) {
+        startTimeRef.current = timestamp;
+      }
+      const elapsedTime = timestamp - startTimeRef.current;
+      const progress = Math.max(100 - (elapsedTime / (duration * 1000)) * 100, 0);
+      setProgress(progress);
 
-    if (progress > 0) {
-      animationRef.current = requestAnimationFrame(animateProgress);
-    }else actionAct(proServiceID,bookingID,"timeout", 0);
+      if (progress > 0) {
+        animationRef.current = requestAnimationFrame(animateProgress);
+      }else timeout(proServiceID,bookingID,serviceName,customerName, providerName);
+    
   };
 
   useEffect(() => {

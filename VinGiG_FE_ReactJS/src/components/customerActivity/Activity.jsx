@@ -71,6 +71,26 @@ const Activity = () => {
     loadActs();
   }
 
+  async function timeout(proServiceID, bookingID, serviceName, customerName, providerName) {
+    var load;
+    await axios.put(`http://localhost:8081/vingig/providerService/${proServiceID}/booking/${bookingID}/action/timeout/total/0`)
+    .then(res => {
+       load = res.data;
+    })
+    .catch(error => console.log(error));
+    if(load.status === 6){
+      setCurrentBooking({...currentBooking,
+        "providerName": providerName,
+        "serviceName": serviceName,
+        "status": "hết thời gian chờ",
+        "exclamation": "Xin lỗi",
+        "color": 'red',
+      })
+      setSeen(true);
+      loadActs();
+    }
+  }
+
   async function sendMessage(bookingID) {
     await axios.post(`http://localhost:8081/vingig/booking/${bookingID}/bookingMessage`,
       {
@@ -214,7 +234,7 @@ function togglePop() {
               return (
                 <div> 
                   {item.status == 0 && startFrom(item.date) < 180?
-                  <><ProgressBar duration={60} secondPassedBy={startFrom(item.date)} actionAct={actionAct} proServiceID ={item.proServiceID} bookingID ={item.bookingID}/></>
+                  <><ProgressBar duration={10} secondPassedBy={startFrom(item.date)} timeout={timeout} proServiceID ={item.proServiceID} bookingID ={item.bookingID} customerName={item.customerFullName} serviceName={item.serviceName} providerName={item.providerFullName}/></>
                   :<></>}
                 <div className='cart-list product d_flex' key={item.bookingID}>
                   <div className='cart-details'>
