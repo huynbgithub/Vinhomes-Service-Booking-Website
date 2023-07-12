@@ -11,11 +11,13 @@ export default function SubPlan() {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [plans, setPlans] = useState([]);
   const [histories, setHistories] = useState([]);
+  const [count, setCount] = useState({});
   const [cur, setCur] = useState({});
 
   useEffect(() => {
     loadPlans();
     loadHistories();
+    getDaysTillExpiredDate();
   }, [])
 
   const loadPlans = () => {
@@ -33,6 +35,15 @@ export default function SubPlan() {
         const histories = res.data;
         setHistories(histories);
         setCur(histories[histories.length - 1]);
+      })
+      .catch(error => console.log(error));
+  }
+
+  const getDaysTillExpiredDate = () => {
+    axios.get(`http://localhost:8081/vingig/provider/${providerSession.providerID}/counts`)
+      .then(res => {
+        const counts = res.data;
+        setCount(counts[0]);
       })
       .catch(error => console.log(error));
   }
@@ -100,10 +111,12 @@ export default function SubPlan() {
                                     <div>
                                       <p className="text-white font-weight-bold">Tên gói</p>
                                       <p className="text-white font-weight-bold">Ngày đăng ký</p>
+                                      <p className="text-white font-weight-bold">Số ngày còn lại</p>
                                     </div>
                                     <div>
                                       <p className="text-white">{cur.description}</p>
                                       <p className="text-white">{formattedTime}</p>
+                                      <p className="text-white">{count.count}</p>
                                     </div>
                                   </div>
                                 </div>

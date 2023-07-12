@@ -1,11 +1,24 @@
-import React from "react"
 import "./style.css"
-
+import axios from 'axios';
+import React, { useEffect, useState } from "react"
+import { NumericFormat } from "react-number-format"
 
 function CustomerAccount() {
 
-  const customerSession = JSON.parse(localStorage.getItem("accessToken"));
+  const providerSession = JSON.parse(localStorage.getItem("accessToken"));
+  const [wallet, setWallet] = useState({});
 
+  useEffect(() => {
+    getWallet();
+  }, [])
+  const getWallet = () => {
+    axios.get(`http://localhost:8081/vingig/provider/${providerSession.providerID}/wallets`)
+      .then(res => {
+        const wallets = res.data;
+        setWallet(wallets[0]);
+      })
+      .catch(error => console.log(error));
+  }
   return (
     <section className='cart-items account-height' >
       <div className='container d_flex'>
@@ -16,8 +29,7 @@ function CustomerAccount() {
           <div className=' d_flex'>
             <h4>Total:</h4>
             <h4>
-              {/* {this.state.person.fullName} */}
-              2.000.000 VND
+              <NumericFormat value={wallet.balance} displayType="text" thousandSeparator={true} suffix={' VND'} />
             </h4>
           </div>
           <br />
@@ -47,14 +59,6 @@ function CustomerAccount() {
           </div> */}
 
         </div>
-
-        {/* <div className='cart-total product'>
-            <h2>Cart Summary</h2>
-            <div className=' d_flex'>
-              <h4>Total Price :</h4>
-              <h3>.00</h3>
-            </div>
-          </div> */}
       </div>
     </section>
   )
