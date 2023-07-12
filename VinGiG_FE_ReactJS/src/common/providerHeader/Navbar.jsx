@@ -40,6 +40,9 @@ function Navbar() {
                 <Link to='/provider/wallet'>Wallet</Link>
               </li>
               <li>
+                <Link to='/provider/subscription'>Subscription</Link>
+              </li>
+              <li>
                 <Link to='/provider/account'>Account</Link>
               </li>
               <li>

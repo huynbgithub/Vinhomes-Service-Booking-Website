@@ -28,6 +28,7 @@ import AdminDashboard from './components/adminDashboard/Dashboard';
 import ProviderPage from './components/providerPage/Home';
 import ProviderAccount from "./components/providerAccount/Account"
 import ProviderWallet from "./components/providerWallet/Wallet"
+import ProviderSubPlan from "./components/providerSubscriptionPlan/SubPlan"
 import ProviderHistory from "./components/providerHistory/History"
 import ProviderActivity from "./components/providerActivity/Activity"
 import ProviderChat from "./components/providerChat/Chat"
@@ -143,6 +144,11 @@ function App() {
           <ProviderProtectedRoute exact path='/provider/wallet' >
             <ProviderHeader />
             <ProviderWallet />
+            <Footer />
+          </ProviderProtectedRoute>
+          <ProviderProtectedRoute exact path='/provider/subscription' >
+            <ProviderHeader />
+            <ProviderSubPlan />
             <Footer />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/chat' >
