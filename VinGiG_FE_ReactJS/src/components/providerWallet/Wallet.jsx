@@ -64,12 +64,12 @@ function CustomerAccount() {
             </h4>
           </div>
           <br />
-          <div className=' d_flex'>
-            <h5>Do you want to deposit?</h5>
+          <div className='d_flex iii'>
+            {/* <h5>Do you want to deposit?</h5> */}
             <button className='btn-primary'>Deposit</button>
           </div>
         </div>
-        <div className='account_info product'>
+        <div className='account_info product ooo'>
           {/* <h2>Username & Password</h2>
           <div className=' d_flex'>
             <h4>username:</h4>
