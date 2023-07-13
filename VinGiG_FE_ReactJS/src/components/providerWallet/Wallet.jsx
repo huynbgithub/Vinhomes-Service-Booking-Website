@@ -8,7 +8,7 @@ function CustomerAccount() {
   const providerSession = JSON.parse(localStorage.getItem("accessToken"));
   const [bTrans, setBTrans] = useState([]);
   const [sTrans, setSTrans] = useState([]);
-  const [dTrans, setTTrans] = useState([]);
+  const [dTrans, setDTrans] = useState([]);
   const [wallet, setWallet] = useState({});
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function CustomerAccount() {
     axios.get(`http://localhost:8081/vingig/transaction/provider/${providerSession.providerID}/deposit/date/{dateMin}/{dateMax}`)
       .then(res => {
         const dTrans = res.data;
-        setBTrans(bTrans);
+        setDTrans(dTrans);
       })
       .catch(error => console.log(error));
   }
@@ -45,10 +45,11 @@ function CustomerAccount() {
     axios.get(`http://localhost:8081/vingig/transaction/provider/${providerSession.providerID}/subscriptionFee/date/{dateMin}/{dateMax}`)
       .then(res => {
         const sTrans = res.data;
-        setBTrans(bTrans);
+        setSTrans(sTrans);
       })
       .catch(error => console.log(error));
   }
+
   return (
     <section className='cart-items account-height' >
       <div className='container d_flex'>
@@ -101,12 +102,25 @@ function CustomerAccount() {
               </tr>
             </thead>
             <tbody>
-              {dTrans.map((dTran) => (
-                <tr key={dTran.transactionID}>
-                  <td>{dTran.date}</td>
-                  <td>{dTran.amount}</td>
-                </tr>
-              ))}
+              {dTrans.map((dTran) => {
+                const epochTime = dTran.date;
+
+                const dateObj = new Date(epochTime);
+
+                const date = dateObj.getDate();
+                const month = dateObj.getMonth() + 1;
+                const year = dateObj.getYear() - 100 + 2000;
+
+                const formattedTime =
+                  date.toString() + '/' +
+                  month.toString() + '/' +
+                  year.toString();
+                return (
+                  <tr key={dTran.transactionID}>
+                    <td>{formattedTime}</td>
+                    <td><NumericFormat value={dTran.amount} displayType="text" thousandSeparator={true} suffix={' VND'} /></td>
+                  </tr>)
+              })}
             </tbody>
           </table>
         </div>
@@ -120,12 +134,25 @@ function CustomerAccount() {
               </tr>
             </thead>
             <tbody>
-              {sTrans.map((sTran) => (
-                <tr key={sTran.transactionID}>
-                  <td>{sTran.date}</td>
-                  <td>{sTran.amount}</td>
-                </tr>
-              ))}
+              {sTrans.map((sTran) => {
+                const epochTime = sTran.date;
+
+                const dateObj = new Date(epochTime);
+
+                const date = dateObj.getDate();
+                const month = dateObj.getMonth() + 1;
+                const year = dateObj.getYear() - 100 + 2000;
+
+                const formattedTime =
+                  date.toString() + '/' +
+                  month.toString() + '/' +
+                  year.toString();
+                return (
+                  <tr key={sTran.transactionID}>
+                    <td>{formattedTime}</td>
+                    <td><NumericFormat value={sTran.amount} displayType="text" thousandSeparator={true} suffix={' VND'} /></td>
+                  </tr>)
+              })}
             </tbody>
           </table>
         </div>
@@ -139,17 +166,30 @@ function CustomerAccount() {
               </tr>
             </thead>
             <tbody>
-              {bTrans.map((bTran) => (
-                <tr key={bTran.transactionID}>
-                  <td>{bTran.date}</td>
-                  <td>{bTran.amount}</td>
-                </tr>
-              ))}
+              {bTrans.map((bTran) => {
+                const epochTime = bTran.date;
+
+                const dateObj = new Date(epochTime);
+
+                const date = dateObj.getDate();
+                const month = dateObj.getMonth() + 1;
+                const year = dateObj.getYear() - 100 + 2000;
+
+                const formattedTime =
+                  date.toString() + '/' +
+                  month.toString() + '/' +
+                  year.toString();
+                return (
+                  <tr key={bTran.transactionID}>
+                    <td>{formattedTime}</td>
+                    <td><NumericFormat value={bTran.amount} displayType="text" thousandSeparator={true} suffix={' VND'} /></td>
+                  </tr>)
+              })}
             </tbody>
           </table>
         </div>
       </div>
-    </section>
+    </section >
   )
 }
 
