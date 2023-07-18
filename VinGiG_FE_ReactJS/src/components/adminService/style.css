@@ -23,6 +23,11 @@
     width: 200px;
 }
 
+.action1 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 .admin-container h2 {
     text-align: center;
     font-size: 18px;
@@ -51,10 +56,25 @@
     background-color: white;
 }
 
-.fl-table td,
 .fl-table th {
     text-align: center;
     padding: 8px;
+}
+
+.fl-table td {
+    text-align: center;
+    padding: 8px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-width: 80px;
+}
+
+.fl-table td img {
+    width: 100px;
+}
+
+.not-center {
+    text-align: left !important;
 }
 
 .fl-table td {

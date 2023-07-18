@@ -35,7 +35,7 @@ export default function EditPopUp(props) {
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Edit subscriptionPlan</h2>
+                <h2>Edit Subscription Plan</h2>
                 <form onSubmit={handleEdit}>
                     <label>
                         Description:

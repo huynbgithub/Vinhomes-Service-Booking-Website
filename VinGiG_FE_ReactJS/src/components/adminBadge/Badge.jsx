@@ -1,4 +1,4 @@
-import "./style.css"
+// import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"
@@ -65,7 +65,7 @@ function Badge() {
                     <td>{badge.badgeID}</td>
                     <td>{badge.badgeName}</td>
                     <td>{badge.benefit}</td>
-                    <td>{badge.description}</td>
+                    <td className='not-center'>{badge.description}</td>
                     <td className="d_flex action">
                       <button className="btn-green" onClick={() => { togglePopEdit(); setBadgeID(badge.badgeID) }}>Edit</button>
                       <button className="btn-primary" onClick={() => deleteBadge(badge.badgeID)}>Delete</button>

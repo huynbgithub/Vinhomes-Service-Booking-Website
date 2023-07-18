@@ -34,7 +34,8 @@ export default function SubPlan() {
       .then(res => {
         const histories = res.data;
         setHistories(histories);
-        setCur(histories[histories.length - 1]);
+        setCur(histories[0]);
+        // setCur(histories[histories.length - 1]);
       })
       .catch(error => console.log(error));
   }

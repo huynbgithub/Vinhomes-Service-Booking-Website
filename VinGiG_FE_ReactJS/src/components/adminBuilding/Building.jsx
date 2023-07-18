@@ -1,4 +1,4 @@
-import "./style.css"
+// import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"

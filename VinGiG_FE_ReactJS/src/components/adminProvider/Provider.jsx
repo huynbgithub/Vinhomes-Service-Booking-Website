@@ -1,8 +1,8 @@
-import "./style.css"
+// import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
-import AddPopUp from "./AddPopUp"
 import EditPopUp from "./EditPopUp"
+import Building from './../adminBuilding/Building';
 
 function Provider() {
 
@@ -26,12 +26,6 @@ function Provider() {
     loadproviders();
   }
 
-  const [seenAdd, setSeenAdd] = useState(false)
-
-  function togglePopAdd() {
-    setSeenAdd(!seenAdd);
-  };
-
   const [seenEdit, setSeenEdit] = useState(false)
 
   function togglePopEdit() {
@@ -44,58 +38,60 @@ function Provider() {
         <div className="admin-container">
           <h2>Provider Management</h2>
           <div className="table-wrapper">
-            <div className="d_flex_add">
-              {/* <button className="btn-green" onClick={togglePopAdd}>Add New Building</button> */}
-              {/* {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadBuildings={loadBuildings} /> : null} */}
-            </div>
-            <br />
             <table className="fl-table">
               <thead>
                 <tr>
-                <th>ID</th>
-                  {/* <th>ProviderID</th> */}
-                  {/* <th>Active</th> */}
-                  <th>Address</th>
+                  <th>ID</th>
                   <th>Avatar</th>
                   <th>Create Date</th>
-                  {/* <th>Date Of Birth</th> */}
                   <th>Email</th>
                   <th>Full Name</th>
                   <th>Gender</th>
-                  <th>Password</th>
                   <th>Phone Number</th>
                   <th>Rating</th>
-                  <th>Role</th>
-                  <th>User Name</th>
-                  <th>BadgeID</th>
+                  <th>Badge</th>
+                  <th>Building</th>
+                  <th>Address</th>
                   <th className="action">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {providers.map((provider) => (
-                  <tr key={provider.providerID}>
-                    <td>{provider.providerID}</td>
-                    {/* <td>{provider.providerID}</td> */}
-                    {/* <td>{customer.active}</td> */}
-                    <td>{provider.address}</td>
-                    <td>{provider.avatar}</td>
-                    <td>{provider.createDate}</td>
-                    {/* <td>{provider.dob}</td> */}
-                    <td>{provider.email}</td>
-                    <td>{provider.fullName}</td>
-                    <td>{provider.gender}</td>
-                    <td>{provider.password}</td>
-                    <td>{provider.phone}</td>
-                    <td>{provider.rating}</td>
-                    <td>{provider.role}</td>
-                    <td>{provider.username}</td>
-                    <td>{provider.badgeID}</td>
-                    <td className="d_flex action">
-                      <button className="btn-green" onClick={() => { togglePopEdit(); setProviderID(provider.providerID) }}>Edit</button>
-                      <button className="btn-primary" onClick={() => deleteProvider(provider.providerID)}>Delete</button>
-                    </td>
-                  </tr>
-                ))}
+                {providers.map((provider) => {
+                  var epochTime = provider.createDate;
+
+                  var dateObj = new Date(epochTime);
+
+                  var date = dateObj.getDate();
+                  var month = dateObj.getMonth() + 1;
+                  var year = dateObj.getYear() - 100 + 2000;
+                  var hours = dateObj.getHours();
+                  var minutes = dateObj.getMinutes();
+                  var seconds = dateObj.getSeconds();
+
+                  var formattedTime =
+                    date.toString() + '/' +
+                    month.toString() + '/' +
+                    year.toString();
+                  return (
+                    <tr key={provider.providerID}>
+                      <td>{provider.providerID}</td>
+                      <td><img src={provider.avatar} alt="" /></td>
+                      <td>{formattedTime}</td>
+                      <td>{provider.email}</td>
+                      <td>{provider.fullName}</td>
+                      <td>{provider.gender ? "Nam" : "Nữ"}</td>
+                      <td>{provider.phone}</td>
+                      <td>{provider.rating}</td>
+                      <td>{provider.badgeName}</td>
+                      <td>{provider.buildingName}</td>
+                      <td>{provider.address}</td>
+                      <td className="d_flex action action1">
+                        <button className="btn-green" onClick={() => { togglePopEdit(); setProviderID(provider.providerID) }}>Edit</button>
+                        <button className="btn-primary" onClick={() => deleteProvider(provider.providerID)}>Delete</button>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
             {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadproviders={loadproviders} providerID={providerID} /> : null}

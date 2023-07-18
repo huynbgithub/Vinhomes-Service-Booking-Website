@@ -1,7 +1,6 @@
-import "./style.css"
+// import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
-import AddPopUp from "./AddPopUp"
 import EditPopUp from "./EditPopUp"
 
 function Customer() {
@@ -26,12 +25,6 @@ function Customer() {
     loadCustomer();
   }
 
-  const [seenAdd, setSeenAdd] = useState(false)
-
-  function togglePopAdd() {
-    setSeenAdd(!seenAdd);
-  };
-
   const [seenEdit, setSeenEdit] = useState(false)
 
   function togglePopEdit() {
@@ -44,58 +37,70 @@ function Customer() {
         <div className="admin-container">
           <h2>Customer Management</h2>
           <div className="table-wrapper">
-            <div className="d_flex_add">
-              {/* <button className="btn-green" onClick={togglePopAdd}>Add New Building</button> */}
-              {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadCustomer={loadCustomer} /> : null}
-            </div>
-            <br />
             <table className="fl-table">
               <thead>
                 <tr>
                   <th>ID</th>
-                  {/* <th>customerID</th> */}
-                  {/* <th>Active</th> */}
-                  <th>Address</th>
                   <th>Avatar</th>
                   <th>Create Date</th>
                   <th>Date Of Birth</th>
                   <th>Email</th>
                   <th>Full Name</th>
                   <th>Gender</th>
-                  <th>Password</th>
                   <th>Phone Number</th>
                   <th>Rating</th>
-                  <th>Role</th>
-                  <th>User Name</th>
-                  <th>BuildingID</th>
+                  <th>Building</th>
+                  <th>Address</th>
                   <th className="action">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {customers.map((customer) => (
-                  <tr key={customer.customerID}>
-                    {/* <td>{customer.customerID}</td> */}
-                    <td>{customer.customerID}</td>
-                    {/* <td>{customer.active}</td> */}
-                    <td>{customer.address}</td>
-                    <td>{customer.avatar}</td>
-                    <td>{customer.createDate}</td>
-                    <td>{customer.dob}</td>
-                    <td>{customer.email}</td>
-                    <td>{customer.fullName}</td>
-                    <td>{customer.gender}</td>
-                    <td>{customer.password}</td>
-                    <td>{customer.phone}</td>
-                    <td>{customer.rating}</td>
-                    <td>{customer.role}</td>
-                    <td>{customer.username}</td>
-                    <td>{customer.buildingID}</td>
-                    <td className="d_flex action">
-                      <button className="btn-green" onClick={() => { togglePopEdit(); setCustomerID(customer.customerID) }}>Edit</button>
-                      <button className="btn-primary" onClick={() => deleteCustomer(customer.customerID)}>Delete</button>
-                    </td>
-                  </tr>
-                ))}
+                {customers.map((customer) => {
+                  var epochTime1 = customer.createDate;
+
+                  var dateObj1 = new Date(epochTime1);
+
+                  var date1 = dateObj1.getDate();
+                  var month1 = dateObj1.getMonth() + 1;
+                  var year1 = dateObj1.getYear() - 100 + 2000;
+
+                  var formattedTime1 =
+                    date1.toString() + '/' +
+                    month1.toString() + '/' +
+                    year1.toString();
+
+                  var epochTime2 = customer.dob;
+
+                  var dateObj2 = new Date(epochTime2);
+
+                  var date2 = dateObj2.getDate();
+                  var month2 = dateObj2.getMonth() + 1;
+                  var year2 = dateObj2.getYear() - 100 + 2000;
+
+                  var formattedTime2 =
+                    date2.toString() + '/' +
+                    month2.toString() + '/' +
+                    year2.toString();
+                  return (
+                    <tr key={customer.customerID}>
+                      <td>{customer.customerID}</td>
+                      <td><img src={customer.avatar} alt="" /></td>
+                      <td>{formattedTime1}</td>
+                      <td>{formattedTime2}</td>
+                      <td>{customer.email}</td>
+                      <td>{customer.fullName}</td>
+                      <td>{customer.gender ? "Nam" : "Nữ"}</td>
+                      <td>{customer.phone}</td>
+                      <td>{customer.rating}</td>
+                      <td>{customer.buildingName}</td>
+                      <td>{customer.address}</td>
+                      <td className="d_flex action action1">
+                        <button className="btn-green" onClick={() => { togglePopEdit(); setCustomerID(customer.customerID) }}>Edit</button>
+                        <button className="btn-primary" onClick={() => deleteCustomer(customer.customerID)}>Delete</button>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
             {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} loadCustomer={loadCustomer} customerID={customerID} /> : null}

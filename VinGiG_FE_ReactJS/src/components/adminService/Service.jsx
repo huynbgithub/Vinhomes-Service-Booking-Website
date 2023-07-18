@@ -57,10 +57,10 @@ function Service() {
                   <th>Description</th>
                   <th>Fee</th>
                   <th>Price Max</th>
-                  <th>Price Min</th>  
+                  <th>Price Min</th>
                   <th>Unit</th>
                   <th>Category Name</th>
-                  
+
                   <th className="action">Action</th>
                 </tr>
               </thead>
@@ -69,10 +69,10 @@ function Service() {
                   <tr key={service.serviceID}>
                     <td>{service.serviceID}</td>
                     <td>{service.serviceName}</td>
-                    <td>{service.description}</td>
+                    <td className='not-center'>{service.description}</td>
                     <td>{service.fee}</td>
                     <td>{service.priceMax}</td>
-                    <td>{service.priceMin}</td>     
+                    <td>{service.priceMin}</td>
                     <td>{service.unit}</td>
                     <td>{service.categoryName}</td>
                     <td className="d_flex action">

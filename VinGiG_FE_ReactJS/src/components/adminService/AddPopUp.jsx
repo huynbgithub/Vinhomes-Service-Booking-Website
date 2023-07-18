@@ -32,17 +32,17 @@ export default function AddPopUp(props) {
         props.loadServices();
     }
 
-    const [categorys, setCategorys] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        loadCategorys();
+        loadCategories();
     }, [])
 
-    const loadCategorys = () => {
+    const loadCategories = () => {
         axios.get(`http://localhost:8081/vingig/serviceCategories`)
             .then(res => {
-                const categorys = res.data;
-                setCategorys(categorys);
+                const categories = res.data;
+                setCategories(categories);
             })
             .catch(error => console.log(error));
     }
@@ -53,7 +53,7 @@ export default function AddPopUp(props) {
                 <h2>Add Service</h2>
                 <form onSubmit={handleAdd}>
                     <label>
-                        ServiceName:
+                        Service Name:
                         <input required type="text" value={serviceName} onChange={e => setServiceName(e.target.value)} />
                     </label>
                     <label>
@@ -80,7 +80,7 @@ export default function AddPopUp(props) {
                         Category Name:
                         <select required onChange={e => setCategoryID(e.target.value)}>
                             <option value=""></option>
-                            {categorys.map((category) => (
+                            {categories.map((category) => (
                                 <option value={category.categoryID}>{category.categoryName}</option>
                             ))}
                         </select>

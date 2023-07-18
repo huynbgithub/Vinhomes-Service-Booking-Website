@@ -1,4 +1,4 @@
-import "./style.css"
+// import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"
@@ -63,7 +63,7 @@ function Category() {
                   <tr key={category.categoryID}>
                     <td>{category.categoryID}</td>
                     <td>{category.categoryName}</td>
-                    <td>{category.description}</td>
+                    <td className='not-center'>{category.description}</td>
                     <td className="d_flex action">
                       <button className="btn-green" onClick={() => { togglePopEdit(); setCategoryID(category.categoryID) }}>Edit</button>
                       <button className="btn-primary" onClick={() => deleteCategory(category.categoryID)}>Delete</button>

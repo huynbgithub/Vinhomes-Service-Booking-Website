@@ -1,4 +1,4 @@
-import "./style.css"
+// import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import AddPopUp from "./AddPopUp"
@@ -42,10 +42,10 @@ function Subscriptionplan() {
     <>
       <div className="admin-wrapper">
         <div className="admin-container">
-          <h2>SubscriptioPlan Management</h2>
+          <h2>Subscription Plan Management</h2>
           <div className="table-wrapper">
             <div className="d_flex_add">
-              <button className="btn-green" onClick={togglePopAdd}>Add New subscriptionPlan</button>
+              <button className="btn-green" onClick={togglePopAdd}>Add New Subscription Plan</button>
               {seenAdd ? <AddPopUp togglePopAdd={togglePopAdd} loadPlans={loadPlans} /> : null}
             </div>
             <br />

@@ -12,6 +12,17 @@ export default function EditPopUp(props) {
     const [serviceName, setServiceName] = useState('')
     const [unit, setUnit] = useState('')
     const [categoryID, setCategoryID] = useState('')
+    const [categoryName, setCategoryName] = useState('')
+    const [categories, setCategories] = useState([]);
+
+    const loadCategories = () => {
+        axios.get(`http://localhost:8081/vingig/serviceCategories`)
+            .then(res => {
+                const categories = res.data;
+                setCategories(categories);
+            })
+            .catch(error => console.log(error));
+    }
     useEffect(() => {
         axios.get(`http://localhost:8081/vingig/giGService/${props.serviceID}`)
             .then(res => {
@@ -23,7 +34,9 @@ export default function EditPopUp(props) {
                 setServiceName(service.serviceName);
                 setUnit(service.unit);
                 setCategoryID(service.categoryID);
+                setCategoryName(service.categoryName);
             }).catch(error => console.log(error));
+        loadCategories();
     }, []);
     async function handleEdit(e) {
         e.preventDefault()
@@ -52,7 +65,7 @@ export default function EditPopUp(props) {
                 <h2>Edit Service</h2>
                 <form onSubmit={handleEdit}>
                     <label>
-                        serviceName:
+                        Service Name:
                         <input type="text" value={serviceName} onChange={e => setServiceName(e.target.value)} />
                     </label>
                     <label>
@@ -76,8 +89,13 @@ export default function EditPopUp(props) {
                         <input type="text" value={unit} onChange={e => setUnit(e.target.value)} />
                     </label>
                     <label>
-                    category Name:
-                        <input type="text" value={categoryID} onChange={e => setCategoryID(e.target.value)} />
+                        Category Name:
+                        <select required onChange={e => setCategoryID(e.target.value)}>
+                            <option value={categoryID}>{categoryName}</option>
+                            {categories.map((category) => (
+                                <option value={category.categoryID}>{category.categoryName}</option>
+                            ))}
+                        </select>
                     </label>
 
                     <div className="d_flex_add">
