@@ -23,7 +23,7 @@ export default function EditPopUp(props) {
     async function handleEdit(e) {
         e.preventDefault()
         // Code to handle edit
-        await axios.put(`http://localhost:8081/vingig/provider/${providerID}/booking/${props.bookingID}/content/${review}/rating/${rating}`,
+        await axios.put(`http://localhost:8081/vingig/provider/${providerID}/booking/${props.bookingID}/content/${pReview}/rating/${pRating}`,
             {})
             .catch(error => console.log(error));
         props.togglePopEdit();
