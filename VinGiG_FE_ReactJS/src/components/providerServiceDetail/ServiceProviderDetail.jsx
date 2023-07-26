@@ -3,6 +3,7 @@ import axios from "axios"
 import { useParams } from "react-router-dom"
 import { NumericFormat } from "react-number-format"
 import EditPopUp from "./EditPopUp"
+import { useHistory } from 'react-router-dom';
 
 export default function ServiceDetail() {
 
@@ -10,6 +11,7 @@ export default function ServiceDetail() {
   const [reviews, setReviews] = useState([]);
   const [pService, setPService] = useState({});
   const [seenEdit, setSeenEdit] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     getProviderService();
@@ -38,6 +40,11 @@ export default function ServiceDetail() {
   function togglePopEdit() {
     setSeenEdit(!seenEdit);
   };
+
+  async function deleteService() {
+    await axios.delete(`http://localhost:8081/vingig/providerService/${serviceProviderID}`);
+    history.push('/provider/service');
+  }
 
   return (
     <>
@@ -68,6 +75,7 @@ export default function ServiceDetail() {
                     </div>
                     <div className="text-right">
                       <button className='btn-green' onClick={() => { togglePopEdit() }}>Edit</button>
+                      <button className='btn-primary mg-l10' onClick={() => deleteService()}>Delete</button>
                     </div>
                   </div>
                 </div>

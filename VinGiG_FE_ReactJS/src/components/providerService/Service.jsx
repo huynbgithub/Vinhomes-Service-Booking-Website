@@ -12,18 +12,13 @@ function Service() {
     loadServices();
   }, [])
 
-  const loadServices = () => {
+  function loadServices() {
     axios.get(`http://localhost:8081/vingig/provider/${providerID}/providerServices`)
       .then(res => {
         const services = res.data;
         setServices(services);
       })
       .catch(error => console.log(error));
-  }
-
-  async function deleteService(serviceID) {
-    await axios.delete(`http://localhost:8081/vingig/providerService/${serviceID}`);
-    loadServices();
   }
 
   const [seenAdd, setSeenAdd] = useState(false)

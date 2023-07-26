@@ -7,6 +7,7 @@ import ProviderCategories from "./common/providerHeader/Categories"
 import ProviderHeader from "./common/providerHeader/Header"
 import AdminHeader from "./common/adminHeader/Header"
 import Footer from "./common/footer/Footer"
+import ProviderFooter from "./common/providerFooter/Footer"
 import Home from "./components/customerPage/Home"
 import Login from "./common/login/Login"
 import Logout from "./common/login/Logout"
@@ -134,47 +135,47 @@ function App() {
           <ProviderProtectedRoute exact path='/provider'>
             <ProviderHeader />
             <ProviderPage />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/account/' >
             <ProviderHeader />
             <ProviderAccount />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/wallet' >
             <ProviderHeader />
             <ProviderWallet />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/subscription' >
             <ProviderHeader />
             <ProviderSubPlan />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/chat' >
             <ProviderHeader />
             <ProviderChat />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/history' >
             <ProviderHeader />
             <ProviderHistory />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/activity' >
             <ProviderHeader />
             <ProviderActivity />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/service' >
             <ProviderHeader />
             <ProviderService />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
           <ProviderProtectedRoute exact path='/provider/serviceProviderDetail/:serviceProviderID' >
             <ProviderHeader />
             <ProviderServiceDetail />
-            <Footer />
+            <ProviderFooter />
           </ProviderProtectedRoute>
         </Switch>
 

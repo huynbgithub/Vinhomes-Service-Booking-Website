@@ -1,4 +1,3 @@
-import "./popup.css"
 import axios from 'axios';
 import React, { useState, useEffect } from "react"
 
@@ -49,9 +48,8 @@ export default function EditPopUp(props) {
     async function handleEdit(e) {
         e.preventDefault()
         // Code to handle edit
-        await axios.put(`http://localhost:8081/vingig/building/${buildingID}/customer`,
+        await axios.put(`http://localhost:8081/vingig/building/${props.customerID}/customer`,
             {
-                customerID: props.customerID,
                 active: true,
                 address: address,
                 avatar: avatar,
@@ -59,11 +57,12 @@ export default function EditPopUp(props) {
                 email: email,
                 fullName: fullName,
                 gender: gender,
+                password: password,
                 phone: phone,
                 rating: rating,
                 role: role,
                 username: username,
-                // buildingID: buildingID,
+                buildingID: buildingID,
             })
             .catch(error => console.log(error));
         props.togglePopEdit();
@@ -73,7 +72,7 @@ export default function EditPopUp(props) {
     return (
         <div className="popup">
             <div className="popup-inner">
-                <h2>Edit Customer</h2>
+                <h2>Edit Account Information</h2>
                 <form onSubmit={handleEdit}>
                     <label>
                         Name:

@@ -7,7 +7,7 @@ function Home() {
 
   return (
     <>
-      <section className='home home-setting'>
+      <section className='home home-setting home-mg-top'>
         <div className='container d_flex'>
           <SliderHome />
         </div>

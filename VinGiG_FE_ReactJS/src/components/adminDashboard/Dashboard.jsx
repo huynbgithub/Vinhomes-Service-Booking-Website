@@ -96,7 +96,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="row">
-                <div className="col-xl-4 grid-margin stretch-card">
+                <div className="col-xl-8 grid-margin stretch-card">
                   <div className="card">
                     <div className="card-body border-bottom">
                       <div className="d-flex justify-content-between align-items-center flex-wrap">
@@ -117,7 +117,6 @@ export default function Dashboard() {
                       </div>
                     </div>
                     <div className="card-body">
-                      <canvas id="sales-chart-c" className="mt-2" />
                       <div className="d-flex align-items-center justify-content-between border-bottom pb-4 mb-4 mt-4">
                         <div className="d-flex flex-column justify-content-center align-items-center">
                           <p className="text-muted">Tháng</p>
@@ -171,7 +170,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6 col-xl-4 grid-margin stretch-card">
+                <div className="col-md-4 col-xl-4 grid-margin stretch-card">
                   <div className="row">
                     <div className="col-md-12 grid-margin stretch-card">
                       <div className="card newsletter-card bg-gradient-warning">
@@ -214,31 +213,6 @@ export default function Dashboard() {
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4 grid-margin stretch-card">
-                  <div className="card">
-                    <div className="card-body border-bottom">
-                      <div className="d-flex justify-content-between align-items-center flex-wrap">
-                        <h6 className="mb-2 mb-md-0 text-uppercase font-weight-medium">User Statistics</h6>
-                        <div className="dropdown">
-                          <button className="btn bg-white p-0 pb-1 text-muted btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Last 7 months
-                          </button>
-                          <div className="dropdown-menu" aria-labelledby="dropdownMenuSizeButton4">
-                            <h6 className="dropdown-header">Settings</h6>
-                            <a className="dropdown-item" href="javascript:;">Action</a>
-                            <a className="dropdown-item" href="javascript:;">Another action</a>
-                            <a className="dropdown-item" href="javascript:;">Something else here</a>
-                            <div className="dropdown-divider" />
-                            <a className="dropdown-item" href="javascript:;">Separated link</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="card-body">
-                      <canvas id="sales-chart-d" height={320} />
                     </div>
                   </div>
                 </div>

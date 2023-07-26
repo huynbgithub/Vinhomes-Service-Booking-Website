@@ -19,6 +19,10 @@ body {
   float: right
 }
 
+.mg-l10 {
+  margin-left: 10px;
+}
+
 .text-right {
   display: flex;
   justify-content: right;
@@ -55,8 +59,17 @@ body {
 }
 
 .home-setting {
-  height: 550px;
+  height: 600px;
   margin: 0 6em 0 10em;
+}
+
+
+.colorProvider {
+  background-color: #14443c !important;
+}
+
+.home-mg-top {
+  margin-top: 100px !important;
 }
 
 .s-setting {
@@ -169,6 +182,14 @@ button {
 .btn-cancel {
   background: rgb(160, 160, 160);
   padding: 10px 20px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.btn-hide {
+  background: rgb(160, 160, 160);
+  padding: 2px 4px;
   font-weight: bold;
   color: #fff;
   border-radius: 5px;

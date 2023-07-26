@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from 'axios';
 import "./style.css"
-import {over} from 'stompjs';
+import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import { connect } from 'react-redux';
 import { connectStomp } from '../redux/store';
 
-var stompClient =null;
+var stompClient = null;
 
 function Login() {
     const [activePanel, setActivePanel] = useState(false);
@@ -28,45 +28,45 @@ function Login() {
         let Sock = new SockJS('http://localhost:8081/vingig/websocket');
         const stompClient = over(Sock);
         stompClient.connect({}, () => {
-          connectStomp(stompClient); // Dispatch the connectStomp action
-          onConnected();
+            connectStomp(stompClient); // Dispatch the connectStomp action
+            onConnected();
         }, onError);
-      };
+    };
 
     const onConnected = () => {
         let access = JSON.parse(localStorage.getItem("accessToken"));
         let role = access.role;
         let id;
-        if(role === "provider") id = access.providerID
+        if (role === "provider") id = access.providerID
         else id = access.customerID;
-        stompClient.subscribe(`/user/${id}/`+ role + `/messages`, onMessage);
-        stompClient.subscribe(`/user/${id}/`+ role + `/booking/update`, onBooking);
+        stompClient.subscribe(`/user/${id}/` + role + `/messages`, onMessage);
+        stompClient.subscribe(`/user/${id}/` + role + `/booking/update`, onBooking);
         //SUBSCRIBE
-        if(role === "provider"){
-            stompClient.subscribe(`/user/${id}/`+ role + `/booking/place`, onBooking); 
-        }       
+        if (role === "provider") {
+            stompClient.subscribe(`/user/${id}/` + role + `/booking/place`, onBooking);
+        }
     }
 
     const onError = (err) => {
-        console.log(err);    
+        console.log(err);
     }
 
-    const onMessage = (payload) =>{
+    const onMessage = (payload) => {
         const chatCount = JSON.parse(localStorage.getItem("chatCount"));
-        if(chatCount) {
+        if (chatCount) {
             console.log(payload);
             let myMap = new Map(Object.entries(chatCount));
-            if(myMap.get(payload.bookingID)){
+            if (myMap.get(payload.bookingID)) {
                 myMap.set(payload.bookingID, myMap.get(payload.bookingID) + 1);
-            }else myMap.set(payload.bookingID, 1);
+            } else myMap.set(payload.bookingID, 1);
 
             localStorage.setItem("chatCount", JSON.stringify(Array.from(myMap.entries())));
         }
     }
 
-    const onBooking = (payload) =>{
+    const onBooking = (payload) => {
         const activityCount = parseInt(localStorage.getItem("activityCount"));
-        if(activityCount) {
+        if (activityCount) {
             console.log(payload);
             localStorage.setItem("activityCount", activityCount + 1);
         }
@@ -104,7 +104,7 @@ function Login() {
                     {/*<h2 class ="gold-color">VINGIG: Sign in/up Form</h2>*/}
                     <h4 className="gold-color"></h4>
                     <div className={`container ${activePanel ? "right-panel-active" : ""}`} id="container">
-                        <div className="form-container sign-up-container">
+                        <div className="form-container-log sign-up-container">
                             {/* <c:url var="signUpLink" value="${request.contextPath}/UserAccessController/signup"> */}
                             <form action="" name method="POST">
                                 <h1>Create Account</h1>
@@ -129,7 +129,7 @@ function Login() {
                             </form>
                             {/* </c:url> */}
                         </div>
-                        <div className="form-container sign-in-container">
+                        <div className="form-container-log sign-in-container">
                             <form>
                                 <h1>User Login</h1>
                                 <input type="text" placeholder="Username" name="username" value={username} onChange={(event) => {
@@ -184,6 +184,6 @@ function Login() {
 
 const mapDispatchToProps = {
     connectStomp, // Map the connectStomp action to component props
-  };
-  
-  export default connect(null, mapDispatchToProps)(Login);
+};
+
+export default connect(null, mapDispatchToProps)(Login);

@@ -1,3 +1,35 @@
+/* Form container */
+.form-container {
+  margin-left: 10px !important;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Input fields */
+.form-container input[type="date"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Filter button */
+.form-container button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
 .cart-items {
   background: #f6f9fc;
   height: auto;

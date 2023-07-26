@@ -10,16 +10,27 @@ function History() {
   const providerID = JSON.parse(localStorage.getItem("accessToken")).providerID;
   const [histories, setHistories] = useState([]);
   const [bookingID, setBookingID] = useState("");
+  const [dateMin, setDateMin] = useState("min");
+  const [dateMax, setDateMax] = useState("max");
   const history = useHistory();
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/vingig/provider/${providerID}/bookings/history/{dateMin}/{dateMax}`)
+    fetchHistories();
+  }, []);
+
+  const fetchHistories = () => {
+    axios.get(`http://localhost:8081/vingig/provider/${providerID}/bookings/history/${dateMin}/${dateMax}`)
       .then(res => {
         const histories = res.data;
         setHistories(histories);
       })
       .catch(error => console.log(error));
-  }, []);
+  };
+
+  const handleFilterSubmit = (event) => {
+    event.preventDefault();
+    fetchHistories();
+  };
 
   const [seenEdit, setSeenEdit] = useState(false)
 
@@ -33,7 +44,7 @@ function History() {
         content: "Xin chào quý cư dân!",
         sendBy: false,
       }).catch(error => console.log(error));
-      history.push('/provider/chat');
+    history.push('/provider/chat');
   }
 
   return (
@@ -42,6 +53,13 @@ function History() {
         <div className='container d_flex containerHeight'>
           <h1> Booking History</h1>
           <div className='cart-details'>
+            <form onSubmit={handleFilterSubmit} className="form-container">
+              <label>From</label>
+              <input name="dateMin" type="date" value={dateMin} onChange={(e) => setDateMin(e.target.value)} />
+              <label>To</label>
+              <input name="dateMax" type="date" value={dateMax} onChange={(e) => setDateMax(e.target.value)} />
+              <button type="submit">Filter</button>
+            </form>
             {histories.length === 0 && <h1 className='no-items product'>No Booking History</h1>}
 
             {histories.slice().reverse().map((item) => {
@@ -112,7 +130,7 @@ function History() {
                     <div className='cart-items-function'>
                       <div className='removeCart'>
                         <Link to='/provider/chat'>
-                          <button className='btn-primary' onClick={() => { localStorage.setItem("pChatBookingID", item.bookingID)  ; sendMessage(item.bookingID)}}>
+                          <button className='btn-primary' onClick={() => { localStorage.setItem("pChatBookingID", item.bookingID); sendMessage(item.bookingID) }}>
                             Chat
                           </button>
                         </Link>
