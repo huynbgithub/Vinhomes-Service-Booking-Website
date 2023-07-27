@@ -2,6 +2,7 @@ import "./style.css"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import { NumericFormat } from "react-number-format"
+import DepositPopUp from "./DepositPopUp"
 
 function CustomerAccount() {
 
@@ -10,13 +11,21 @@ function CustomerAccount() {
   const [sTrans, setSTrans] = useState([]);
   const [dTrans, setDTrans] = useState([]);
   const [wallet, setWallet] = useState({});
+  const [depositPending, setDepositPending] = useState([]);
+  const [seenBook, setSeenBook] = useState(false);
+
+  function togglePopBook() {
+    setSeenBook(!seenBook);
+  };
 
   useEffect(() => {
     getWallet();
     loadBookingFeeTrans();
     loadDepositTrans();
     loadSubscriptionFeeTrans();
-  }, [])
+    loadDepositPending();
+  }, [depositPending])
+
   const getWallet = () => {
     axios.get(`http://localhost:8081/vingig/provider/${providerSession.providerID}/wallets`)
       .then(res => {
@@ -49,6 +58,24 @@ function CustomerAccount() {
       })
       .catch(error => console.log(error));
   }
+  const loadDepositPending = () => {
+    axios.get(`http://localhost:8081/vingig/provider/${providerSession.providerID}/deposit/pending/date/{dateMinStr}/{dateMaxStr}`)
+      .then(res => {
+        const depositPending = res.data;
+        setDepositPending(depositPending);
+      })
+      .catch(error => console.log(error));
+  }
+
+  const cancelDeposit = (id) =>{
+    axios.delete(`http://localhost:8081/vingig/deposit/${id}`)
+    .then((response) => {
+      console.log('Post deleted successfully!', response.data);
+    })
+    .catch((error) => {
+      console.error('Error deleting post:', error);
+    });
+  }
 
   return (
     <section className='cart-items account-height' >
@@ -65,30 +92,48 @@ function CustomerAccount() {
           </div>
           <br />
           <div className='d_flex iii'>
-            {/* <h5>Do you want to deposit?</h5> */}
-            <button className='btn-primary'>Deposit</button>
+            <button className='btn-primary' onClick={() => { togglePopBook(); }}>Deposit</button>
           </div>
         </div>
         <div className='account_info product ooo'>
-          {/* <h2>Username & Password</h2>
-          <div className=' d_flex'>
-            <h4>username:</h4>
-            <h4>
-              {customerSession.username}
-            </h4>
-          </div>
-          <div className=' d_flex'>
-            <h4>password:</h4>
-            <h4>
-              {customerSession.password}
-            </h4>
-          </div>
-          <br />
-          <div className=' d_flex'>
-            <h5>Change password?</h5>
-            <button className='btn-primary'>Change</button>
-          </div> */}
+        {/* <h2>Deposit Request</h2> */}
+          {depositPending.map((deposit) => {
+                const epochTime = deposit.date;
 
+                const dateObj = new Date(epochTime);
+
+                const date = dateObj.getDate();
+                const month = dateObj.getMonth() + 1;
+                const year = dateObj.getYear() - 100 + 2000;
+
+                const formattedTime =
+                  date.toString() + '/' +
+                  month.toString() + '/' +
+                  year.toString();
+
+                const link = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + deposit.method
+                return (
+                  <div>
+                    
+                    <div className=' d_flex'>
+                    <h4>Date: </h4><h4>{formattedTime}</h4>
+                    </div>
+                    <div className=' d_flex'>
+                    <h4>Full Name: </h4><h4>{deposit.fullName}</h4>
+                    </div>
+                    <div className=' d_flex'>
+                    <h4>Amount: </h4><h1><NumericFormat value={deposit.amount} displayType="text" thousandSeparator={true} suffix={' VND'} /></h1>
+                    </div>
+                    <div className='img-a d_flex'>             
+                    <img src={link} alt="QR Code"/>
+                    </div>
+                    <br/>
+                    <div className=' d_flex'>
+                    <a href = {deposit.method} target="_blank"><button className='btn-primary'>Proceed</button></a>
+                    <button className='btn-primary' onClick={() => { cancelDeposit(deposit.depositID); }}>Cancel</button>
+                    </div>
+                  </div>)
+            })}
         </div>
       </div>
       <div className='container d_flex'>
@@ -188,6 +233,7 @@ function CustomerAccount() {
             </tbody>
           </table>
         </div>
+        {seenBook ? <DepositPopUp togglePopBook={togglePopBook}/> : null}
       </div>
     </section >
   )

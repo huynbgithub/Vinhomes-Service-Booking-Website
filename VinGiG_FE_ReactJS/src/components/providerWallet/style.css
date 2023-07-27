@@ -131,9 +131,11 @@
   height: 130px;
 }
 
-.ooo {
-  background-color: #f7f9fc;
+.ooo h1{
+color: red
 }
+
+
 
 .iii {
   justify-content: center
