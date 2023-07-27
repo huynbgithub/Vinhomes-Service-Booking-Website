@@ -6,6 +6,7 @@ export default function EditPopUp(props) {
     const [address, setAddress] = useState('')
     const [avatar, setAvatar] = useState('')
     const [createDate, setCreateDate] = useState('')
+    const [dob, setDob] = useState('')
     const [email, setEmail] = useState('')
     const [fullName, setFullName] = useState('')
     const [gender, setGender] = useState('')
@@ -15,6 +16,7 @@ export default function EditPopUp(props) {
     const [role, setRole] = useState('')
     const [username, setUserName] = useState('')
     const [buildingID, setBuildingID] = useState('')
+    const [badgeID, setBadgeID] = useState('')
     const [buildingName, setBuildingName] = useState('')
     const [buildings, setBuildings] = useState([]);
     const loadBuildings = () => {
@@ -26,47 +28,48 @@ export default function EditPopUp(props) {
             .catch(error => console.log(error));
     }
     useEffect(() => {
-        axios.get(`http://localhost:8081/vingig/customer/${props.customerID}`)
+        axios.get(`http://localhost:8081/vingig/provider/${props.providerID}`)
             .then(res => {
-                const customer = res.data;
-                setAddress(customer.address);
-                setAvatar(customer.avatar);
-                setCreateDate(customer.createDate);
-                setEmail(customer.email);
-                setFullName(customer.fullName);
-                setGender(customer.gender);
-                setPassword(customer.password);
-                setPhone(customer.phone);
-                setRating(customer.rating);
-                setRole(customer.role);
-                setUserName(customer.username);
-                setBuildingID(customer.buildingID);
-                setBuildingName(customer.buildingName);
+                const provider = res.data;
+                setAddress(provider.address);
+                setAvatar(provider.avatar);
+                setCreateDate(provider.createDate);
+                setDob(provider.dob);
+                setEmail(provider.email);
+                setFullName(provider.fullName);
+                setGender(provider.gender);
+                setPassword(provider.password);
+                setPhone(provider.phone);
+                setRating(provider.rating);
+                setRole(provider.role);
+                setUserName(provider.username);
+                setBuildingID(provider.buildingID);
+                setBadgeID(provider.badgeID);
+                setBuildingName(provider.buildingName);
             }).catch(error => console.log(error));
         loadBuildings();
     }, []);
     async function handleEdit(e) {
         e.preventDefault()
         // Code to handle edit
-        await axios.put(`http://localhost:8081/vingig/building/${props.customerID}/customer`,
+        await axios.put(`http://localhost:8081/vingig/building/${buildingID}/badge/${badgeID}/provider`,
             {
+                providerID: props.providerID,
                 active: true,
                 address: address,
                 avatar: avatar,
                 createDate: createDate,
+                dob: dob,
                 email: email,
                 fullName: fullName,
                 gender: gender,
-                password: password,
                 phone: phone,
                 rating: rating,
                 role: role,
-                username: username,
-                buildingID: buildingID,
             })
             .catch(error => console.log(error));
         props.togglePopEdit();
-        props.loadCustomer();
+        props.getProvider();
     }
 
     return (
@@ -81,6 +84,10 @@ export default function EditPopUp(props) {
                     <label>
                         Email:
                         <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    </label>
+                    <label>
+                        Phone:
+                        <input type="number" value={phone} onChange={e => setPhone(e.target.value)} />
                     </label>
                     <label>
                         Phone:

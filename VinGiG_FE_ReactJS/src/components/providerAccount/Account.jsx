@@ -39,22 +39,22 @@ function ProviderAccount() {
         <div className='account_info product'>
           <h2>Avatar</h2>
           <div className='img-a d_flex'>
-            <img src={providerSession.avatar} alt="" />
+            <img src={provider.avatar} alt="" />
           </div>
         </div>
         <div className='account_info product'>
           <h2>Account Information</h2>
           <div className=' d_flex'>
             <h4>Name:</h4>
-            {providerSession.fullName}
+            {provider.fullName}
           </div>
           <div className=' d_flex'>
             <h4>Email:</h4>
-            {providerSession.email}
+            {provider.email}
           </div>
           <div className=' d_flex'>
             <h4>Phone:</h4>
-            {providerSession.phone}
+            {provider.phone}
           </div>
           <div className=' d_flex'>
             <h4>Gender:</h4>
@@ -73,7 +73,7 @@ function ProviderAccount() {
             <h5>Do you want to edit?</h5>
             <button className='btn-primary' onClick={() => { togglePopEdit(); }}>Edit</button>
           </div>
-          {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} providerID={provider.providerID} /> : null}
+          {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} providerID={provider.providerID} getProvider={getProvider} /> : null}
         </div>
         <div className='account_info product'>
           <h2>Username & Password</h2>
