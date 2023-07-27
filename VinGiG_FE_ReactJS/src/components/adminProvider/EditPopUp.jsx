@@ -7,6 +7,7 @@ export default function EditPopUp(props) {
     const [address, setAddress] = useState('')
     const [avatar, setAvatar] = useState('')
     const [createDate, setCreateDate] = useState('')
+    const [dob, setDob] = useState('')
     const [email, setEmail] = useState('')
     const [fullName, setFullName] = useState('')
     const [gender, setGender] = useState('')
@@ -28,12 +29,13 @@ export default function EditPopUp(props) {
             .catch(error => console.log(error));
     }
     useEffect(() => {
-        axios.get(`http://localhost:8081/vingig/building/${buildingID}/badge/${badgeID}/provider/${props.providerID}`)
+        axios.get(`http://localhost:8081/vingig/provider/${props.providerID}`)
             .then(res => {
                 const provider = res.data;
                 setAddress(provider.address);
                 setAvatar(provider.avatar);
                 setCreateDate(provider.createDate);
+                setDob(provider.dob);
                 setEmail(provider.email);
                 setFullName(provider.fullName);
                 setGender(provider.gender);
@@ -51,23 +53,20 @@ export default function EditPopUp(props) {
     async function handleEdit(e) {
         e.preventDefault()
         // Code to handle edit
-        await axios.put(`http://localhost:8081/vingig/providers`,
+        await axios.put(`http://localhost:8081/vingig/building/${buildingID}/badge/${badgeID}/provider`,
             {
                 providerID: props.providerID,
                 active: true,
                 address: address,
                 avatar: avatar,
+                dob: dob,
                 createDate: createDate,
                 email: email,
                 fullName: fullName,
                 gender: gender,
-                password: password,
                 phone: phone,
                 rating: rating,
                 role: role,
-                username: username,
-                badgeID: badgeID,
-                buildingID: buildingID,
             })
             .catch(error => console.log(error));
         props.togglePopEdit();
@@ -91,6 +90,10 @@ export default function EditPopUp(props) {
                         Phone:
                         <input type="number" value={phone} onChange={e => setPhone(e.target.value)} />
                     </label>
+                    {/* <label>
+                        Date of Birth:
+                        <input type="date" value={dob} onChange={e => setDob(e.target.value)} />
+                    </label> */}
                     <label>
                         Gender:
                         <select required onChange={e => setGender(e.target.value)}>

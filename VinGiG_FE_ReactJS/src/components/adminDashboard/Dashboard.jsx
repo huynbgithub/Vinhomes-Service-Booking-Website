@@ -1,12 +1,45 @@
-import React from "react"
 import "./style.scss"
 import "./vendor.bundle.base.scss"
 import "./typicons.scss"
-// import { Helmet } from "react-helmet";
-
+import axios from 'axios';
+import React, { useEffect, useState } from "react"
+import { NumericFormat } from "react-number-format"
 
 export default function Dashboard() {
+  const [a, setA] = useState('');
+  const [b, setB] = useState('');
+  const [c, setC] = useState('');
 
+  useEffect(() => {
+    loadBookingFeeTotal();
+    loadBookingTotal();
+    loadSubFeeTotal();
+  }, [])
+
+  const loadBookingFeeTotal = () => {
+    axios.get(`http://localhost:8081/vingig/transaction/bookingFee/date/{dateMin}/{dateMax}/total`)
+      .then(res => {
+        const a = res.data;
+        setA(a);
+      })
+      .catch(error => console.log(error));
+  }
+  const loadSubFeeTotal = () => {
+    axios.get(`http://localhost:8081/vingig/transaction/subscriptionFee/date/{dateMin}/{dateMax}/total`)
+      .then(res => {
+        const b = res.data;
+        setB(b);
+      })
+      .catch(error => console.log(error));
+  }
+  const loadBookingTotal = () => {
+    axios.get(`http://localhost:8081/vingig/booking/date/{dateMin}/{dateMax}`)
+      .then(res => {
+        const c = res.data;
+        setC(c);
+      })
+      .catch(error => console.log(error));
+  }
   return (
     <div className="dashboard">
       <div class="container-scroller">
@@ -14,7 +47,7 @@ export default function Dashboard() {
           <div className="main-panel">
             <div className="content-wrapper">
               <div className="row">
-                <div className="col-xl-6 grid-margin stretch-card flex-column">
+                <div className="col-xl-8 grid-margin stretch-card flex-column">
                   <h5 className="mb-2 text-titlecase mb-4">Revenue statistics</h5>
                   <div className="row">
                     <div className="col-md-6 grid-margin stretch-card">
@@ -22,10 +55,8 @@ export default function Dashboard() {
                         <div className="card-body d-flex flex-column justify-content-between">
                           <div className="d-flex justify-content-between align-items-center mb-2">
                             <p className="mb-0 text-muted">Booking Commission</p>
-                            <p className="mb-0 text-muted">+5.7%</p>
                           </div>
-                          <h4>36.545.000</h4>
-                          <canvas id="transactions-chart" className="mt-auto" height={65} />
+                          <h4><NumericFormat value={a * -1} displayType="text" thousandSeparator={true} suffix={' VND'} /></h4>
                         </div>
                       </div>
                     </div>
@@ -34,10 +65,8 @@ export default function Dashboard() {
                         <div className="card-body d-flex flex-column justify-content-between">
                           <div className="d-flex justify-content-between align-items-center mb-2">
                             <p className="mb-0 text-muted">Subscription Fee</p>
-                            <p className="mb-0 text-muted">+4.37%</p>
                           </div>
-                          <h4>15.625.000</h4>
-                          <canvas id="sales-chart-a" className="mt-auto" height={65} />
+                          <h4><NumericFormat value={b * -1} displayType="text" thousandSeparator={true} suffix={' VND'} /></h4>
                         </div>
                       </div>
                     </div>
@@ -48,10 +77,8 @@ export default function Dashboard() {
                         <div className="card-body d-flex flex-column justify-content-between">
                           <p className="text-muted">Total Revenue</p>
                           <div className="d-flex justify-content-between align-items-center mb-2">
-                            <h3 className="mb-">52.170.000</h3>
-                            <h3 className="mb-">78%</h3>
+                            <h3 className="mb-"><NumericFormat value={-a - b} displayType="text" thousandSeparator={true} suffix={' VND'} /></h3>
                           </div>
-                          <canvas id="sales-chart-b" className="mt-auto" height={38} />
                         </div>
                       </div>
                     </div>
@@ -61,13 +88,11 @@ export default function Dashboard() {
                           <div className="row h-100">
                             <div className="col-6 d-flex flex-column justify-content-between">
                               <p className="text-muted">Booking No</p>
-                              <h4>4526</h4>
-                              <canvas id="cpu-chart" className="mt-auto" />
+                              <h4>{c.totalBookingNo}</h4>
                             </div>
                             <div className="col-6 d-flex flex-column justify-content-between">
                               <p className="text-muted">Success Rate</p>
-                              <h4>87.15%</h4>
-                              <canvas id="memory-chart" className="mt-auto" />
+                              <h4>{Number(c.bookingCompletedNo * 100 / c.totalBookingNo).toFixed(2)}%</h4>
                             </div>
                           </div>
                         </div>
@@ -75,7 +100,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-6 grid-margin stretch-card flex-column">
+                <div className="col-xl-4 grid-margin stretch-card flex-column">
                   <h5 className="mb-2 text-titlecase mb-4">Money Flow</h5>
                   <div className="row h-100">
                     <div className="col-md-12 stretch-card">
@@ -84,11 +109,10 @@ export default function Dashboard() {
                           <div className="d-flex justify-content-between align-items-start flex-wrap">
                             <div>
                               <p className="mb-3">Cash By Service Totals</p>
-                              <h3>215.389.000</h3>
+                              <h3><NumericFormat value={c.totalCashFlow} displayType="text" thousandSeparator={true} suffix={' VND'} /></h3>
                             </div>
                             <div id="income-chart-legend" className="d-flex flex-wrap mt-1 mt-md-0" />
                           </div>
-                          <canvas id="income-chart" />
                         </div>
                       </div>
                     </div>
@@ -96,81 +120,45 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="row">
-                <div className="col-xl-8 grid-margin stretch-card">
+                <div className="col-md-4 grid-margin stretch-card">
                   <div className="card">
-                    <div className="card-body border-bottom">
-                      <div className="d-flex justify-content-between align-items-center flex-wrap">
-                        <h6 className="mb-2 mb-md-0 text-uppercase font-weight-medium">Subscription Plan</h6>
-                        <div className="dropdown">
-                          <button className="btn bg-white p-0 pb-1 text-muted btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Last 6 months
-                          </button>
-                          <div className="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                            <h6 className="dropdown-header">Settings</h6>
-                            <a className="dropdown-item" href="javascript:;">Action</a>
-                            <a className="dropdown-item" href="javascript:;">Another action</a>
-                            <a className="dropdown-item" href="javascript:;">Something else here</a>
-                            <div className="dropdown-divider" />
-                            <a className="dropdown-item" href="javascript:;">Separated link</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                     <div className="card-body">
-                      <div className="d-flex align-items-center justify-content-between border-bottom pb-4 mb-4 mt-4">
-                        <div className="d-flex flex-column justify-content-center align-items-center">
-                          <p className="text-muted">Tháng</p>
-                          <h5>132</h5>
-                          <div className="d-flex align-items-baseline">
-                            <p className="text-success mb-0">+15.5%</p>
-                            <i className="typcn typcn-arrow-up-thick text-success" />
-                          </div>
+                      <div className="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
+                        <div>
+                          <p className="mb-2 text-md-center text-lg-left">Booking Completed</p>
+                          <h1 className="mb-0">{c.bookingCompletedNo}</h1>
                         </div>
-                        <div className="d-flex flex-column justify-content-center align-items-center">
-                          <p className="text-muted">Quý</p>
-                          <h5>96</h5>
-                          <div className="d-flex align-items-baseline">
-                            <p className="text-success mb-0">+13.8%</p>
-                            <i className="typcn typcn-arrow-up-thick text-success" />
-                          </div>
-                        </div>
-                        <div className="d-flex flex-column justify-content-center align-items-center">
-                          <p className="text-muted">Bán Niên</p>
-                          <h5>56</h5>
-                          <div className="d-flex align-items-baseline">
-                            <p className="text-danger mb-0">-2.15%</p>
-                            <i className="typcn typcn-arrow-down-thick text-danger" />
-                          </div>
-                        </div>
-                        <div className="d-flex flex-column justify-content-center align-items-center">
-                          <p className="text-muted">Thường Niên</p>
-                          <h5>42</h5>
-                          <div className="d-flex align-items-baseline">
-                            <p className="text-danger mb-0">+1.45%</p>
-                            <i className="typcn typcn-arrow-down-thick text-danger" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <div className="dropdown">
-                          <button className="btn bg-white p-0 pb-1 pt-1 text-muted btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Last 7 days
-                          </button>
-                          <div className="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                            <h6 className="dropdown-header">Settings</h6>
-                            <a className="dropdown-item" href="javascript:;">Action</a>
-                            <a className="dropdown-item" href="javascript:;">Another action</a>
-                            <a className="dropdown-item" href="javascript:;">Something else here</a>
-                            <div className="dropdown-divider" />
-                            <a className="dropdown-item" href="javascript:;">Separated link</a>
-                          </div>
-                        </div>
-                        <p className="mb-0">overview</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="col-md-4 col-xl-4 grid-margin stretch-card">
+                <div className="col-md-4 grid-margin stretch-card">
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
+                        <div>
+                          <p className="mb-2 text-md-center text-lg-left">Booking Declined</p>
+                          <h1 className="mb-0">{c.bookingDeclinedNo}</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4 grid-margin stretch-card">
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
+                        <div>
+                          <p className="mb-2 text-md-center text-lg-left">Booking Cancelled</p>
+                          <h1 className="mb-0">{c.bookingCancelledNo}</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-12 col-xl-12 grid-margin stretch-card">
                   <div className="row">
                     <div className="col-md-12 grid-margin stretch-card">
                       <div className="card newsletter-card bg-gradient-warning">
@@ -187,81 +175,10 @@ export default function Dashboard() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-12 stretch-card">
-                      <div className="card profile-card bg-gradient-primary">
-                        <div className="card-body">
-                          <div className="row align-items-center h-100">
-                            <div className="col-md-4">
-                              <figure className="avatar mx-auto mb-4 mb-md-0">
-                                <img src="images/faces/logo_white.png" alt="avatar" />
-                              </figure>
-                            </div>
-                            <div className="col-md-8">
-                              <h5 className="text-white text-center text-md-left">VinGiG</h5>
-                              <p className="text-white text-center text-md-left" />
-                              <div className="d-flex align-items-center justify-content-between info pt-2">
-                                <div>
-                                  <p className="text-white font-weight-bold">Start</p>
-                                  <p className="text-white font-weight-bold">Location</p>
-                                </div>
-                                <div>
-                                  <p className="text-white">16 Jun 2023</p>
-                                  <p className="text-white">Vinhomes GrandPark</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-4 grid-margin stretch-card">
-                  <div className="card">
-                    <div className="card-body">
-                      <div className="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
-                        <div>
-                          <p className="mb-2 text-md-center text-lg-left">Booking Completed</p>
-                          <h1 className="mb-0">4526</h1>
-                        </div>
-                        <i className="typcn typcn-briefcase icon-xl text-secondary" />
-                      </div>
-                      <canvas id="expense-chart" height={80} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4 grid-margin stretch-card">
-                  <div className="card">
-                    <div className="card-body">
-                      <div className="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
-                        <div>
-                          <p className="mb-2 text-md-center text-lg-left">Booking Declined</p>
-                          <h1 className="mb-0">214</h1>
-                        </div>
-                        <i className="typcn typcn-chart-pie icon-xl text-secondary" />
-                      </div>
-                      <canvas id="budget-chart" height={80} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4 grid-margin stretch-card">
-                  <div className="card">
-                    <div className="card-body">
-                      <div className="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
-                        <div>
-                          <p className="mb-2 text-md-center text-lg-left">Booking Cancelled</p>
-                          <h1 className="mb-0">32</h1>
-                        </div>
-                        <i className="typcn typcn-clipboard icon-xl text-secondary" />
-                      </div>
-                      <canvas id="balance-chart" height={80} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-md-12">
                   <div className="card">
                     <div className="table-responsive pt-3">
@@ -383,7 +300,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* content-wrapper ends */}
           </div>

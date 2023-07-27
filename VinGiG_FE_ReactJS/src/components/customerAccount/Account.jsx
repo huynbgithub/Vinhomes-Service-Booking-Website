@@ -71,7 +71,7 @@ function CustomerAccount() {
             <h5>Do you want to edit?</h5>
             <button className='btn-primary' onClick={() => { togglePopEdit(); }}>Edit</button>
           </div>
-          {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} customerID={customer.customerID} /> : null}
+          {seenEdit ? <EditPopUp togglePopEdit={togglePopEdit} customerID={customer.customerID} getCustomer={getCustomer} /> : null}
         </div>
         <div className='account_info product'>
           <h2>Username & Password</h2>

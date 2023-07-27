@@ -5,8 +5,10 @@ import React, { useState, useEffect } from "react"
 export default function EditPopUp(props) {
 
     const [address, setAddress] = useState('')
+    const [active, setActive] = useState('')
     const [avatar, setAvatar] = useState('')
     const [createDate, setCreateDate] = useState('')
+    const [dob, setDob] = useState('')
     const [email, setEmail] = useState('')
     const [fullName, setFullName] = useState('')
     const [gender, setGender] = useState('')
@@ -31,8 +33,10 @@ export default function EditPopUp(props) {
             .then(res => {
                 const customer = res.data;
                 setAddress(customer.address);
+                setActive(customer.active);
                 setAvatar(customer.avatar);
                 setCreateDate(customer.createDate);
+                setDob(customer.dob);
                 setEmail(customer.email);
                 setFullName(customer.fullName);
                 setGender(customer.gender);
@@ -52,18 +56,17 @@ export default function EditPopUp(props) {
         await axios.put(`http://localhost:8081/vingig/building/${buildingID}/customer`,
             {
                 customerID: props.customerID,
-                active: true,
+                active: active,
                 address: address,
                 avatar: avatar,
                 createDate: createDate,
+                dob: dob,
                 email: email,
                 fullName: fullName,
                 gender: gender,
                 phone: phone,
                 rating: rating,
-                role: role,
-                username: username,
-                // buildingID: buildingID,
+                role: role
             })
             .catch(error => console.log(error));
         props.togglePopEdit();
@@ -94,6 +97,10 @@ export default function EditPopUp(props) {
                             <option value={true}>Nam</option>
                             <option value={false}>Nữ</option>
                         </select>
+                    </label>
+                    <label>
+                        Date of Birth:
+                        <input type="date" value={dob} onChange={e => setDob(e.target.value)} />
                     </label>
                     <label>
                         Building:

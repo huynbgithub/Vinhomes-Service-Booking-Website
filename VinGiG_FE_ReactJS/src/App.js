@@ -37,6 +37,7 @@ import ProviderService from "./components/providerService/Service"
 import ProviderServiceDetail from './components/providerServiceDetail/ServiceProviderDetail';
 import CustomerProtectedRoute from "./components/CustomerProtectedRoute"
 import ProviderProtectedRoute from "./components/ProviderProtectedRoute"
+import AdminProtectedRoute from "./components/AdminProtectedRoute"
 
 function App() {
   return (
@@ -87,51 +88,51 @@ function App() {
             <CustomerActivity />
             <Footer />
           </CustomerProtectedRoute>
-          <Route exact path='/admin'>
+          <AdminProtectedRoute exact path='/admin'>
             <AdminHeader />
             <AdminPage />
             <Footer />
-          </Route>
-          <Route exact path='/admin/building'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/building'>
             <AdminHeader />
             <AdminBuilding />
             <Footer />
-          </Route>
-          <Route exact path='/admin/badge'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/badge'>
             <AdminHeader />
             <AdminBadge />
             <Footer />
-          </Route>
-          <Route exact path='/admin/category'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/category'>
             <AdminHeader />
             <AdminCategory />
             <Footer />
-          </Route>
-          <Route exact path='/admin/service'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/service'>
             <AdminHeader />
             <AdminService />
             <Footer />
-          </Route>
-          <Route exact path='/admin/customer'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/customer'>
             <AdminHeader />
             <AdminCustomer />
             <Footer />
-          </Route>
-          <Route exact path='/admin/provider'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/provider'>
             <AdminHeader />
             <AdminProvider />
             <Footer />
-          </Route>
-          <Route exact path='/admin/subscriptionPlan'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/subscriptionPlan'>
             <AdminHeader />
             <AdminSubscriptionPlan />
             <Footer />
-          </Route>
-          <Route exact path='/admin/dashboard'>
+          </AdminProtectedRoute>
+          <AdminProtectedRoute exact path='/admin/dashboard'>
             <AdminHeader />
             <AdminDashboard />
             <Footer />
-          </Route>
+          </AdminProtectedRoute>
           <ProviderProtectedRoute exact path='/provider'>
             <ProviderHeader />
             <ProviderPage />

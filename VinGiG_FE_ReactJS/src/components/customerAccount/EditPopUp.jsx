@@ -6,6 +6,7 @@ export default function EditPopUp(props) {
     const [address, setAddress] = useState('')
     const [avatar, setAvatar] = useState('')
     const [createDate, setCreateDate] = useState('')
+    const [dob, setDob] = useState('')
     const [email, setEmail] = useState('')
     const [fullName, setFullName] = useState('')
     const [gender, setGender] = useState('')
@@ -32,6 +33,7 @@ export default function EditPopUp(props) {
                 setAddress(customer.address);
                 setAvatar(customer.avatar);
                 setCreateDate(customer.createDate);
+                setDob(customer.dob);
                 setEmail(customer.email);
                 setFullName(customer.fullName);
                 setGender(customer.gender);
@@ -48,25 +50,24 @@ export default function EditPopUp(props) {
     async function handleEdit(e) {
         e.preventDefault()
         // Code to handle edit
-        await axios.put(`http://localhost:8081/vingig/building/${props.customerID}/customer`,
+        await axios.put(`http://localhost:8081/vingig/building/${buildingID}/customer`,
             {
+                customerID: props.customerID,
                 active: true,
                 address: address,
                 avatar: avatar,
                 createDate: createDate,
+                dob: dob,
                 email: email,
                 fullName: fullName,
                 gender: gender,
-                password: password,
                 phone: phone,
                 rating: rating,
                 role: role,
-                username: username,
-                buildingID: buildingID,
             })
             .catch(error => console.log(error));
         props.togglePopEdit();
-        props.loadCustomer();
+        props.getCustomer();
     }
 
     return (
@@ -81,6 +82,10 @@ export default function EditPopUp(props) {
                     <label>
                         Email:
                         <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    </label>
+                    <label>
+                        Phone:
+                        <input type="number" value={phone} onChange={e => setPhone(e.target.value)} />
                     </label>
                     <label>
                         Phone:

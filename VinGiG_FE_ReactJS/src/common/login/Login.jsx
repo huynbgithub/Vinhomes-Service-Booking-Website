@@ -84,7 +84,7 @@ function Login() {
                         history.push("/");
                     } else if (localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'provider') {
                         history.push("/provider");
-                    } else if(localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'admin'){
+                    } else if (localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'admin') {
                         history.push("/admin");
                     }
 
@@ -109,12 +109,14 @@ function Login() {
                         <div className="form-container-log sign-up-container">
                             {/* <c:url var="signUpLink" value="${request.contextPath}/UserAccessController/signup"> */}
                             <form action="" name method="POST">
-                                <h1>Create Account</h1>
+                                {/* <h1>Create Account</h1> */}
                                 <br></br>
-                                <input type="text" placeholder="Username" name="username" />
-                                <input type="email" placeholder="Email" name="email" />
-                                <input type="number" placeholder="Phone" name="phone" />
-                                <input type="password" placeholder="Password" name="password" />
+                                <input required type="text" placeholder="Username" name="username" />
+                                <input required type="text" placeholder="Full Name" name="username" />
+                                <input required type="text" placeholder="Gender" name="gender" />
+                                <input required type="email" placeholder="Email" name="email" />
+                                <input required type="phone" placeholder="Phone" name="phone" />
+                                <input required type="password" placeholder="Password" name="password" />
                                 <ul className="s_flex">
                                     <li className="c_flex">Role:</li>
                                     <li className="c_flex">
@@ -126,7 +128,7 @@ function Login() {
                                         <label>Provider</label>
                                     </li>
                                 </ul>
-                                <p className="text-danger"></p>
+                                {/* <p className="text-danger"></p> */}
                                 <button type="submit">Register</button>
                             </form>
                             {/* </c:url> */}
@@ -155,7 +157,6 @@ function Login() {
                                 <button type="submit" onClick={login}>Login</button>
                                 <Link to="/" className="underline">Back To Home</Link>
                             </form>
-                            {/* </c:url> */}
                         </div>
                         <div className="overlay-container">
                             <div className="overlay">
