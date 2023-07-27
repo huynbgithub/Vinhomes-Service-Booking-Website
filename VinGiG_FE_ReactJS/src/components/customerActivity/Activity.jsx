@@ -98,6 +98,15 @@ const Activity = () => {
         sendBy: true,
       }).catch(error => console.log(error));
       history.push('/customer/chat');
+      if (stompClient) {
+        var chatMessage = {
+          bookingID: bookingID,
+          sendBy: true,
+          content: "Xin chào!",        
+        };
+        console.log(chatMessage);
+        stompClient.send("/app/messages", {}, JSON.stringify(chatMessage));
+      }
   }
   
   const startFrom = (unixTimestamp) =>{

@@ -99,6 +99,16 @@ const Activity = () => {
         sendBy: false,
       }).catch(error => console.log(error));
       history.push('/provider/chat');
+
+    if (stompClient) {
+      var chatMessage = {
+        bookingID: bookingID,
+        sendBy: false,
+        content: "Xin chào quý cư dân!",        
+      };
+      console.log(chatMessage);
+      stompClient.send("/app/messages", {}, JSON.stringify(chatMessage));
+    }
   }
 
   const startFrom = (unixTimestamp) =>{
