@@ -24,7 +24,7 @@ function Chat() {
     return (
         <>
             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-            <div className="chatContainer">
+            <div className="chatContainer containerHeight">
                 <div className="row clearfix">
                     <div className="col-lg-12">
                         <div className="card chat-app">
@@ -36,7 +36,7 @@ function Chat() {
                                     <input type="text" className="form-control" placeholder="Search..." />
                                 </div> */}
                                 <ul className="list-unstyled chat-list mt-2 mb-0">
-                                    {bookings.map(booking => (
+                                    {bookings.slice().reverse().map(booking => (
                                         <li
                                             key={booking.bookingID}
                                             className={`clearfix ${selectedBookingID == booking.bookingID ? 'active' : ''}`}
