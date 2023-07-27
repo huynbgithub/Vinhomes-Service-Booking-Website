@@ -12,7 +12,13 @@ var stompClient = null;
 function Login() {
     const [activePanel, setActivePanel] = useState(false);
     const [username, setUsername] = useState("");
+    const [username1, setUsername1] = useState("");
+    const [fullName, setFullName] = useState("");
     const [password, setPassword] = useState("");
+    const [password1, setPassword1] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [gender, setGender] = useState("");
     const [role, setRole] = useState("");
     const history = useHistory();
 
@@ -99,6 +105,24 @@ function Login() {
             .catch(error => console.log(error));
     };
 
+    function handleRegister(e) {
+        e.preventDefault();
+        // Code to handle add
+        axios.post(`http://localhost:8081/vingig/register/role/customer`,
+            {
+                username: username1,
+                password: password1,
+                email: email,
+                phone: phone,
+                fullName: fullName,
+                gender: true,
+                buildingID: 1,
+                apartment: "1.1",
+                badgeID: 1
+            })
+            .catch(error => console.log(error));
+    }
+
     return (
         <div>
             <div id="page">
@@ -108,26 +132,24 @@ function Login() {
                     <div className={`container ${activePanel ? "right-panel-active" : ""}`} id="container">
                         <div className="form-container-log sign-up-container">
                             {/* <c:url var="signUpLink" value="${request.contextPath}/UserAccessController/signup"> */}
-                            <form action="" name method="POST">
-                                {/* <h1>Create Account</h1> */}
+                            <form onsubmit={handleRegister}>
                                 <br></br>
-                                <input required type="text" placeholder="Username" name="username" />
-                                <input required type="text" placeholder="Full Name" name="username" />
-                                <input required type="text" placeholder="Gender" name="gender" />
-                                <input required type="email" placeholder="Email" name="email" />
-                                <input required type="phone" placeholder="Phone" name="phone" />
-                                <input required type="password" placeholder="Password" name="password" />
-                                <ul className="s_flex">
+                                <input required type="text" placeholder="Username" value={username1} onChange={e => setUsername1(e.target.value)} />
+                                <input required type="text" placeholder="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} />
+                                <input required type="text" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                                <input required type="text" placeholder="Phone" value={phone} onChange={e => setPhone(e.target.value)} />
+                                <input required type="password" placeholder="Password" value={password1} onChange={e => setPassword1(e.target.value)} />
+                                {/* <ul className="s_flex">
                                     <li className="c_flex">Role:</li>
                                     <li className="c_flex">
-                                        <input type="radio" name="role" value="customer" />
+                                        <input type="radio" value={role} onChange={(e) => { setRole(e.target.value); }} />
                                         <label>Customer</label>
                                     </li>
                                     <li className="c_flex">
-                                        <input type="radio" name="role" value="customer" />
+                                        <input type="radio" value={role} onChange={(e) => { setRole(e.target.value); }} />
                                         <label>Provider</label>
                                     </li>
-                                </ul>
+                                </ul> */}
                                 {/* <p className="text-danger"></p> */}
                                 <button type="submit">Register</button>
                             </form>
