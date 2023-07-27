@@ -84,6 +84,8 @@ function Login() {
                         history.push("/");
                     } else if (localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'provider') {
                         history.push("/provider");
+                    } else if(localStorage.getItem("accessToken") && JSON.parse(localStorage.getItem("accessToken")).role == 'admin'){
+                        history.push("/admin");
                     }
 
                     //SETUP NOTIFICATION
@@ -147,10 +149,6 @@ function Login() {
                                     <li className="c_flex">
                                         <input type="radio" name="role" value="provider" onChange={(event) => { setRole(event.target.value); }} />
                                         <label>Provider</label>
-                                    </li>
-                                    <li className="c_flex">
-                                        <input type="radio" name="role" value="admin" onChange={(event) => { setRole(event.target.value); }} />
-                                        <label>Admin</label>
                                     </li>
                                 </ul>
                                 <p className="text-danger"></p>
