@@ -11,15 +11,15 @@ You have successfully generated data for VinGiG.
 
 ## 2. SpringBoot Web Service For VinGiG
 
-#### Clone VinGiG_BE_SpringBoot Project
+### Clone VinGiG_BE_SpringBoot Project
 
-Link: [https://github.com/mamnamngu/VinGiG_BE_SringBoot](https://github.com/mamnamngu/VinGiG_BE_SringBoot).
+- Link: [https://github.com/mamnamngu/VinGiG_BE_SringBoot](https://github.com/mamnamngu/VinGiG_BE_SringBoot).
 
-#### Spring Tool Suite Environment Setup
+### Spring Tool Suite Environment Setup
 
-This guide will walk you through the installation process of Spring Tool Suite (STS), a popular integrated development environment (IDE) for Spring applications. STS provides powerful tools and features to streamline the development of Spring-based projects.
+- This guide will walk you through the installation process of Spring Tool Suite (STS), a popular integrated development environment (IDE) for Spring applications. STS provides powerful tools and features to streamline the development of Spring-based projects.
 
-##### Prerequisites
+#### Prerequisites
 
 Before installing Spring Tool Suite, ensure you have the following prerequisites:
 
@@ -27,13 +27,13 @@ Before installing Spring Tool Suite, ensure you have the following prerequisites
 
 - **Operating System**: STS is available for Windows, macOS, and Linux.
 
-##### Download Spring Tool Suite
+#### Download Spring Tool Suite
 
 1. Link: [Drive](https://drive.google.com/file/d/1TDU6szx6U1nIWF6t-SVlUs_cMbqwWijP/view?usp=drive_link).
 
 2. Download the File.
 
-##### Install Lombok into STS
+#### Install Lombok into STS
 
 - **Step 1**: Open VinGiG_BE_SpringBoot in STS.
 - **Step 2**: Click on VinGiG_BE_SpringBoot in Package Explorer -> Click on Maven Dependencies -> Find lombok-1.18.24.jar and follow the path to this file in File Explorer.
