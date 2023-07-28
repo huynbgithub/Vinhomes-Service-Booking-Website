@@ -1,6 +1,11 @@
+USE MASTER
+GO
+
 CREATE DATABASE VinGiG
+GO
+
 USE VinGiG
-GO;
+GO
 
 create table Badge (badgeID int identity not null, active BIT DEFAULT 1 not null, badgeName nvarchar(255) not null, benefit double precision, description nvarchar(255) not null, primary key (badgeID));
 create table Booking (bookingID bigint identity not null, apartment nvarchar(255) not null, customersRating int, customersReview NVARCHAR(300) NULL, date datetime2, providersRating int, providersReview NVARCHAR(300) NULL, status int not null, total bigint, unitPrice bigint not null, buildingID int not null, customerID bigint not null, proServiceID bigint not null, primary key (bookingID));
