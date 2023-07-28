@@ -1,6 +1,3 @@
-import "./style.scss"
-import "./vendor.bundle.base.scss"
-import "./typicons.scss"
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import { NumericFormat } from "react-number-format"
