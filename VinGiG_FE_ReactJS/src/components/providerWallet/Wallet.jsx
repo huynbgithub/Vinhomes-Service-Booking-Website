@@ -67,18 +67,18 @@ function CustomerAccount() {
       .catch(error => console.log(error));
   }
 
-  const cancelDeposit = (id) =>{
+  const cancelDeposit = (id) => {
     axios.delete(`http://localhost:8081/vingig/deposit/${id}`)
-    .then((response) => {
-      console.log('Post deleted successfully!', response.data);
-    })
-    .catch((error) => {
-      console.error('Error deleting post:', error);
-    });
+      .then((response) => {
+        console.log('Post deleted successfully!', response.data);
+      })
+      .catch((error) => {
+        console.error('Error deleting post:', error);
+      });
   }
 
   return (
-    <section className='cart-items account-height' >
+    <section className='cart-items containerHeight' >
       <div className='container d_flex'>
         <h1>Wallet Management</h1>
 
@@ -96,44 +96,44 @@ function CustomerAccount() {
           </div>
         </div>
         <div className='account_info product ooo'>
-        {/* <h2>Deposit Request</h2> */}
+          {/* <h2>Deposit Request</h2> */}
           {depositPending.map((deposit) => {
-                const epochTime = deposit.date;
+            const epochTime = deposit.date;
 
-                const dateObj = new Date(epochTime);
+            const dateObj = new Date(epochTime);
 
-                const date = dateObj.getDate();
-                const month = dateObj.getMonth() + 1;
-                const year = dateObj.getYear() - 100 + 2000;
+            const date = dateObj.getDate();
+            const month = dateObj.getMonth() + 1;
+            const year = dateObj.getYear() - 100 + 2000;
 
-                const formattedTime =
-                  date.toString() + '/' +
-                  month.toString() + '/' +
-                  year.toString();
+            const formattedTime =
+              date.toString() + '/' +
+              month.toString() + '/' +
+              year.toString();
 
-                const link = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + deposit.method
-                return (
-                  <div>
-                    
-                    <div className=' d_flex'>
-                    <h4>Date: </h4><h4>{formattedTime}</h4>
-                    </div>
-                    <div className=' d_flex'>
-                    <h4>Full Name: </h4><h4>{deposit.fullName}</h4>
-                    </div>
-                    <div className=' d_flex'>
-                    <h4>Amount: </h4><h1><NumericFormat value={deposit.amount} displayType="text" thousandSeparator={true} suffix={' VND'} /></h1>
-                    </div>
-                    <div className='img-a d_flex'>             
-                    <img src={link} alt="QR Code"/>
-                    </div>
-                    <br/>
-                    <div className=' d_flex'>
-                    <a href = {deposit.method} target="_blank"><button className='btn-primary'>Proceed</button></a>
-                    <button className='btn-primary' onClick={() => { cancelDeposit(deposit.depositID); }}>Cancel</button>
-                    </div>
-                  </div>)
-            })}
+            const link = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + deposit.method
+            return (
+              <div>
+
+                <div className=' d_flex'>
+                  <h4>Date: </h4><h4>{formattedTime}</h4>
+                </div>
+                <div className=' d_flex'>
+                  <h4>Full Name: </h4><h4>{deposit.fullName}</h4>
+                </div>
+                <div className=' d_flex'>
+                  <h4>Amount: </h4><h1><NumericFormat value={deposit.amount} displayType="text" thousandSeparator={true} suffix={' VND'} /></h1>
+                </div>
+                <div className='img-a d_flex'>
+                  <img src={link} alt="QR Code" />
+                </div>
+                <br />
+                <div className=' d_flex'>
+                  <a href={deposit.method} target="_blank"><button className='btn-primary'>Proceed</button></a>
+                  <button className='btn-primary' onClick={() => { cancelDeposit(deposit.depositID); }}>Cancel</button>
+                </div>
+              </div>)
+          })}
         </div>
       </div>
       <div className='container d_flex'>
@@ -233,7 +233,7 @@ function CustomerAccount() {
             </tbody>
           </table>
         </div>
-        {seenBook ? <DepositPopUp togglePopBook={togglePopBook}/> : null}
+        {seenBook ? <DepositPopUp togglePopBook={togglePopBook} /> : null}
       </div>
     </section >
   )
